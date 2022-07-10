@@ -98,19 +98,10 @@ public class Player : MonoBehaviour {
 				Attack();       // 攻撃
 				Landing_Proc(); // 地上にいるときの処理
 				Move_Side();    // 横移動
+				SizeChange();	// 大きさ
 
 				// スクリーン端の座標更新
 				scrn_Edge = cam.scrn_EdgeX;
-
-				// 入力値ごとに大きさ変える
-				if(!pl_st.isAttacking && !pl_st.isLanding && !pl_st.isDamaged) {
-					if(inp_hor < -0.1f) {
-						transform.localScale = new Vector2(3, 3 + Mathf.Abs(inp_hor) * 3);
-					}
-					else if(inp_hor > 0.1f) {
-						transform.localScale = new Vector2(3 + Mathf.Abs(inp_hor) * 3, 3);
-					}
-				}
 			}
 		}
 	}
@@ -184,15 +175,40 @@ public class Player : MonoBehaviour {
 
 	//---------------------------------------------------------------------------------------------
 
+	void SizeChange()
+	{
+		// 大きくなる
+		if(pl_st.isAttacking) {
+			transform.localScale = new Vector2(3 + cnt * 0.05f, 3 + cnt * 0.05f);
+		}
+
+		else if(pl_st.isDamaged) {
+			transform.localScale = new Vector2(3, 3);
+		}
+
+		// 入力値ごとに大きさ変える
+		else if(pl_st.isLanding) {
+			transform.localScale = new Vector2(3, 3);
+		}
+
+		else {
+			// 上
+			if(inp_hor < -0.1f) {
+				transform.localScale = new Vector2(3, 3 + Mathf.Abs(inp_hor) * 3);
+			}
+			// 下
+			else if(inp_hor > 0.1f) {
+				transform.localScale = new Vector2(3 + Mathf.Abs(inp_hor) * 3, 3);
+			}
+		}
+	}
+
 	// アタック
 	void Attack()
 	{
 		// 通常状態のみ、アタックできる
 		if(pl_st.isAttacking && !pl_st.isLanding && (pl_st.state == (int)Pl_States.states.nml || pl_st.state == (int)Pl_States.states.atk)) {
 			cnt++;      // カウンター増加
-
-			// 大きくなる
-			transform.localScale = new Vector2(3 + cnt * 0.05f, 3 + cnt * 0.05f);
 
 			// 時間経過後、通常状態へ戻る
 			if(cnt > attack_time) {
@@ -213,7 +229,6 @@ public class Player : MonoBehaviour {
 			// ダメージくらった瞬間
 			if(dmgCnt == 1) {
 				hp -= damage;									// HP減らす
-				transform.localScale = new Vector2(3, 3);		// 大きさ調整
 				rb.AddForce(Vector2.up * 300);					// 少し飛ばす
 			}
 

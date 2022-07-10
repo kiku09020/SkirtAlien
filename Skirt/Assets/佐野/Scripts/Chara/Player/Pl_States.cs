@@ -123,11 +123,9 @@ public class Pl_States : MonoBehaviour
 
 		// 状態ごとの処理
 		switch (state) {
-
 			// 通常
 			case (int)states.nml:
 				state_name = "Normal";              // 状態名
-
 				isFloating = false;                 // フラグ降ろす
 				isSwooping = false;
 				isDamaged = false;
@@ -135,59 +133,48 @@ public class Pl_States : MonoBehaviour
 
 				// 元の大きさに戻す
 				transform.localScale = new Vector2(3, 3);
-
 				break;
 
 			// -------------------------------------------
-
 			// ふわふわ
 			case (int)states.flt:
 				state_name = "Floating";
-
 				isFloating = true;              // ふわふわ
 				rb.drag = drag_flt;             // 空気抵抗追加
-
 				break;
 
 			// -------------------------------------------
-
 			// 急降下
 			case (int)states.swp:
 				state_name = "Swooping";
-
 				isSwooping = true;              // 急降下
 				rb.drag = drag_swp;
-
 				break;
 
 			// -------------------------------------------
-
 			// 地上
 			case (int)states.lnd:
 				state_name = "Langing";
+				isFloating = false;
+				isSwooping = false;
 				break;
 
 			// -------------------------------------------
-
 			// アタック中
 			case (int)states.atk:
 				state_name = "Attacking";
-
 				break;
 
 			// -------------------------------------------
-
-				// 被ダメージ
+			// 被ダメージ
 			case (int)states.damage:
 				state_name = "Damaged";
 				break;
 
 			// -------------------------------------------
-
 			// ゴール
 			case (int)states.goaled:
 				state_name = "Goaled";
-
 				break;
 		}
 	}

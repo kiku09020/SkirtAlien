@@ -78,7 +78,7 @@ public class Btn_Ctrl : MonoBehaviour
 
     public void Btn_Retry()
     {
-        SceneManager.LoadSceneAsync(GameManager.scene_name);
+        SceneManager.LoadSceneAsync(gm.nowSceneName);
 
         Time.timeScale = 1;
 	}
