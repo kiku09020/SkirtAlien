@@ -14,11 +14,13 @@ public class GameDebuger : MonoBehaviour
 
     /* オブジェクト */
     [SerializeField] Text txt_dbg_cam;
+    [SerializeField] Text txt_stgName;
     GameObject pl_obj;
 
     /* コンポーネント取得用 */
     Player pl;
     Pl_Camera cam;
+    GameManager gm;
 
 
 //-------------------------------------------------------------------
@@ -29,10 +31,12 @@ public class GameDebuger : MonoBehaviour
         // プレイヤー
         pl_obj = GameObject.Find("Player");
         pl = pl_obj.GetComponent<Player>();
+        gm = GetComponent<GameManager>();
 
         // カメラ
         GameObject cam_obj = GameObject.Find("PlayerCamera");
         cam = cam_obj.GetComponent<Pl_Camera>();
+        
 
         /* 初期化 */
         
@@ -82,5 +86,7 @@ public class GameDebuger : MonoBehaviour
     void Debug_Text()
 	{
         txt_dbg_cam.text = "edge = " + cam.scrn_EdgeX.ToString();
+
+        txt_stgName.text = gm.nowSceneName;
 	}
 }

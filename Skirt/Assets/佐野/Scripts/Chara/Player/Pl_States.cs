@@ -44,8 +44,11 @@ public class Pl_States : MonoBehaviour
 
 	/* コンポーネント取得用 */
 	SpriteRenderer sr;
-	Player pl;
+
 	Rigidbody2D rb;
+	Pl_HP pl_hp;
+	Animator anim;
+
 
 	GameManager gm;
 	Goal_Ctrl goal;
@@ -58,9 +61,10 @@ public class Pl_States : MonoBehaviour
 		gm_obj = GameObject.Find("GameManager");
 
 		/* コンポーネント取得 */
-		pl = GetComponent<Player>();
 		sr = GetComponent<SpriteRenderer>();
 		rb = GetComponent<Rigidbody2D>();
+		anim = GetComponent<Animator>();
+		pl_hp = GetComponent<Pl_HP>();
 
 		gm=gm_obj.GetComponent<GameManager>();
 		goal = goal_obj.GetComponent<Goal_Ctrl>();
@@ -90,14 +94,14 @@ public class Pl_States : MonoBehaviour
 			state = (int)states.goaled;
 		}
 
+		// 攻撃
+		else if (isAttacking) {
+			state = (int)states.atk;
+		}
+
 		// ダメージ
 		else if(isDamaged) {
 			state = (int)states.damage;
-		}
-
-		// 攻撃
-		else if(isAttacking) {
-			state = (int)states.atk;
 		}
 
 		// 地上
@@ -133,6 +137,13 @@ public class Pl_States : MonoBehaviour
 				isFloating = false;                 // フラグ降ろす
 				isSwooping = false;
 				isDamaged = false;
+				anim.SetBool("isFloat", false);
+				anim.SetBool("isSwoop", false);
+				anim.SetBool("isDamaged", false);
+				anim.SetBool("isAttack", false);
+				anim.SetBool("isLanding", false);
+
+
 				rb.drag = drag_nml;                 // 空気抵抗を元に戻す
 
 				// 元の大きさに戻す
@@ -144,7 +155,10 @@ public class Pl_States : MonoBehaviour
 			case (int)states.flt:
 				state_name = "Floating";
 				isFloating = true;              // ふわふわ
+				anim.SetBool("isFloat", true);
 				rb.drag = drag_flt;             // 空気抵抗追加
+
+				pl_hp.nowHP -= pl_hp.decDmg;
 				break;
 
 			// -------------------------------------------
@@ -152,7 +166,9 @@ public class Pl_States : MonoBehaviour
 			case (int)states.swp:
 				state_name = "Swooping";
 				isSwooping = true;              // 急降下
+				anim.SetBool("isSwoop", true);
 				rb.drag = drag_swp;
+				pl_hp.nowHP -= pl_hp.decDmg;
 				break;
 
 			// -------------------------------------------
@@ -161,18 +177,28 @@ public class Pl_States : MonoBehaviour
 				state_name = "Langing";
 				isFloating = false;
 				isSwooping = false;
+				anim.SetBool("isLanding", true);
+				anim.SetBool("isWalk", false);
+
+				// 歩行
+				if (gm.inpVer!=0){
+					anim.SetBool("isWalk", true);
+					anim.SetBool("isLanding", false);
+				}
 				break;
 
 			// -------------------------------------------
 			// アタック中
 			case (int)states.atk:
 				state_name = "Attacking";
+				anim.SetBool("isAttack", true);
 				break;
 
 			// -------------------------------------------
 			// 被ダメージ
 			case (int)states.damage:
 				state_name = "Damaged";
+				anim.SetBool("isDamaged", true);
 				break;
 
 			// -------------------------------------------

@@ -40,6 +40,7 @@ public class Pl_Action : MonoBehaviour
     Player pl;
     Pl_Camera cam;            // カメラ
     Pl_States pl_st;
+    Pl_HP pl_hp;
 
     //-------------------------------------------------------------------
 
@@ -56,6 +57,7 @@ public class Pl_Action : MonoBehaviour
         pl = GetComponent<Player>();
         cam = cam_obj.GetComponent<Pl_Camera>();
         pl_st = GetComponent<Pl_States>();
+        pl_hp = GetComponent<Pl_HP>();
 
         /* 初期化 */
 
@@ -158,7 +160,7 @@ public class Pl_Action : MonoBehaviour
 
             // ダメージくらった瞬間
             if (dmgCnt == 1) {
-                pl.hp -= damage;                                // HP減らす
+                pl_hp.nowHP -= damage;                                // HP減らす
                 rb.AddForce(Vector2.up * dmgJumpForce);         // 少し飛ばす
             }
 

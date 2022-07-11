@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     const int sceneCnt = 10;        // シーンの数
     string[] sceneNames;            // 各シーン名の配列
     public string nowSceneName;     // 現在のシーン名
-    int sceneIndex;                 // 現在のシーン番号を取得
+    public int sceneIndex;                 // 現在のシーン番号を取得
 
     [Header("ステージ関係")]
     const int stgCnt = 4;           // ステージの数
@@ -55,9 +55,10 @@ public class GameManager : MonoBehaviour
         goal        = goal_obj.GetComponent<Goal_Ctrl>();
 
         /* 初期化 */
-        sceneIndex = SceneManager.GetActiveScene().buildIndex;
+
 
         Stage();
+        Scene();
     }
 
 //-------------------------------------------------------------------
@@ -77,9 +78,10 @@ public class GameManager : MonoBehaviour
 
     void Scene()
 	{
-        sceneNames = new string[10] { "Title", "Menu", "Stage1", "Stage2", "Stage3", "BossStage", "Clear", "Tutorial", "", "" };
-        nowSceneName = sceneNames[sceneIndex];
+        sceneIndex = SceneManager.GetActiveScene().buildIndex;
 
+        sceneNames = new string[10] { "Title", "Menu", "Stage1", "Stage2", "Stage3", "BossStage", "Clear", "Tutorial", "Debug", "" };
+        nowSceneName = sceneNames[sceneIndex];
     }
 
     // ステージごとの処理

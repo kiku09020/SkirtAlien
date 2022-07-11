@@ -6,9 +6,6 @@ public class Player : MonoBehaviour
 {
     [Header("その他")]
     [SerializeField] float jumpForce = 50;     // ジャンプ力
-    [SerializeField] float hpMax = 100;     // 最大HP
-
-    public float hp = 100;                 // 体力
 
     // ------------------------------------------------------------------------
     [Header("フラグ")]
@@ -18,7 +15,6 @@ public class Player : MonoBehaviour
     /* オブジェクト検索 */
     GameObject gm_obj;
     GameObject goal_obj;
-    GameObject hp_obj;
 
     /* コンポーネント取得用 */
     Rigidbody2D rb;
@@ -27,7 +23,7 @@ public class Player : MonoBehaviour
     GameManager gm;             // GameManager
     Btn_Ctrl btn_ctrl;       // ボタン
     Goal_Ctrl goal;           // ゴール
-    Pl_HP hpGauge;      // 体力
+    Pl_HP pl_hp;      // 体力
 
     //-------------------------------------------------------------------
 
@@ -36,7 +32,6 @@ public class Player : MonoBehaviour
         /* オブジェクト検索 */
         gm_obj = GameObject.Find("GameManager");
         goal_obj = GameObject.Find("Goal");
-        hp_obj = GameObject.Find("HPBar");
 
         /* コンポーネント取得 */
         rb = GetComponent<Rigidbody2D>();
@@ -46,7 +41,7 @@ public class Player : MonoBehaviour
         btn_ctrl = gm_obj.GetComponent<Btn_Ctrl>();
         goal = goal_obj.GetComponent<Goal_Ctrl>();
 
-        hpGauge = hp_obj.GetComponent<Pl_HP>();
+        pl_hp = GetComponent<Pl_HP>();
 
         // --------------------------------------------------------------------
 
@@ -62,7 +57,6 @@ public class Player : MonoBehaviour
     {
         if (!btn_ctrl.isPause && !goal.isGoaled) {
             GameOver();
-            hpGauge.HP_Set(hpMax, hp);
 
             if (!isGameOver) {
                 Landing_Proc(); // 地上にいるときの処理
@@ -75,7 +69,11 @@ public class Player : MonoBehaviour
 
     void SizeChange()
     {
-        if (pl_st.isDamaged) {
+        if(pl_st.isAttacking){
+
+		}
+
+        else if (pl_st.isDamaged) {
             transform.localScale = new Vector2(3, 3);
         }
 
@@ -86,11 +84,11 @@ public class Player : MonoBehaviour
 
         else {
             // 上
-            if (gm.inpHor < -0.1f) {
+            if (gm.inpHor < 0) {
                 transform.localScale = new Vector2(3, 3 + Mathf.Abs(gm.inpHor) * 3);
             }
             // 下
-            else if (gm.inpHor > 0.1f) {
+            else if (gm.inpHor > 0) {
                 transform.localScale = new Vector2(3 + Mathf.Abs(gm.inpHor) * 3, 3);
             }
         }
@@ -99,7 +97,7 @@ public class Player : MonoBehaviour
     void GameOver()
     {
         // HPが0以下になったら終了
-        if (hp <= 0) {
+        if ( pl_hp.nowHP<= 0) {
             isGameOver = true;
         }
 
