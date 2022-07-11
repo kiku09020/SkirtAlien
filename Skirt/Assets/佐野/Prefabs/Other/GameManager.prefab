@@ -46,10 +46,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff03b806940c8e1479b42c6c6eb2efe8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scene_index: 0
+  nowSceneName: 
+  nowStgName: 
   stg_length: 3000
   stg_drag: 0
   stg_grav: 0
+  stick: {fileID: 0}
+  inpVer: 0
+  inpHor: 0
+  inpVerOld: 0
+  inpHorOld: 0
   txt_goal: {fileID: 547244430113876342, guid: d7b61870d737c4b40aec187ca195b7bd, type: 3}
 --- !u!114 &1919153456624284991
 MonoBehaviour:
@@ -64,7 +70,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPause: 0
-  stick: {fileID: 8170153791668043269, guid: 0d230cc8be529a542a08cb878ab14b18, type: 3}
+  stick: {fileID: 0}
   pauseUI_pref: {fileID: 1160045672351688827, guid: 1ae6257e9f65cdb40b42849256b6c034, type: 3}
 --- !u!114 &3696198401535402249
 MonoBehaviour:
@@ -93,4 +99,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b554fa57e44e40742a20aaec3ff7ced7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInfinity: 1
   txt_dbg_cam: {fileID: 0}

@@ -168,6 +168,7 @@ GameObject:
   - component: {fileID: 7664640652142410176}
   - component: {fileID: 8399158101494806804}
   - component: {fileID: 1493154652}
+  - component: {fileID: 2283851557005410474}
   - component: {fileID: 8190699613534235346}
   m_Layer: 8
   m_Name: Player
@@ -233,7 +234,7 @@ SpriteRenderer:
   m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 669dddd27471b9d47bed0993af7c1367, type: 3}
-  m_Color: {r: 0.7830189, g: 0.7830189, b: 0.7830189, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -297,7 +298,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2296475401055147467}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -328,17 +329,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f88a31b52367034da525760be882d13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  move_force: 7
-  jump_force: 600
-  spd_max: 7.5
-  hp_max: 100
-  attack_time: 60
-  invTime: 120
-  damage: 50
+  jumpForce: 600
+  hpMax: 100
+  hp: 100
   isGameOver: 0
-  stick: {fileID: 0}
-  inp_ver: 0
-  inp_hor: 0
 --- !u!114 &8399158101494806804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -375,6 +369,26 @@ MonoBehaviour:
   isAttacking: 0
   isDamaged: 0
   isJumping: 0
+--- !u!114 &2283851557005410474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2296475401055147467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3a9230375d68344f9cb5f79fd3d6a39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveForce: 7
+  spdMax: 7.5
+  moveDec: 0.96
+  moveRot: 15
+  invTime: 0
+  damage: 20
+  dmgJumpForce: 300
+  atkTime: 60
 --- !u!95 &8190699613534235346
 Animator:
   serializedVersion: 3

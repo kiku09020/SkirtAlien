@@ -23,6 +23,11 @@ public class GameManager : MonoBehaviour
     public float stg_drag;          // ステージの空気抵抗(仮)
     public float stg_grav;          // ステージの重力
 
+    [Header("スマホ用の値")]
+    [SerializeField] Joystick stick;    // スティック
+    public float inpVer, inpHor;      // スティックの入力値
+    public float inpVerOld, inpHorOld;
+
     /* フラグ */
     bool onceFlag;
 
@@ -61,6 +66,11 @@ public class GameManager : MonoBehaviour
     {
         Goaled();
 
+        // 入力値
+        inpVerOld = inpVer; inpHorOld = inpHor;
+
+        inpVer = stick.Horizontal;
+        inpHor = stick.Vertical;
     }
 
 //-------------------------------------------------------------------

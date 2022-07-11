@@ -10,10 +10,11 @@ public class GameDebuger : MonoBehaviour
 
 
     /* フラグ */
-
+    [SerializeField] bool isInfinity;       // ステージ長さ無限
 
     /* オブジェクト */
     [SerializeField] Text txt_dbg_cam;
+    GameObject pl_obj;
 
     /* コンポーネント取得用 */
     Player pl;
@@ -26,7 +27,7 @@ public class GameDebuger : MonoBehaviour
     {
         /* コンポーネント取得 */
         // プレイヤー
-        GameObject pl_obj = GameObject.Find("Player");
+        pl_obj = GameObject.Find("Player");
         pl = pl_obj.GetComponent<Player>();
 
         // カメラ
@@ -44,6 +45,15 @@ public class GameDebuger : MonoBehaviour
         Debug_Key();
         Debug_Log();
         Debug_Text();
+
+        if (isInfinity)
+        {
+            if(pl_obj.transform.position.y < 1000)
+            {
+                pl_obj.transform.Translate(pl_obj.transform.position.x,1500,0) ;
+            }
+            
+        }
     }
 
 //-------------------------------------------------------------------

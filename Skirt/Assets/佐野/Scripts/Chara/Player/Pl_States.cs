@@ -40,12 +40,14 @@ public class Pl_States : MonoBehaviour
 
 	/* オブジェクト */
 	GameObject goal_obj;
+	GameObject gm_obj;
 
 	/* コンポーネント取得用 */
 	SpriteRenderer sr;
 	Player pl;
 	Rigidbody2D rb;
 
+	GameManager gm;
 	Goal_Ctrl goal;
 
 	//-------------------------------------------------------------------
@@ -53,12 +55,14 @@ public class Pl_States : MonoBehaviour
 	void Start()
 	{
 		goal_obj = GameObject.Find("Goal");
+		gm_obj = GameObject.Find("GameManager");
 
 		/* コンポーネント取得 */
 		pl = GetComponent<Player>();
 		sr = GetComponent<SpriteRenderer>();
 		rb = GetComponent<Rigidbody2D>();
 
+		gm=gm_obj.GetComponent<GameManager>();
 		goal = goal_obj.GetComponent<Goal_Ctrl>();
 
 		/* 初期化 */
@@ -105,16 +109,16 @@ public class Pl_States : MonoBehaviour
 			sr.color = new Color(1, 1, 1, 1);
 
 			// 判定値(上)よりも大きくなったら、ふわふわ
-			if(pl.inp_hor > inpY_up_jdge) {
+			if(gm.inpHor > inpY_up_jdge) {
 				state = (int)states.flt;
 			}
 			// 判定値(上)より小さく、判定値(下)より大きい
-			else if(pl.inp_hor > -inpY_dn_jdge) {
+			else if(gm.inpHor > -inpY_dn_jdge) {
 				state = (int)states.nml;
 			}
 
 			// 判定値(下)よりも小さくなったら、急降下
-			else if(pl.inp_hor < -inpY_dn_jdge) {
+			else if(gm.inpHor < -inpY_dn_jdge) {
 				state = (int)states.swp;
 			}
 		}
