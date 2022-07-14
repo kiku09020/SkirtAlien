@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-
+/* ★ボタンに関するスクリプトです */
 public class Btn_Ctrl : MonoBehaviour
 {
     /* 値 */
@@ -18,22 +18,16 @@ public class Btn_Ctrl : MonoBehaviour
     [SerializeField] GameObject pauseUI_pref;   // Canvasのプレハブ
                      GameObject pauseUI_inst;   // Canvasのインスタンス
 
-    GameObject pl_obj;
 
     /* コンポーネント取得用 */
-    GameManager gm;
-    Player pl;
 
 //-------------------------------------------------------------------
 
     void Start()
     {
         /* オブジェクト検索 */
-        pl_obj = GameObject.Find("Player");
 
         /* コンポーネント取得 */
-        pl = pl_obj.GetComponent<Player>();
-        gm = GetComponent<GameManager>();
 
         /* 初期化 */
         isPause = false;
@@ -45,14 +39,21 @@ public class Btn_Ctrl : MonoBehaviour
 
     void Update()
     {
+        Android_Proc();
+    }
+
+    //-------------------------------------------------------------------
+
+    // androidのボタン処理
+    void Android_Proc()
+    {
+        // 戻るボタン押したときも、ポーズボタンと同様の処理
         if (Application.platform == RuntimePlatform.Android) {
             if (Input.GetKeyDown(KeyCode.Escape)) {
                 Btn_Pause();
             }
         }
     }
-
-    //-------------------------------------------------------------------
 
     // ポーズボタン
     public void Btn_Pause()
@@ -74,6 +75,8 @@ public class Btn_Ctrl : MonoBehaviour
             pauseUI_inst.SetActive(true);
             stick.SetActive(false);
         }
+
+        Debug.Log(isPause);
     }
 
     public void Btn_Retry()

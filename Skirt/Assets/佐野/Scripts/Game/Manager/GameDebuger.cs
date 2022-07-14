@@ -4,6 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+/* ★ログ表示などのデバッグ関連の処理をするスクリプトです
+ * ・ログ表示
+ * ・テキスト表示
+ * ・シーン再読み込みなどのキー操作
+ */
 public class GameDebuger : MonoBehaviour
 {
     /* 値 */

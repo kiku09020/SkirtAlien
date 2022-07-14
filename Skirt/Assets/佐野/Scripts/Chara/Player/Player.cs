@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/* ★プレイヤーのスクリプトです 
+ * ・大きさ変更
+ * ・ゲームオーバー処理
+ * ・地上状態の処理
+ */
 public class Player : MonoBehaviour
 {
     [Header("その他")]

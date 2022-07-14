@@ -87,7 +87,6 @@ GameObject:
   - component: {fileID: 2283851557005410474}
   - component: {fileID: 1493154652}
   - component: {fileID: 5297649651518445171}
-  - component: {fileID: 8399158101494806804}
   - component: {fileID: 8190699613534235346}
   m_Layer: 8
   m_Name: Player
@@ -309,18 +308,6 @@ MonoBehaviour:
   heal: 0
   dmg: 20
   decDmg: 0.05
---- !u!114 &8399158101494806804
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2296475401055147467}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 035bd7996a2f12c4fb50b4768c3484fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!95 &8190699613534235346
 Animator:
   serializedVersion: 3

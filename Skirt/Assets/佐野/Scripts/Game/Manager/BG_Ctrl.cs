@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/* ★背景をステージの長さに合わせて生成するスクリプトです */
 public class BG_Ctrl : MonoBehaviour
 {
     /* 値 */

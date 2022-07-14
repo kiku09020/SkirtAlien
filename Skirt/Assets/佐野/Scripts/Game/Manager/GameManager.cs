@@ -4,7 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-
+/* ★ゲーム全般の処理を行うスクリプトです
+ * ・シーン管理
+ * ・ステージ管理
+ * ・スティック管理
+ * 
+ * ※肥大化してきたら細分化します
+ */
 public class GameManager : MonoBehaviour
 {
     /* 値 */

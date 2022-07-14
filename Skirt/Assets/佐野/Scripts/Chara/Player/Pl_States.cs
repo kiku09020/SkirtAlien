@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/* ★プレイヤーの状態に関するスクリプトです */
 public class Pl_States : MonoBehaviour
 {
 	/* 値 */

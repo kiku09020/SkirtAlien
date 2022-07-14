@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/* プレイヤーの捕食や移動などの行動に関するスクリプトです
+ * ・移動 
+ * ・ダメージ
+ * ・攻撃
+ * ・
+ */
 public class Pl_Action : MonoBehaviour
 {
     /* 値 */

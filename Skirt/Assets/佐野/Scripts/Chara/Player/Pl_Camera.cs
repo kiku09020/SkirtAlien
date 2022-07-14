@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/* ★カメラに関するスクリプトです */
 public class Pl_Camera : MonoBehaviour
 {
     /* 値 */

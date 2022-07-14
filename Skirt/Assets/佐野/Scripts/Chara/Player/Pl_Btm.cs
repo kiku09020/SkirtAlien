@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/* ★プレイヤーの下部に敵がいるかどうかを確認するスクリプトです
+ * ・捕食ができるかどうか　などを確認するために必要 */
 public class Pl_Btm : MonoBehaviour
 {
     /* 値 */

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/* ★プレイヤーのHPに関わるスクリプトです */
 public class Pl_HP : MonoBehaviour
 {
     /* 値 */
