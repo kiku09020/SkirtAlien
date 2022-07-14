@@ -38,7 +38,7 @@ public class Pl_Btm : MonoBehaviour
 
             // 攻撃したら消える(仮)
             if (pl_st.isAttacking){
-                pl_hp.nowHP += pl_hp.heal;
+                pl_hp.HP_Heal();
                 Destroy(col.gameObject);
             }
         }

@@ -305,7 +305,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nowHP: 100
-  heal: 0
+  heal: 10
   dmg: 20
   decDmg: 0.05
 --- !u!95 &8190699613534235346

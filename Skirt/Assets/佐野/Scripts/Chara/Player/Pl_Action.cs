@@ -166,7 +166,7 @@ public class Pl_Action : MonoBehaviour
 
             // ダメージくらった瞬間
             if (dmgCnt == 1) {
-                pl_hp.nowHP -= damage;                                // HP減らす
+                pl_hp.HP_Damage();
                 rb.AddForce(Vector2.up * dmgJumpForce);         // 少し飛ばす
             }
 

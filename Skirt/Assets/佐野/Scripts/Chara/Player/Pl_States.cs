@@ -159,7 +159,7 @@ public class Pl_States : MonoBehaviour
 				anim.SetBool("isFloat", true);
 				rb.drag = drag_flt;             // 空気抵抗追加
 
-				pl_hp.nowHP -= pl_hp.decDmg;
+				pl_hp.HP_DecDamage();
 				break;
 
 			// -------------------------------------------
@@ -169,7 +169,8 @@ public class Pl_States : MonoBehaviour
 				isSwooping = true;              // 急降下
 				anim.SetBool("isSwoop", true);
 				rb.drag = drag_swp;
-				pl_hp.nowHP -= pl_hp.decDmg;
+
+				pl_hp.HP_DecDamage();
 				break;
 
 			// -------------------------------------------
