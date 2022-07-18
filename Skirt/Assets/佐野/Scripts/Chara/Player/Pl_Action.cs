@@ -19,7 +19,6 @@ public class Pl_Action : MonoBehaviour
 
     [Header("ダメージ関係")]
     [SerializeField] int invTime;               // 無敵時間
-    [SerializeField] int damage = 20;           // ダメージ
     [SerializeField] float dmgJumpForce = 300;  // ダメージ時のジャンプ力
     int dmgCnt;
 
@@ -73,15 +72,18 @@ public class Pl_Action : MonoBehaviour
 
     void FixedUpdate()
     {
-        // スクリーン端の座標更新
-        scrEdge = cam.scrn_EdgeX;
+        if (!gm.isGameOver) {
 
-        pos = transform.position;          // 位置
-        vel = rb.velocity;                 // 速度
+            // スクリーン端の座標更新
+            scrEdge = cam.scrn_EdgeX;
 
-        Move_Side();
-        Damage();
-        Attack();
+            pos = transform.position;          // 位置
+            vel = rb.velocity;                 // 速度
+
+            Move_Side();
+            Damage();
+            Attack();
+        }
     }
 
     //-------------------------------------------------------------------

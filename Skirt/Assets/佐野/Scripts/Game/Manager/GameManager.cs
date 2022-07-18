@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
     public float inpVerOld, inpHorOld;
 
     /* フラグ */
+    public bool isGameOver;        // ゲームオーバー
     bool onceFlag;
 
     [Header("テキスト")]/* テキスト */
@@ -94,7 +95,6 @@ public class GameManager : MonoBehaviour
     void Stage()
     {
         // ステージ名
-        
         stgNames = new string[stgCnt] { "ステージ1", "ステージ2", "ステージ3", "ボスステージ" };
     }
 

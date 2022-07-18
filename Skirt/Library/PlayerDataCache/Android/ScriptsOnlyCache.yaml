@@ -21,8 +21,11 @@ ScriptsOnlyBuild:
     - UnityEditor.U2D.Animation.BoneGizmo
     Unity.2D.IK.Editor.dll:
     - UnityEditor.U2D.IK.IKEditorManager
+    - UnityEditor.U2D.IK.IKGizmos
     Unity.2D.Tilemap.Editor.dll:
     - UnityEditor.Tilemaps.GridPaintingState
+    - UnityEditor.Tilemaps.GridPaletteBrushes
+    - UnityEditor.Tilemaps.GridPalettes
     - UnityEditor.Tilemaps.SceneViewGridManager
     - UnityEditor.Tilemaps.SceneViewOpenTilePaletteHelper
     - UnityEditor.Tilemaps.TileDragAndDropManager
@@ -870,7 +873,7 @@ ScriptsOnlyBuild:
     className: CanvasScaler
   - hash:
       serializedVersion: 2
-      Hash: cdd9838125854908a4285527135c6f5e
+      Hash: 5865b3f4420477025937990e60b4540f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Pl_HP
@@ -1230,7 +1233,7 @@ ScriptsOnlyBuild:
     className: SpriteSkinEntity
   - hash:
       serializedVersion: 2
-      Hash: 188f15b3c5efbc9e0a8270202759080b
+      Hash: 1e8ec2f62528a726cd3550249e23e3b0
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Pl_Action
@@ -1347,4 +1350,4 @@ ScriptsOnlyBuild:
   - "Assets/\u4F50\u91CE/Scenes/Clear.unity"
   - "Assets/\u4F50\u91CE/Scenes/Tutorial.unity"
   - "Assets/\u4F50\u91CE/Scenes/DebugStage.unity"
-  playerPath: F:/School/2nd/GameSeminar/skirt_android.apk
+  playerPath: D:/School/2nd/GameSeminar/skirt_android.apk

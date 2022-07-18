@@ -143,7 +143,7 @@ public class Pl_States : MonoBehaviour
 				anim.SetBool("isDamaged", false);
 				anim.SetBool("isAttack", false);
 				anim.SetBool("isLanding", false);
-
+				pl_hp.Flg();
 
 				rb.drag = drag_nml;                 // 空気抵抗を元に戻す
 
@@ -181,6 +181,7 @@ public class Pl_States : MonoBehaviour
 				isSwooping = false;
 				anim.SetBool("isLanding", true);
 				anim.SetBool("isWalk", false);
+				pl_hp.Flg();
 
 				// 歩行
 				if (gm.inpVer!=0){

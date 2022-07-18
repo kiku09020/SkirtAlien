@@ -247,7 +247,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpForce: 600
-  isGameOver: 0
 --- !u!114 &2283851557005410474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,8 +263,7 @@ MonoBehaviour:
   spdMax: 7.5
   moveDec: 0.96
   moveRot: 15
-  invTime: 60
-  damage: 20
+  invTime: 120
   dmgJumpForce: 300
   atkTime: 60
 --- !u!114 &1493154652
@@ -305,9 +303,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nowHP: 100
+  dispDec: 0.2
+  dispDecDif: 15
+  dispDecTime: 1
   heal: 10
   dmg: 20
-  decDmg: 0.05
+  decDmg: 0.1
 --- !u!95 &8190699613534235346
 Animator:
   serializedVersion: 3

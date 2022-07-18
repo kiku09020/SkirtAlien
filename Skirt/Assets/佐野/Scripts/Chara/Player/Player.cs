@@ -13,40 +13,37 @@ public class Player : MonoBehaviour
     [SerializeField] float jumpForce = 50;     // ジャンプ力
 
     // ------------------------------------------------------------------------
-    [Header("フラグ")]
-    public bool isGameOver;     // ゲームオーバー
-
-    // ------------------------------------------------------------------------
     /* オブジェクト検索 */
     GameObject gm_obj;
     GameObject goal_obj;
 
     /* コンポーネント取得用 */
     Rigidbody2D rb;
-    Collider2D col;
-    Pl_States pl_st;            // プレイヤーの状態
-    GameManager gm;             // GameManager
-    Btn_Ctrl btn_ctrl;       // ボタン
-    Goal_Ctrl goal;           // ゴール
-    Pl_HP pl_hp;      // 体力
+    Collider2D  col;
+
+    Pl_States   pl_st;      // プレイヤーの状態
+    GameManager gm;         // GameManager
+    Btn_Ctrl    btn_ctrl;   // ボタン
+    Goal_Ctrl   goal;       // ゴール
+    Pl_HP       pl_hp;      // 体力
 
     //-------------------------------------------------------------------
 
     void Start()
     {
         /* オブジェクト検索 */
-        gm_obj = GameObject.Find("GameManager");
-        goal_obj = GameObject.Find("Goal");
+        gm_obj      = GameObject.Find("GameManager");
+        goal_obj    = GameObject.Find("Goal");
 
         /* コンポーネント取得 */
-        rb = GetComponent<Rigidbody2D>();
-        col = GetComponent<Collider2D>();
-        pl_st = GetComponent<Pl_States>();
-        gm = gm_obj.GetComponent<GameManager>();
-        btn_ctrl = gm_obj.GetComponent<Btn_Ctrl>();
-        goal = goal_obj.GetComponent<Goal_Ctrl>();
+        rb          = GetComponent<Rigidbody2D>();
+        col         = GetComponent<Collider2D>();
+        pl_st       = GetComponent<Pl_States>();
+        gm          = gm_obj.GetComponent<GameManager>();
+        btn_ctrl    = gm_obj.GetComponent<Btn_Ctrl>();
+        goal        = goal_obj.GetComponent<Goal_Ctrl>();
 
-        pl_hp = GetComponent<Pl_HP>();
+        pl_hp       = GetComponent<Pl_HP>();
 
         // --------------------------------------------------------------------
 
@@ -63,7 +60,7 @@ public class Player : MonoBehaviour
         if (!btn_ctrl.isPause && !goal.isGoaled) {
             GameOver();
 
-            if (!isGameOver) {
+            if (!gm.isGameOver) {
                 Landing_Proc(); // 地上にいるときの処理
                 SizeChange();   // 大きさ
             }
@@ -103,10 +100,10 @@ public class Player : MonoBehaviour
     {
         // HPが0以下になったら終了
         if ( pl_hp.nowHP<= 0) {
-            isGameOver = true;
+            gm.isGameOver = true;
         }
 
-        if (isGameOver) {
+        if (gm.isGameOver) {
             col.enabled = false;        // 当たり判定無効化
 
             StartCoroutine("GmOv");
