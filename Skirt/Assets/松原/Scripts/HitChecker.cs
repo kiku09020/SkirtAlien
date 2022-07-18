@@ -15,7 +15,7 @@ public class HitChecker : MonoBehaviour
     }
     
     void OnTriggerEnter2D ( Collider2D col ) {//ê⁄êGÇµÇΩ
-        if( col.gameObject.name == "Floor"){
+        if( col.gameObject.tag == "Floor"){
             isGroundHit = true;
             Debug.Log("Ground");
         }
@@ -24,7 +24,7 @@ public class HitChecker : MonoBehaviour
     void OnTriggerExit2D( Collider2D col )
     {
         // ínñ Ç©ÇÁó£ÇÍÇΩ
-        if (col.gameObject.name == "Floor")
+        if (col.gameObject.tag == "Floor")
         {
             isGroundHit = false;
         }
