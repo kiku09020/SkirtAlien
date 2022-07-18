@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/* ★床関連のスクリプトです */
 public class Flor_Ctrl : MonoBehaviour
 {
     /* 値 */

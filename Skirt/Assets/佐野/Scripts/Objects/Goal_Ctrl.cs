@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
+/* ★ゴール関連のスクリプトです */
 public class Goal_Ctrl : MonoBehaviour
 {
     /* 値 */

@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 1919153456624284991}
   - component: {fileID: 3696198401535402249}
   - component: {fileID: 3558443101835374046}
+  - component: {fileID: 2086036804}
+  - component: {fileID: 1419464441}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -46,10 +48,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff03b806940c8e1479b42c6c6eb2efe8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scene_index: 0
+  nowSceneName: 
+  sceneIndex: 0
+  nowStgName: 
   stg_length: 3000
   stg_drag: 0
   stg_grav: 0
+  stick: {fileID: 0}
+  inpVer: 0
+  inpHor: 0
+  inpVerOld: 0
+  inpHorOld: 0
   txt_goal: {fileID: 547244430113876342, guid: d7b61870d737c4b40aec187ca195b7bd, type: 3}
 --- !u!114 &1919153456624284991
 MonoBehaviour:
@@ -64,7 +73,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPause: 0
-  stick: {fileID: 8170153791668043269, guid: 0d230cc8be529a542a08cb878ab14b18, type: 3}
+  stick: {fileID: 0}
   pauseUI_pref: {fileID: 1160045672351688827, guid: 1ae6257e9f65cdb40b42849256b6c034, type: 3}
 --- !u!114 &3696198401535402249
 MonoBehaviour:
@@ -93,4 +102,116 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b554fa57e44e40742a20aaec3ff7ced7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  txt_dbg_cam: {fileID: 0}
+  isInfinity: 0
+  txt_dbg_cam: {fileID: 5705338161052168125, guid: 5d787438765353f4291c3b6c7a3b3e23, type: 3}
+  txt_stgName: {fileID: 8546121920467254417, guid: 4bcd11b463a176640b438ee5c551ff64, type: 3}
+--- !u!82 &2086036804
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8585331921804387307}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 2984106afde1ef14ba1fb3e81f7eebdd, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.5
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &1419464441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8585331921804387307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b426af9d28e631499e0554364615c80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trgAspctVec: {x: 1440, y: 2560}
+  cam: {fileID: 3676935269728458182, guid: 13e0d05f093ff764e876370c0258de00, type: 3}
