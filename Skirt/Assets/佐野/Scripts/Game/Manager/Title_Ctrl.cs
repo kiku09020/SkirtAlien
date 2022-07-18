@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/* ★タイトル関連のスクリプトです */
 public class Title_Ctrl : MonoBehaviour
 {
     /* 値 */

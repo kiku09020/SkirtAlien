@@ -6,6 +6,30 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    path: "Assets/\u4F50\u91CE/Scenes/Title.unity"
+    guid: c9b123de345237b4e86884533b7f96be
+  - enabled: 1
+    path: "Assets/\u4F50\u91CE/Scenes/Menu.unity"
+    guid: bb57a95a0cb2aa340a7c75a9efd6ed54
+  - enabled: 1
+    path: "Assets/\u4F50\u91CE/Scenes/Stage/Stage1.unity"
+    guid: e3dcfa6a0bda9b04cb3e5be561514b9a
+  - enabled: 1
+    path: "Assets/\u4F50\u91CE/Scenes/Stage/Stage2.unity"
+    guid: 696bc36512e12a548ac58da10cfb882b
+  - enabled: 1
+    path: "Assets/\u4F50\u91CE/Scenes/Stage/Stage3.unity"
+    guid: 577d2e46234bcbf4ab436a7a8b7acbe4
+  - enabled: 1
+    path: "Assets/\u4F50\u91CE/Scenes/Stage/StageBoss.unity"
+    guid: 7c4823952e40baf4ea90ce17ae082439
+  - enabled: 1
+    path: "Assets/\u4F50\u91CE/Scenes/Clear.unity"
+    guid: fc076fe2e62934e42badab5e24e4466a
+  - enabled: 1
+    path: "Assets/\u4F50\u91CE/Scenes/Tutorial.unity"
+    guid: b530145835608d24fafc4453bd2a0606
+  - enabled: 1
+    path: "Assets/\u4F50\u91CE/Scenes/DebugStage.unity"
+    guid: e0fc2b5bad1fb9e4d951bdaba2492a8c
   m_configObjects: {}

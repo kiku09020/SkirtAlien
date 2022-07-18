@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/* ★プレイヤーの状態に関するスクリプトです */
 public class Pl_States : MonoBehaviour
 {
 	/* 値 */
@@ -40,12 +41,17 @@ public class Pl_States : MonoBehaviour
 
 	/* オブジェクト */
 	GameObject goal_obj;
+	GameObject gm_obj;
 
 	/* コンポーネント取得用 */
 	SpriteRenderer sr;
-	Player pl;
-	Rigidbody2D rb;
 
+	Rigidbody2D rb;
+	Pl_HP pl_hp;
+	Animator anim;
+
+
+	GameManager gm;
 	Goal_Ctrl goal;
 
 	//-------------------------------------------------------------------
@@ -53,12 +59,15 @@ public class Pl_States : MonoBehaviour
 	void Start()
 	{
 		goal_obj = GameObject.Find("Goal");
+		gm_obj = GameObject.Find("GameManager");
 
 		/* コンポーネント取得 */
-		pl = GetComponent<Player>();
 		sr = GetComponent<SpriteRenderer>();
 		rb = GetComponent<Rigidbody2D>();
+		anim = GetComponent<Animator>();
+		pl_hp = GetComponent<Pl_HP>();
 
+		gm=gm_obj.GetComponent<GameManager>();
 		goal = goal_obj.GetComponent<Goal_Ctrl>();
 
 		/* 初期化 */
@@ -86,14 +95,14 @@ public class Pl_States : MonoBehaviour
 			state = (int)states.goaled;
 		}
 
+		// 攻撃
+		else if (isAttacking) {
+			state = (int)states.atk;
+		}
+
 		// ダメージ
 		else if(isDamaged) {
 			state = (int)states.damage;
-		}
-
-		// 攻撃
-		else if(isAttacking) {
-			state = (int)states.atk;
 		}
 
 		// 地上
@@ -105,16 +114,16 @@ public class Pl_States : MonoBehaviour
 			sr.color = new Color(1, 1, 1, 1);
 
 			// 判定値(上)よりも大きくなったら、ふわふわ
-			if(pl.inp_hor > inpY_up_jdge) {
+			if(gm.inpHor > inpY_up_jdge) {
 				state = (int)states.flt;
 			}
 			// 判定値(上)より小さく、判定値(下)より大きい
-			else if(pl.inp_hor > -inpY_dn_jdge) {
+			else if(gm.inpHor > -inpY_dn_jdge) {
 				state = (int)states.nml;
 			}
 
 			// 判定値(下)よりも小さくなったら、急降下
-			else if(pl.inp_hor < -inpY_dn_jdge) {
+			else if(gm.inpHor < -inpY_dn_jdge) {
 				state = (int)states.swp;
 			}
 		}
@@ -123,71 +132,82 @@ public class Pl_States : MonoBehaviour
 
 		// 状態ごとの処理
 		switch (state) {
-
 			// 通常
 			case (int)states.nml:
 				state_name = "Normal";              // 状態名
-
 				isFloating = false;                 // フラグ降ろす
 				isSwooping = false;
 				isDamaged = false;
+				anim.SetBool("isFloat", false);
+				anim.SetBool("isSwoop", false);
+				anim.SetBool("isDamaged", false);
+				anim.SetBool("isAttack", false);
+				anim.SetBool("isLanding", false);
+				pl_hp.Flg();
+
 				rb.drag = drag_nml;                 // 空気抵抗を元に戻す
 
 				// 元の大きさに戻す
 				transform.localScale = new Vector2(3, 3);
-
 				break;
 
 			// -------------------------------------------
-
 			// ふわふわ
 			case (int)states.flt:
 				state_name = "Floating";
-
 				isFloating = true;              // ふわふわ
+				anim.SetBool("isFloat", true);
 				rb.drag = drag_flt;             // 空気抵抗追加
 
+				pl_hp.HP_DecDamage();
 				break;
 
 			// -------------------------------------------
-
 			// 急降下
 			case (int)states.swp:
 				state_name = "Swooping";
-
 				isSwooping = true;              // 急降下
+				anim.SetBool("isSwoop", true);
 				rb.drag = drag_swp;
 
+				pl_hp.HP_DecDamage();
 				break;
 
 			// -------------------------------------------
-
 			// 地上
 			case (int)states.lnd:
 				state_name = "Langing";
+				isFloating = false;
+				isSwooping = false;
+				anim.SetBool("isLanding", true);
+				anim.SetBool("isWalk", false);
+				pl_hp.Flg();
+
+				// 歩行
+				if (gm.inpVer!=0){
+					anim.SetBool("isWalk", true);
+					anim.SetBool("isLanding", false);
+				}
 				break;
 
 			// -------------------------------------------
-
 			// アタック中
 			case (int)states.atk:
 				state_name = "Attacking";
-
+				anim.SetBool("isAttack", true);
 				break;
 
 			// -------------------------------------------
-
-				// 被ダメージ
+			// 被ダメージ
 			case (int)states.damage:
 				state_name = "Damaged";
+				anim.SetBool("isDamaged", true);
 				break;
 
 			// -------------------------------------------
-
 			// ゴール
 			case (int)states.goaled:
 				state_name = "Goaled";
-
 				break;
 		}
 	}

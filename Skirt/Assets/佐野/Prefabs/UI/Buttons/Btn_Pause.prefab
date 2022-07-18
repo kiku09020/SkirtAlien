@@ -120,8 +120,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1919153456624284991, guid: cccadfe19c55b344ab27354fd0dc8100, type: 3}
-        m_TargetAssemblyTypeName: Button_Controller, Assembly-CSharp
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: Btn_Ctrl, Assembly-CSharp
         m_MethodName: Btn_Pause
         m_Mode: 1
         m_Arguments:
