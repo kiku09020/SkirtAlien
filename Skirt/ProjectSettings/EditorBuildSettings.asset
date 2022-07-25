@@ -29,7 +29,7 @@ EditorBuildSettings:
   - enabled: 1
     path: "Assets/\u4F50\u91CE/Scenes/Tutorial.unity"
     guid: b530145835608d24fafc4453bd2a0606
-  - enabled: 1
-    path: "Assets/\u4F50\u91CE/Scenes/DebugStage.unity"
+  - enabled: 0
+    path: "Assets/\u677E\u539F/Scenes/DebugMatubara.unity"
     guid: e0fc2b5bad1fb9e4d951bdaba2492a8c
   m_configObjects: {}
