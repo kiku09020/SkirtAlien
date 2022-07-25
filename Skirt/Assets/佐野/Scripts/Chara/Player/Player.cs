@@ -19,13 +19,12 @@ public class Player : MonoBehaviour
 
     /* コンポーネント取得用 */
     Rigidbody2D rb;
-    Collider2D  col;
 
     Pl_States   pl_st;      // プレイヤーの状態
     GameManager gm;         // GameManager
     Btn_Ctrl    btn_ctrl;   // ボタン
     Goal_Ctrl   goal;       // ゴール
-    Pl_HP       pl_hp;      // 体力
+
 
     //-------------------------------------------------------------------
 
@@ -37,20 +36,16 @@ public class Player : MonoBehaviour
 
         /* コンポーネント取得 */
         rb          = GetComponent<Rigidbody2D>();
-        col         = GetComponent<Collider2D>();
         pl_st       = GetComponent<Pl_States>();
         gm          = gm_obj.GetComponent<GameManager>();
         btn_ctrl    = gm_obj.GetComponent<Btn_Ctrl>();
         goal        = goal_obj.GetComponent<Goal_Ctrl>();
 
-        pl_hp       = GetComponent<Pl_HP>();
-
         // --------------------------------------------------------------------
 
         /* 初期化 */
-
-        // Transform関連   
-        transform.position = new Vector2(0, gm.stg_length);        // スタート地点を、ステージの長さに合わせる
+        // スタート地点を、ステージの長さに合わせる
+        transform.position = new Vector2(0, gm.stg_length);
     }
 
     //-------------------------------------------------------------------
@@ -58,64 +53,40 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
         if (!btn_ctrl.isPause && !goal.isGoaled) {
-            GameOver();
-
             if (!gm.isGameOver) {
-                Landing_Proc(); // 地上にいるときの処理
-                SizeChange();   // 大きさ
+                Landing_Proc();     // 地上にいるときの処理
+                SizeChange();       // 大きさ
             }
         }
     }
 
     //---------------------------------------------------------------------------------------------
-
+    // 入力値ごとに大きさ変える
     void SizeChange()
     {
+        // 攻撃時
         if(pl_st.isAttacking){
-
 		}
 
+        // ダメージ時
         else if (pl_st.isDamaged) {
             transform.localScale = new Vector2(3, 3);
         }
 
-        // 入力値ごとに大きさ変える
+        // 地上にいるとき
         else if (pl_st.isLanding) {
             transform.localScale = new Vector2(3, 3);
         }
 
         else {
-            // 上
-            if (gm.inpHor < 0) {
+            if (gm.inpHor < 0) {        // 上
                 transform.localScale = new Vector2(3, 3 + Mathf.Abs(gm.inpHor) * 3);
             }
-            // 下
-            else if (gm.inpHor > 0) {
+            else if (gm.inpHor > 0) {   // 下
                 transform.localScale = new Vector2(3 + Mathf.Abs(gm.inpHor) * 3, 3);
             }
         }
     }
-
-    void GameOver()
-    {
-        // HPが0以下になったら終了
-        if ( pl_hp.nowHP<= 0) {
-            gm.isGameOver = true;
-        }
-
-        if (gm.isGameOver) {
-            col.enabled = false;        // 当たり判定無効化
-
-            StartCoroutine("GmOv");
-        }
-    }
-
-    IEnumerator GmOv()
-    {
-        yield return new WaitForSeconds(3);
-        Debug.Log("GameOver");
-    }
-
 
     // 地上にいるときの処理
     void Landing_Proc()
@@ -138,8 +109,6 @@ public class Player : MonoBehaviour
     }
 
     //---------------------------------------------------------------------------------------------
-
-
     // 敵に触れたとき
     void OnCollisionStay2D(Collision2D col)
     {

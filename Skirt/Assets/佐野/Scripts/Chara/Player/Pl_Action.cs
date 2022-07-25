@@ -36,6 +36,7 @@ public class Pl_Action : MonoBehaviour
     /* オブジェクト */
     GameObject cam_obj;
     GameObject gm_obj;
+    GameObject goal_obj;
 
     /* コンポーネント取得用 */
     Rigidbody2D rb;
@@ -46,11 +47,13 @@ public class Pl_Action : MonoBehaviour
     Pl_Camera cam;            // カメラ
     Pl_States pl_st;
     Pl_HP pl_hp;
+    Goal_Ctrl goal;
 
     //-------------------------------------------------------------------
 
     void Start()
     {
+        goal_obj = GameObject.Find("Goal");
         cam_obj = GameObject.Find("PlayerCamera");
         gm_obj = GameObject.Find("GameManager");
 
@@ -63,6 +66,7 @@ public class Pl_Action : MonoBehaviour
         cam = cam_obj.GetComponent<Pl_Camera>();
         pl_st = GetComponent<Pl_States>();
         pl_hp = GetComponent<Pl_HP>();
+        goal = goal_obj.GetComponent<Goal_Ctrl>();
 
         /* 初期化 */
 
@@ -72,7 +76,7 @@ public class Pl_Action : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!gm.isGameOver) {
+        if (!gm.isGameOver||!goal.isGoaled) {
 
             // スクリーン端の座標更新
             scrEdge = cam.scrn_EdgeX;

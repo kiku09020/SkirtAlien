@@ -64,8 +64,6 @@ public class Pl_HP : MonoBehaviour
 	void FixedUpdate()
 	{
         HP_Set();
-
-        Debug.Log(decFlg);
     }
 
     //-------------------------------------------------------------------

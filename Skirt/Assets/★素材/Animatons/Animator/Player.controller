@@ -653,7 +653,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Player_Landing
-  m_Speed: 1
+  m_Speed: 0.3
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -163356322199006461}
@@ -667,7 +667,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: bd3da07529e63dd4b97db6604f1a64d6, type: 2}
+  m_Motion: {fileID: 7400000, guid: 515d6d15b0350d84bae79ae7ed48594d, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 3558443101835374046}
   - component: {fileID: 2086036804}
   - component: {fileID: 1419464441}
+  - component: {fileID: 2815171123354824326}
+  - component: {fileID: 2002095581093782911}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -59,6 +61,7 @@ MonoBehaviour:
   inpHor: 0
   inpVerOld: 0
   inpHorOld: 0
+  isGameOver: 0
   txt_goal: {fileID: 547244430113876342, guid: d7b61870d737c4b40aec187ca195b7bd, type: 3}
 --- !u!114 &1919153456624284991
 MonoBehaviour:
@@ -112,7 +115,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8585331921804387307}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 2984106afde1ef14ba1fb3e81f7eebdd, type: 3}
@@ -215,3 +218,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trgAspctVec: {x: 1440, y: 2560}
   cam: {fileID: 3676935269728458182, guid: 13e0d05f093ff764e876370c0258de00, type: 3}
+--- !u!114 &2815171123354824326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8585331921804387307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 920065dad72bdea4e93cc86f7f148ee2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2002095581093782911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8585331921804387307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7736a0a3dba10d44a7e1ade1db344a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gmovTime: 1.5
+  txt_gmov: {fileID: 6330021485819203745, guid: a7c1f25bc2a2c57448ce22ccbb23aee0, type: 3}
