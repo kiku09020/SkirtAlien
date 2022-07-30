@@ -74,6 +74,7 @@ MonoBehaviour:
   flg: 0
   cvsPref_game: {fileID: 5107872167746621915, guid: 1e38bf54f5967594c8253e44dfe003c1, type: 3}
   cvsPref_pause: {fileID: 1160045672351688827, guid: 1ae6257e9f65cdb40b42849256b6c034, type: 3}
+  cvsPref_gameOver: {fileID: 8408683968174828191, guid: ad149883132a555469959155c156443d, type: 3}
 --- !u!1 &8585331921804387307
 GameObject:
   m_ObjectHideFlags: 0
@@ -135,6 +136,7 @@ MonoBehaviour:
   inpVerOld: 0
   inpHorOld: 0
   isGameOver: 0
+  isPaused: 0
   txt_goal: {fileID: 547244430113876342, guid: d7b61870d737c4b40aec187ca195b7bd, type: 3}
 --- !u!114 &3696198401535402249
 MonoBehaviour:
@@ -192,7 +194,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gmovTime: 1.5
-  txt_gmov: {fileID: 6330021485819203745, guid: a7c1f25bc2a2c57448ce22ccbb23aee0, type: 3}
 --- !u!82 &2086036804
 AudioSource:
   m_ObjectHideFlags: 0

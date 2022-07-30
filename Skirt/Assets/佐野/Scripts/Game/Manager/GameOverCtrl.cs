@@ -1,40 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class GameOverCtrl : MonoBehaviour
 {
 	/* 値 */
-	[SerializeField] float gmovTime;			// 体力0になってからテキスト表示されるまでの時間
+	[SerializeField] float gmovTime;            // 体力0になってからテキスト表示されるまでの時間
 
 
 	/* フラグ */
-
+	bool isInsted;
 
 	/* オブジェクト */
-	[SerializeField] GameObject txt_gmov;       // ゲームオーバーのテキスト
-	GameObject cnvs;
-
 	GameObject pl_obj;
+	GameObject ui_obj;
 
 	/* コンポーネント取得用 */
 	GameManager gm;
+	CanvasGenelator cnvs;
+
 	Pl_HP hp;
 	Player pl;
-
 
 	//-------------------------------------------------------------------
 
 	void Start()
 	{
 		/* コンポーネント取得 */
-		pl_obj = GameObject.Find("Player");
-		cnvs = GameObject.Find("Canvas");
+		ui_obj	= transform.GetChild(0).gameObject;
+		pl_obj	= GameObject.Find("Player");
 
-		gm = GetComponent<GameManager>();
-		pl = pl_obj.GetComponent<Player>();
-		hp = pl_obj.GetComponent<Pl_HP>();
+		gm		= GetComponent<GameManager>();
+		cnvs	= ui_obj.GetComponent<CanvasGenelator>();
+		pl		= pl_obj.GetComponent<Player>();
+		hp		= pl_obj.GetComponent<Pl_HP>();
 
 		/* 初期化 */
 
@@ -63,10 +62,14 @@ public class GameOverCtrl : MonoBehaviour
 		}
 	}
 
+	// UI表示
 	IEnumerator GmOv()
 	{
 		yield return new WaitForSeconds(gmovTime);
-		Instantiate(txt_gmov, cnvs.transform);
-		Debug.Log("GameOver");
+
+        if (!isInsted) {
+			cnvs.Inst_GameOver();
+			isInsted = true;
+        }
 	}
 }

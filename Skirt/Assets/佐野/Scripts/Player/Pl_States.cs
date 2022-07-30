@@ -21,7 +21,9 @@ public class Pl_States : MonoBehaviour
 		goaled,			// ゴール後
 	}
 
-	public bool isLanding;		// 地上にいるか
+	public bool isLanding;      // 地上にいるか
+	public bool isAttacking;
+	public bool isDamaging;
 
 	[Header("入力判定")]
 	[SerializeField] float inpY_up_jdge = 0.6f;     // 上入力時の判定
@@ -69,7 +71,7 @@ public class Pl_States : MonoBehaviour
 	void FixedUpdate()
 	{
 		if (stateNum != States.goaled && !gm.isGameOver) {
-			MoveStates();
+			TransStates();
 			StateProc();
 			StateSizeChange();
 		}
@@ -121,7 +123,6 @@ public class Pl_States : MonoBehaviour
 			// 被ダメージ
 			case States.damage:
 				pl_act.Damage();
-				pl_hp.HP_Damage();
 				break;
 
 			// -------------------------------------------
@@ -131,11 +132,25 @@ public class Pl_States : MonoBehaviour
 		}
 	}
 
-	void MoveStates()
+	void TransStates()
     {
-		if(stateNum!=States.attacking||stateNum!=States.damage||stateNum!=States.jumping)
+		// 地上
+        if (isLanding) {
+			stateNum = States.landing;
+        }
+
+		// 攻撃中
+        else if (isAttacking) {
+			stateNum = States.attacking;
+        }
+
+		// ダメージ
+		else if (isDamaging) {
+			stateNum = States.damage;
+        }
+
 		// 判定値(上)よりも大きくなったら、ふわふわ
-		if (gm.inpHor > inpY_up_jdge) {
+		else if (gm.inpHor > inpY_up_jdge) {
 			stateNum = States.floating;
 		}
 		// 判定値(上)より小さく、判定値(下)より大きい
@@ -212,30 +227,24 @@ public class Pl_States : MonoBehaviour
 	}
 
 	//-------------------------------------------------------------------
-	// 敵に触れたとき
 	void OnCollisionStay2D(Collision2D col)
 	{
+		// 敵
 		if (col.gameObject.tag == "Enemy") {
 			// ダメージ状態
-			stateNum = States.damage;
+			isDamaging = true;
 		}
-	}
 
-	// 床入った瞬間
-    void OnCollisionEnter2D(Collision2D col)
-    {
+		// 床
 		if (col.gameObject.name == "Floor") {
-			stateNum = States.landing;
 			isLanding = true;
-			Debug.Log("床");
 		}
 	}
 
-	// 床出た瞬間
 	void OnCollisionExit2D(Collision2D col)
 	{
+		// 床
 		if (col.gameObject.name == "Floor") {
-			stateNum = States.normal;
 			isLanding = false;
 		}
 	}

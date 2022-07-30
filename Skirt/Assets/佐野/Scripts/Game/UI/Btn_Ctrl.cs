@@ -63,7 +63,7 @@ public class Btn_Ctrl : MonoBehaviour
             isPause = false;
             Time.timeScale = 1;
 
-            cvsGen.Pause();
+            cvsGen.UnPause();
         }
 
         // 停止してないとき
@@ -71,9 +71,7 @@ public class Btn_Ctrl : MonoBehaviour
             isPause = true;
             Time.timeScale = 0;
 
-            cvsGen.UnPause();
-
-            print(isPause);
+            cvsGen.Pause();
         }
     }
 

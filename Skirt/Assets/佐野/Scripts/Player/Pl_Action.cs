@@ -12,25 +12,24 @@ public class Pl_Action : MonoBehaviour
 {
     /* 値 */
     [Header("移動")]
-    [SerializeField] float moveForce = 7;      // 移動に加える力
-    [SerializeField] float spdMax = 7.5f;      // 最大速度
-    [SerializeField] float moveDec = 0.96f;    // 減速度
-    [SerializeField] float moveRot = 15;       // 移動時の回転角度
+    [SerializeField] float moveForce    = 7;        // 移動に加える力
+    [SerializeField] float spdMax       = 7.5f;     // 最大速度
+    [SerializeField] float moveDec      = 0.96f;    // 減速度
+    [SerializeField] float moveRot      = 15;       // 移動時の回転角度
 
     [Header("ダメージ関係")]
-    [SerializeField] int invTime;               // 無敵時間
-    [SerializeField] float dmgJumpForce = 300;  // ダメージ時のジャンプ力
+    [SerializeField] int invTime;                   // 無敵時間
+    [SerializeField] float dmgJumpForce = 300;      // ダメージ時のジャンプ力
     int dmgCnt;
 
     [Header("攻撃")]
-    [SerializeField] float atkTime = 60;    // 攻撃の長さ
+    [SerializeField] float atkTime      = 60;       // 攻撃の長さ
     int atkCnt;
 
     [Header("ジャンプ")]
-    [SerializeField] float jumpForce = 50;     // ジャンプ力
+    [SerializeField] float jumpForce    = 50;       // ジャンプ力
 
     float scrEdge;                // 画面端のX座標
-
     Vector2 pos, vel;              // 位置、速度
 
     /* フラグ */
@@ -98,7 +97,6 @@ public class Pl_Action : MonoBehaviour
         // 移動
         rb.AddForce(Vector2.right * gm.inpVer * moveForce);
 
-        print(vel);
         // 速度制限
         // 右
         if (vel.x > spdMax) {
@@ -120,7 +118,7 @@ public class Pl_Action : MonoBehaviour
             rb.velocity = new Vector2(vel.x * 0.75f, vel.y);
         }
 
-        if (pl_st.stateNum != Pl_States.States.landing) {
+        if (!pl_st.isLanding) {
             // 移動方向に合わせて回転
             transform.rotation = Quaternion.Euler(0, 0, gm.inpVer * moveRot);
         }
@@ -188,7 +186,7 @@ public class Pl_Action : MonoBehaviour
         // ダメージ処理終了
         if (dmgCnt > invTime) {
             dmgCnt = 0;
-            pl_st.stateNum = Pl_States.States.normal;
+            pl_st.isDamaging = false;
         }
     }
 
