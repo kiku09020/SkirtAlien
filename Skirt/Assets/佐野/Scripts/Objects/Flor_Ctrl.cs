@@ -46,6 +46,7 @@ public class Flor_Ctrl : MonoBehaviour
     void OnTriggerStay2D(Collider2D col)
     {
         if(col.gameObject.name == "Player") {
+            pl_st.stateNum = Pl_States.States.landing;
             pl_st.isLanding = true;
             Debug.Log("床");
         }
@@ -54,6 +55,7 @@ public class Flor_Ctrl : MonoBehaviour
     void OnTriggerExit2D(Collider2D col)
     {
         if(col.gameObject.name == "Player") {
+            pl_st.stateNum = Pl_States.States.normal;
             pl_st.isLanding = false;
         }
     }

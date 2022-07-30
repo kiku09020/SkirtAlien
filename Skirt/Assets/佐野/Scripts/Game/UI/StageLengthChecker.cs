@@ -43,7 +43,7 @@ public class StageLengthChecker : MonoBehaviour
 
     void Update()
     {
-        sldr.value = pl.gameObject.transform.position.y / gm.stg_length;
+        sldr.value = 1 - (pl.gameObject.transform.position.y / gm.stg_length);
     }
 
 //-------------------------------------------------------------------

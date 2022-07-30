@@ -6,37 +6,33 @@ using UnityEngine.SceneManagement;
 /* ★ボタンに関するスクリプトです */
 public class Btn_Ctrl : MonoBehaviour
 {
-    /* 値 */
-
-
     /* フラグ */
     public bool isPause;
 
     /* オブジェクト */
-    public GameObject stick;
-    GameObject hpBar;
-    GameObject atkBtn;
-
-    [SerializeField] GameObject pauseUI_pref;   // Canvasのプレハブ
-                     GameObject pauseUI_inst;   // Canvasのインスタンス
-
+    GameObject pl_obj;
 
     /* コンポーネント取得用 */
+    Pl_States pl_st;
+
+    GameManager gm;
+    CanvasGenelator cvsGen;
 
 //-------------------------------------------------------------------
 
     void Start()
     {
         /* オブジェクト検索 */
-        hpBar = GameObject.Find("HPGauge"); 
-        atkBtn= GameObject.Find("Btn_Attack");
+        pl_obj = GameObject.Find("Player");
 
         /* コンポーネント取得 */
+        pl_st = pl_obj.GetComponent<Pl_States>();
+
+        gm = transform.parent.GetComponent<GameManager>();
+        cvsGen = GetComponent<CanvasGenelator>();
 
         /* 初期化 */
         isPause = false;
-        pauseUI_inst = Instantiate(pauseUI_pref, Vector2.zero, Quaternion.identity);
-        pauseUI_inst.SetActive(false);
     }
 
 //-------------------------------------------------------------------
@@ -67,10 +63,7 @@ public class Btn_Ctrl : MonoBehaviour
             isPause = false;
             Time.timeScale = 1;
 
-            pauseUI_inst.SetActive(false);
-            stick.SetActive(true);
-            atkBtn.SetActive(true);
-            hpBar.SetActive(true);
+            cvsGen.Pause();
         }
 
         // 停止してないとき
@@ -78,13 +71,10 @@ public class Btn_Ctrl : MonoBehaviour
             isPause = true;
             Time.timeScale = 0;
 
-            pauseUI_inst.SetActive(true);
-            stick.SetActive(false);
-            atkBtn.SetActive(false);
-            hpBar.SetActive(false);
-        }
+            cvsGen.UnPause();
 
-        Debug.Log(isPause);
+            print(isPause);
+        }
     }
 
     public void Btn_Retry()
@@ -102,4 +92,23 @@ public class Btn_Ctrl : MonoBehaviour
 
         SceneManager.LoadScene("Title");
     }
+
+    // アクションボタン
+    public void Btn_Action()
+	{
+        // 地上にいたらジャンプする
+		if(pl_st.stateNum == Pl_States.States.landing) {
+            pl_st.stateNum = Pl_States.States.jumping;
+		}
+
+        // ダメージ時はなにもしない
+		else if(pl_st.stateNum == Pl_States.States.damage) {
+
+		}
+
+        // その他の状態のときに捕食
+		else {
+            pl_st.stateNum = Pl_States.States.attacking;
+		}
+	}
 }

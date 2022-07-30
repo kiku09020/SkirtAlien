@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
 
     /* フラグ */
     public bool isGameOver;        // ゲームオーバー
+    public bool isPaused;
     bool onceFlag;
 
     [Header("テキスト")]/* テキスト */
@@ -46,7 +47,6 @@ public class GameManager : MonoBehaviour
     GameObject  parent;
 
     /* コンポーネント取得用 */
-    Btn_Ctrl    btn_ctrl;
     Goal_Ctrl   goal;
 
 //-------------------------------------------------------------------
@@ -55,15 +55,12 @@ public class GameManager : MonoBehaviour
     {
         /* オブジェクト検索 */
         goal_obj    = GameObject.Find("Goal");
-        parent      = GameObject.Find("Canvas");
+        parent      = GameObject.Find("GameUICanvas");
 
         /* コンポーネント取得 */
-        btn_ctrl    = GetComponent<Btn_Ctrl>();
         goal        = goal_obj.GetComponent<Goal_Ctrl>();
 
         /* 初期化 */
-
-
         Stage();
         Scene();
     }
@@ -104,9 +101,6 @@ public class GameManager : MonoBehaviour
         if(goal.isGoaled) {
             if(!onceFlag) {
                 onceFlag = true;
-
-                // スティック非表示
-                btn_ctrl.stick.SetActive(false);
 
                 // テキスト表示
                 Instantiate(txt_goal, parent.transform.position, Quaternion.identity, parent.transform);

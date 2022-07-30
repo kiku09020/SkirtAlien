@@ -246,7 +246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f88a31b52367034da525760be882d13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 600
+  incSizeVal: 0.1
 --- !u!114 &2283851557005410474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,6 +266,7 @@ MonoBehaviour:
   invTime: 120
   dmgJumpForce: 300
   atkTime: 60
+  jumpForce: 50
 --- !u!114 &1493154652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -278,18 +279,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80b099b00ab8e0c44b99157f9970bc00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  state: 0
-  state_name: 
+  stateNum: 0
+  isLanding: 0
   inpY_up_jdge: 0.6
   inpY_dn_jdge: 0.6
   drag_flt: 0.5
   drag_swp: 0
-  isFloating: 0
-  isSwooping: 0
-  isLanding: 0
-  isAttacking: 0
-  isDamaged: 0
-  isJumping: 0
 --- !u!114 &5297649651518445171
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -308,7 +303,6 @@ MonoBehaviour:
   dispDecTime: 1
   heal: 10
   dmg: 20
-  decDmg: 0.1
 --- !u!95 &8190699613534235346
 Animator:
   serializedVersion: 3

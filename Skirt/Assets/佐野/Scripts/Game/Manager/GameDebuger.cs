@@ -24,6 +24,7 @@ public class GameDebuger : MonoBehaviour
 
     /* コンポーネント取得用 */
     Player pl;
+    Pl_States pl_st;
     Pl_Camera cam;
     GameManager gm;
 
@@ -36,6 +37,7 @@ public class GameDebuger : MonoBehaviour
         // プレイヤー
         pl_obj = GameObject.Find("Player");
         pl = pl_obj.GetComponent<Player>();
+        pl_st = pl_obj.GetComponent<Pl_States>();
         gm = GetComponent<GameManager>();
 
         // カメラ
@@ -84,7 +86,7 @@ public class GameDebuger : MonoBehaviour
     // ログ
     void Debug_Log()
 	{
-       
+        print(pl_st.stateNum);
 	}
 
     // 画面上に表示するテキスト
