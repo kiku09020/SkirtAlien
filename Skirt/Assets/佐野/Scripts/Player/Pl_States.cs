@@ -22,8 +22,9 @@ public class Pl_States : MonoBehaviour
 	}
 
 	public bool isLanding;      // 地上にいるか
-	public bool isAttacking;
-	public bool isDamaging;
+	public bool isJamping;		// ジャンプ中か
+	public bool isAttacking;	// 捕食中か
+	public bool isDamaging;		// ダメージ中か
 
 	[Header("入力判定")]
 	[SerializeField] float inpY_up_jdge = 0.6f;     // 上入力時の判定
@@ -143,6 +144,10 @@ public class Pl_States : MonoBehaviour
         else if (isAttacking) {
 			stateNum = States.attacking;
         }
+
+		else if(isJamping) {
+			stateNum = States.jumping;
+		}
 
 		// ダメージ
 		else if (isDamaging) {

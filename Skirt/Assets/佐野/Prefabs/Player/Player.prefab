@@ -82,11 +82,11 @@ GameObject:
   - component: {fileID: 2296475401055147460}
   - component: {fileID: 2296475401055147466}
   - component: {fileID: 2776439221033848270}
-  - component: {fileID: 690607893198068486}
   - component: {fileID: 7664640652142410176}
   - component: {fileID: 2283851557005410474}
   - component: {fileID: 1493154652}
   - component: {fileID: 5297649651518445171}
+  - component: {fileID: 7752226494457446854}
   - component: {fileID: 8190699613534235346}
   m_Layer: 8
   m_Name: Player
@@ -208,32 +208,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!61 &690607893198068486
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2296475401055147467}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0.2
 --- !u!114 &7664640652142410176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -246,7 +220,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f88a31b52367034da525760be882d13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  incSizeVal: 0.1
 --- !u!114 &2283851557005410474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,7 +239,7 @@ MonoBehaviour:
   invTime: 120
   dmgJumpForce: 300
   atkTime: 60
-  jumpForce: 50
+  jumpForce: 500
 --- !u!114 &1493154652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -281,6 +254,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stateNum: 0
   isLanding: 0
+  isJamping: 0
+  isAttacking: 0
+  isDamaging: 0
   inpY_up_jdge: 0.6
   inpY_dn_jdge: 0.6
   drag_flt: 0.5
@@ -302,7 +278,19 @@ MonoBehaviour:
   dispDecDif: 15
   dispDecTime: 1
   heal: 10
-  dmg: 20
+  dmg: 50
+--- !u!114 &7752226494457446854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2296475401055147467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8918fa5f8b526a43928463e06a4635e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!95 &8190699613534235346
 Animator:
   serializedVersion: 3

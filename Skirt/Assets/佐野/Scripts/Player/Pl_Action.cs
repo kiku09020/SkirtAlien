@@ -28,6 +28,7 @@ public class Pl_Action : MonoBehaviour
 
     [Header("ジャンプ")]
     [SerializeField] float jumpForce    = 50;       // ジャンプ力
+    int jumpCnt;
 
     float scrEdge;                // 画面端のX座標
     Vector2 pos, vel;              // 位置、速度
@@ -79,13 +80,17 @@ public class Pl_Action : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!gm.isGameOver||!goal.isGoaled) {
+        if (!gm.isGameOver&&!goal.isGoaled) {
             scrEdge = cam.scrn_EdgeX;       // スクリーン端の座標更新
             pos = transform.position;       // 位置
             vel = rb.velocity;              // 速度
 
             Move_Side();
         }
+
+        else if(gm.isGameOver) {
+            sr.color = new Color(1, 1, 1,1);
+		}
     }
 
     //-------------------------------------------------------------------
@@ -193,7 +198,6 @@ public class Pl_Action : MonoBehaviour
     // アタック
     public void Attack()
     {
-        // 通常状態のみ、アタックできる
         atkCnt++;      // カウンター増加
         transform.localScale = new Vector2(3 + atkCnt * 0.05f, 3 + atkCnt * 0.05f);
 
@@ -201,6 +205,7 @@ public class Pl_Action : MonoBehaviour
         if (atkCnt > atkTime) {
             atkCnt = 0;
 
+            pl_st.isAttacking = false;
             pl_st.stateNum = Pl_States.States.normal;
         }
     }
@@ -208,7 +213,17 @@ public class Pl_Action : MonoBehaviour
     // ジャンプ
     public void Jump()
     {
-        // ボタンでジャンプ
-        rb.AddForce(Vector2.up * jumpForce);
+        jumpCnt++;
+
+        // 一瞬ジャンプ
+		if(jumpCnt == 1) {
+            rb.AddForce(Vector2.up * jumpForce);
+        }
+
+        // 解除
+        if(jumpCnt > 60) {
+            jumpCnt = 0;
+            pl_st.isJamping = false;
+        }
     }
 }

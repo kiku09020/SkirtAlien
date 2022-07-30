@@ -8,15 +8,16 @@ public class CanvasGenelator : MonoBehaviour
 {
     /* オブジェクト */
     GameObject goal_obj;
-    GameObject cvs_Ctrl;
 
     /* コンポーネント取得用 */
     // プレハブ
+    [SerializeField] GameObject cvsPref_ctrl;
     [SerializeField] GameObject cvsPref_game;
     [SerializeField] GameObject cvsPref_pause;
     [SerializeField] GameObject cvsPref_gameOver;
 
     // インスタンス
+    GameObject cvsInst_ctrl;
     GameObject cvsInst_game;        // gameUI
     GameObject cvsInst_pause;       // pause
     GameObject cvsInst_gameOver;    // gameOver
@@ -28,7 +29,7 @@ public class CanvasGenelator : MonoBehaviour
     void Awake()
     {
         /* オブジェクト検索 */
-        cvs_Ctrl = GameObject.Find("ControllerCanvas");
+        cvsInst_ctrl = Instantiate(cvsPref_ctrl);
 
         cvsInst_game = Instantiate(cvsPref_game);
         cvsInst_pause = Instantiate(cvsPref_pause);
@@ -56,14 +57,14 @@ public class CanvasGenelator : MonoBehaviour
 
     void Goaled()
     {
-        cvs_Ctrl.SetActive(true);
+        cvsInst_ctrl.SetActive(true);
         cvsInst_game.SetActive(true);
     }
 
     // ポーズ時
     public void Pause()
 	{
-        cvs_Ctrl.SetActive(true);
+        cvsInst_ctrl.SetActive(true);
         cvsInst_pause.SetActive(false);
         cvsInst_game.SetActive(true);
     }
@@ -71,7 +72,7 @@ public class CanvasGenelator : MonoBehaviour
     // ポーズ解除時
     public void UnPause()
 	{
-        cvs_Ctrl.SetActive(false);
+        cvsInst_ctrl.SetActive(false);
         cvsInst_pause.SetActive(true);
         cvsInst_game.SetActive(false);
     }
@@ -80,5 +81,7 @@ public class CanvasGenelator : MonoBehaviour
     public void Inst_GameOver()
     {
         cvsInst_gameOver = Instantiate(cvsPref_gameOver);
+        cvsInst_ctrl.SetActive(false);
+        cvsInst_game.SetActive(false);
     }
 }

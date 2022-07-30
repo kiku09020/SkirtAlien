@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
     public float stg_grav;          // ステージの重力
 
     [Header("スマホ用の値")]
-    [SerializeField] Joystick stick;    // スティック
+    Joystick stick;    // スティック
     public float inpVer, inpHor;      // スティックの入力値
     public float inpVerOld, inpHorOld;
 
@@ -54,15 +54,20 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         /* オブジェクト検索 */
+
         goal_obj    = GameObject.Find("Goal");
         parent      = GameObject.Find("GameUICanvas");
 
         /* コンポーネント取得 */
+        stick = GameObject.Find("Stick").GetComponent<Joystick>();
+
         goal        = goal_obj.GetComponent<Goal_Ctrl>();
 
         /* 初期化 */
         Stage();
         Scene();
+
+        isPaused = false;
     }
 
 //-------------------------------------------------------------------

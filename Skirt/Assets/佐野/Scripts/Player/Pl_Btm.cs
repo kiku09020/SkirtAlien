@@ -32,7 +32,6 @@ public class Pl_Btm : MonoBehaviour
     {
         // 敵
         if (col.tag == "Enemy"){
-            Debug.Log("敵");
 
             // 攻撃したら消える(仮)
             if(pl_st.stateNum == Pl_States.States.attacking){

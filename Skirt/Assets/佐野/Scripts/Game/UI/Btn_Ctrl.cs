@@ -7,16 +7,16 @@ using UnityEngine.SceneManagement;
 public class Btn_Ctrl : MonoBehaviour
 {
     /* フラグ */
-    public bool isPause;
 
     /* オブジェクト */
     GameObject pl_obj;
+    GameObject gm_obj;
 
     /* コンポーネント取得用 */
     Pl_States pl_st;
 
-    GameManager gm;
     CanvasGenelator cvsGen;
+    GameManager gm;
 
 //-------------------------------------------------------------------
 
@@ -24,15 +24,15 @@ public class Btn_Ctrl : MonoBehaviour
     {
         /* オブジェクト検索 */
         pl_obj = GameObject.Find("Player");
+        gm_obj = GameObject.Find("GameManager");
 
         /* コンポーネント取得 */
         pl_st = pl_obj.GetComponent<Pl_States>();
 
-        gm = transform.parent.GetComponent<GameManager>();
-        cvsGen = GetComponent<CanvasGenelator>();
+        gm = gm_obj.GetComponent<GameManager>();
+        cvsGen = gm_obj.transform.GetChild(0).GetComponent<CanvasGenelator>();
 
         /* 初期化 */
-        isPause = false;
     }
 
 //-------------------------------------------------------------------
@@ -59,19 +59,19 @@ public class Btn_Ctrl : MonoBehaviour
     public void Btn_Pause()
     {
         // 停止中のとき
-		if(isPause) {
-            isPause = false;
+		if(gm.isPaused) {
+            gm.isPaused = false;
             Time.timeScale = 1;
 
-            cvsGen.UnPause();
+            cvsGen.Pause();
         }
 
         // 停止してないとき
 		else {
-            isPause = true;
+            gm.isPaused = true;
             Time.timeScale = 0;
 
-            cvsGen.Pause();
+            cvsGen.UnPause();
         }
     }
 
@@ -85,7 +85,7 @@ public class Btn_Ctrl : MonoBehaviour
     // ポーズボタン/終了
     public void Btn_Quit()
     {
-        isPause = false;
+        gm.isPaused = false;
         Time.timeScale = 1;
 
         SceneManager.LoadScene("Title");
@@ -95,18 +95,19 @@ public class Btn_Ctrl : MonoBehaviour
     public void Btn_Action()
 	{
         // 地上にいたらジャンプする
-		if(pl_st.stateNum == Pl_States.States.landing) {
-            pl_st.stateNum = Pl_States.States.jumping;
+		if(pl_st.isLanding) {
+            pl_st.isJamping = true;
+            pl_st.isLanding = false;
 		}
 
         // ダメージ時はなにもしない
-		else if(pl_st.stateNum == Pl_States.States.damage) {
+		else if(pl_st.isDamaging) {
 
 		}
 
-        // その他の状態のときに捕食
+        // 通常状態
 		else {
-            pl_st.stateNum = Pl_States.States.attacking;
+            pl_st.isAttacking = true;
 		}
 	}
 }
