@@ -79,51 +79,36 @@ public class Pl_States : MonoBehaviour
 	void StateProc()
 	{
 		switch (stateNum) {
-			// 通常
-			case States.normal:
+			case States.normal:		// 通常
 				Normal();
 				break;
 
-			// -------------------------------------------
-			// ふわふわ
-			case States.floating:
+			case States.floating:	// ふわふわ
 				Floating();
 				break;
 
-			// -------------------------------------------
-			// 急降下
-			case States.swooping:
+			case States.swooping:	// 急降下
 				Swooping();
 				break;
 
-			// -------------------------------------------
-			// 地上
-			case States.landing:
+			case States.landing:	// 地上
 				pl_hp.Flg();
 				Landing();
 				break;
 
-			// -------------------------------------------
-			// ジャンプ
-			case States.jumping:
+			case States.jumping:	// ジャンプ
 				pl_act.Jump();
 				break;
 
-			// -------------------------------------------
-			// アタック中
-			case States.attacking:
+			case States.attacking:	// アタック中
 				pl_act.Attack();
 				break;
 
-			// -------------------------------------------
-			// 被ダメージ
-			case States.damage:
+			case States.damage:		// 被ダメージ
 				pl_act.Damage();
 				break;
 
-			// -------------------------------------------
-			// ゴール
-			case States.goaled:
+			case States.goaled:		// ゴール
 				Goaled();
 				break;
 		}
@@ -218,21 +203,12 @@ public class Pl_States : MonoBehaviour
 			// ダメージ状態
 			stateNum = States.damage;
 		}
-
-		// 床
-        if (col.gameObject.tag == "Floor") {
-			if(stateNum != States.jumping) {
-				stateNum = States.landing;
-			}
-
-        }
 	}
 
-	void OnCollisionExit2D(Collision2D col)
-	{
-		// 床から離れたら、通常状態に戻す
-		if(col.gameObject.tag == "Floor" && stateNum == States.landing) {
+    void OnCollisionExit2D(Collision2D col)
+    {
+		if (col.gameObject.tag == "Floor" && stateNum != States.jumping) {
 			stateNum = States.normal;
-		}
-	}
+        }
+    }
 }

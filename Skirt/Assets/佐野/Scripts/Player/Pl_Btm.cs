@@ -31,13 +31,17 @@ public class Pl_Btm : MonoBehaviour
     void OnTriggerStay2D(Collider2D col)
     {
         // 敵
-        if (col.tag == "Enemy"){
-
-            // 攻撃したら消える(仮)
+        if (col.tag == "Enemy" ){
+            // 攻撃したら消える
             if(pl_st.stateNum == Pl_States.States.attacking){
                 pl_hp.HP_Heal();
                 Destroy(col.gameObject);
             }
+        }
+
+        // 床
+        if (col.tag == "Floor" && pl_st.stateNum != Pl_States.States.jumping) {
+            pl_st.stateNum = Pl_States.States.landing;
         }
     }
 }

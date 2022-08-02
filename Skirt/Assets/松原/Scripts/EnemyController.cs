@@ -34,7 +34,7 @@ public class EnemyController : MonoBehaviour
     void Update()
     {
         // ƒJƒƒ‰’[‚ÌÀ•Wæ“¾
-        edgeX = cam.scrn_EdgeX;
+        edgeX = cam.scrnWidthWld;
 
         pos = transform.position;
         /*

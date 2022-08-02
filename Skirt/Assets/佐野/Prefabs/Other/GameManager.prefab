@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8585331921804387305}
   - component: {fileID: 8585331921804387304}
-  - component: {fileID: 3696198401535402249}
   - component: {fileID: 3558443101835374046}
   - component: {fileID: 1419464441}
   - component: {fileID: 2002095581093782911}
@@ -55,28 +54,12 @@ MonoBehaviour:
   stg_length: 3000
   stg_drag: 0
   stg_grav: 0
-  stick: {fileID: 2929252283123773951, guid: aaa2c939c0359ac4dbce3f49e8b90252, type: 3}
   inpVer: 0
   inpHor: 0
   inpVerOld: 0
   inpHorOld: 0
   isGameOver: 0
   isPaused: 0
-  txt_goal: {fileID: 547244430113876342, guid: d7b61870d737c4b40aec187ca195b7bd, type: 3}
---- !u!114 &3696198401535402249
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8585331921804387307}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 910a9ef4e5d73cb4492f5f4526fdd3d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bg: {fileID: 8323662137964278262, guid: 26e5dabaf5059e049baf3465a1289967, type: 3}
-  bg_parent: {fileID: 0}
 --- !u!114 &3558443101835374046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90,8 +73,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isInfinity: 0
-  txt_dbg_cam: {fileID: 5705338161052168125, guid: 5d787438765353f4291c3b6c7a3b3e23, type: 3}
-  txt_stgName: {fileID: 8546121920467254417, guid: 4bcd11b463a176640b438ee5c551ff64, type: 3}
+  txt_dbg_cam: {fileID: 0}
 --- !u!114 &1419464441
 MonoBehaviour:
   m_ObjectHideFlags: 0

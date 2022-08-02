@@ -58,23 +58,29 @@ public class Pl_Anim : MonoBehaviour
             //------------------------------
             case Pl_States.States.floating:      // ふわふわ
                 anim.SetBool("isFloat", true);
+
                 break;
 
             //------------------------------
             case Pl_States.States.swooping:      // 急降下
                 anim.SetBool("isSwoop", true);
+
                 break;
 
             //------------------------------
             case Pl_States.States.landing:       // 地上
-                anim.SetBool("isLanding", true);
-                anim.SetBool("isWalk", false);
-                anim.SetBool("isJumping", false);
+                anim.SetBool("isFloat", false);
+                anim.SetBool("isSwoop", false);
 
                 // 歩行
                 if (gm.inpVer != 0) {
                     anim.SetBool("isWalk", true);
-                    anim.SetBool("isLanding", false);
+                }
+
+                // 地上で停止
+                else {
+                    anim.SetBool("isLanding", true);
+                    anim.SetBool("isWalk", false);
                 }
 
                 break;

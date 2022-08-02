@@ -19,7 +19,6 @@ public class GameDebuger : MonoBehaviour
 
     /* オブジェクト */
     [SerializeField] Text txt_dbg_cam;
-    [SerializeField] Text txt_stgName;
     GameObject pl_obj;
 
     /* コンポーネント取得用 */
@@ -27,7 +26,6 @@ public class GameDebuger : MonoBehaviour
     Pl_States pl_st;
     Pl_Camera cam;
     GameManager gm;
-
 
 //-------------------------------------------------------------------
 
@@ -44,9 +42,7 @@ public class GameDebuger : MonoBehaviour
         GameObject cam_obj = GameObject.Find("PlayerCamera");
         cam = cam_obj.GetComponent<Pl_Camera>();
         
-
         /* 初期化 */
-        
     }
 
 //-------------------------------------------------------------------
@@ -92,8 +88,6 @@ public class GameDebuger : MonoBehaviour
     // 画面上に表示するテキスト
     void Debug_Text()
 	{
-        txt_dbg_cam.text = "edge = " + cam.scrn_EdgeX.ToString();
-
-        txt_stgName.text = gm.nowSceneName;
+        txt_dbg_cam.text = "edge = " + cam.scrnWidthWld.ToString();
 	}
 }

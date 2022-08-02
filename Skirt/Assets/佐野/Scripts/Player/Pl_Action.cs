@@ -16,6 +16,7 @@ public class Pl_Action : MonoBehaviour
     [SerializeField] float spdMax       = 7.5f;     // 最大速度
     [SerializeField] float moveDec      = 0.96f;    // 減速度
     [SerializeField] float moveRot      = 15;       // 移動時の回転角度
+    public float velY;                              // 速度(Y)カメラ用
 
     [Header("ダメージ関係")]
     [SerializeField] int invTime;                   // 無敵時間
@@ -83,7 +84,8 @@ public class Pl_Action : MonoBehaviour
     void FixedUpdate()
     {
         if (!gm.isGameOver && !goal.isGoaled) {
-            scrEdge = cam.scrn_EdgeX;       // スクリーン端の座標更新
+            velY = rb.velocity.y;
+            scrEdge = cam.scrnWidthWld;       // スクリーン端の座標更新
             pos = transform.position;       // 位置
             vel = rb.velocity;              // 速度
 
@@ -105,6 +107,12 @@ public class Pl_Action : MonoBehaviour
     {
         // 移動
         rb.AddForce(Vector2.right * gm.inpVer * moveForce);
+
+        if (velY < -100) {
+            rb.AddForce(Vector2.up * 20);
+           
+        }
+        print(velY);
 
         SpdLimit();     // 速度制限
         Breaking();     // ブレーキ(慣性無視)

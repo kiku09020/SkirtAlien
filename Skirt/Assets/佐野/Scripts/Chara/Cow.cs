@@ -36,8 +36,8 @@ public class Cow : MonoBehaviour
     {
         transform.Translate(new Vector2(spd, 0));
 
-        if (transform.position.x > cam.scrn_EdgeX){
-            transform.position = new Vector2(-cam.scrn_EdgeX, transform.position.y);
+        if (transform.position.x > cam.scrnWidthWld){
+            transform.position = new Vector2(-cam.scrnWidthWld, transform.position.y);
 		}
     }
 

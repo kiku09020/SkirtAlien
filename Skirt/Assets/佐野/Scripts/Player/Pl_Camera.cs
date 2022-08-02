@@ -6,7 +6,9 @@ using UnityEngine;
 public class Pl_Camera : MonoBehaviour
 {
     /* 値 */
-    public float scrn_EdgeX;
+    public float scrnWidthWld;
+    public float scrnHeightWld;
+    public float scrnYWld;
 
     /* フラグ */
 
@@ -17,6 +19,7 @@ public class Pl_Camera : MonoBehaviour
     /* コンポーネント取得用 */
     Camera cam;
     Player pl;
+    Pl_States pl_st;
     GameManager gm;
 
 //-------------------------------------------------------------------
@@ -29,23 +32,26 @@ public class Pl_Camera : MonoBehaviour
 
         cam = GetComponent<Camera>();
         pl = pl_obj.GetComponent<Player>();
+        pl_st = pl_obj.GetComponent<Pl_States>();
         gm = gm_obj.GetComponent<GameManager>();
-            /* 初期化 */
 
+        /* 初期化 */
+        transform.position = new Vector3(0, gm.stg_length, -10);
     }
 
 //-------------------------------------------------------------------
 
     void Update()
 	{
-		if(!gm.isGameOver) {
+        if (!gm.isGameOver && pl_st.stateNum != Pl_States.States.goaled) {
+            // y座標のみ追従
+            transform.position = new Vector3(transform.position.x, pl_obj.transform.position.y, transform.position.z);
 
-        // y座標のみ追従
-        transform.position = new Vector3(transform.position.x, pl_obj.transform.position.y, transform.position.z);
-
-        // カメラのワールド座標を取得
-        scrn_EdgeX  = cam.ScreenToWorldPoint(new Vector2(Screen.width,0)).x;
-		}
+            // カメラのワールド座標を取得
+            scrnWidthWld = cam.ScreenToWorldPoint(new Vector2(Screen.width, 0)).x;
+            scrnHeightWld = cam.ScreenToWorldPoint(new Vector2(0, Screen.height)).y;
+            scrnYWld = cam.ViewportToWorldPoint(new Vector2(0, cam.rect.y)).y;
+        }
     }
 
 //-------------------------------------------------------------------
