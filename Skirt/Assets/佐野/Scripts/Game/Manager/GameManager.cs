@@ -37,17 +37,11 @@ public class GameManager : MonoBehaviour
     /* フラグ */
     public bool isGameOver;        // ゲームオーバー
     public bool isPaused;
-    bool onceFlag;
-
-    [Header("テキスト")]/* テキスト */
-    [SerializeField] Text txt_goal;     // ゴール時のテキスト
 
     /* オブジェクト */
-    GameObject  goal_obj;
-    GameObject  parent;
 
     /* コンポーネント取得用 */
-    Goal_Ctrl   goal;
+
 
 //-------------------------------------------------------------------
 
@@ -55,13 +49,8 @@ public class GameManager : MonoBehaviour
     {
         /* オブジェクト検索 */
 
-        goal_obj    = GameObject.Find("Goal");
-        parent      = GameObject.Find("GameUICanvas");
-
         /* コンポーネント取得 */
         stick = GameObject.Find("Stick").GetComponent<Joystick>();
-
-        goal        = goal_obj.GetComponent<Goal_Ctrl>();
 
         /* 初期化 */
         Stage();
@@ -74,8 +63,6 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        Goaled();
-
         // 入力値
         inpVerOld = inpVer; inpHorOld = inpHor;
 
@@ -100,29 +87,5 @@ public class GameManager : MonoBehaviour
         stgNames = new string[stgCnt] { "ステージ1", "ステージ2", "ステージ3", "ボスステージ" };
     }
 
-    // ゴール時
-    void Goaled()
-	{
-        if(goal.isGoaled) {
-            if(!onceFlag) {
-                onceFlag = true;
 
-                // テキスト表示
-                Instantiate(txt_goal, parent.transform.position, Quaternion.identity, parent.transform);
-
-                // 待機後、次のステージへ
-                StartCoroutine(GotoNextStage());
-            }
-        }
-    }
-
-    // 次のステージへ
-    IEnumerator GotoNextStage()
-	{
-        // 5秒待機
-        yield return new WaitForSeconds(5);
-
-        // 次のステージ読み込み
-        SceneManager.LoadScene(sceneIndex + 1);
-	}
 }

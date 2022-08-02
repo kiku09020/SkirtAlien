@@ -50,6 +50,8 @@ public class Pl_Anim : MonoBehaviour
                 anim.SetBool("isDamaged", false);
                 anim.SetBool("isAttack", false);
                 anim.SetBool("isLanding", false);
+                anim.SetBool("isJumping", false);
+                anim.SetBool("isWalk", false);
 
                 break;
 
@@ -67,6 +69,7 @@ public class Pl_Anim : MonoBehaviour
             case Pl_States.States.landing:       // 地上
                 anim.SetBool("isLanding", true);
                 anim.SetBool("isWalk", false);
+                anim.SetBool("isJumping", false);
 
                 // 歩行
                 if (gm.inpVer != 0) {
@@ -78,6 +81,8 @@ public class Pl_Anim : MonoBehaviour
 
             //------------------------------
             case Pl_States.States.jumping:       // ジャンプ中
+                anim.SetBool("isJumping", true);
+                anim.SetBool("isLanding", false);
                 break;
 
             //------------------------------

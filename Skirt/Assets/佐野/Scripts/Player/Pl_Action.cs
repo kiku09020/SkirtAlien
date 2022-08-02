@@ -28,10 +28,11 @@ public class Pl_Action : MonoBehaviour
 
     [Header("ジャンプ")]
     [SerializeField] float jumpForce    = 50;       // ジャンプ力
+    [SerializeField] float jumpTime     = 30;		// ジャンプ時間
     int jumpCnt;
 
-    float scrEdge;                // 画面端のX座標
-    Vector2 pos, vel;              // 位置、速度
+    float scrEdge;              // 画面端のX座標
+    Vector2 pos, vel;           // 位置、速度
 
     /* フラグ */
 
@@ -42,15 +43,15 @@ public class Pl_Action : MonoBehaviour
     GameObject cam_obj;
 
     /* コンポーネント取得用 */
-    Rigidbody2D rb;
-    SpriteRenderer sr;
+    Rigidbody2D     rb;
+    SpriteRenderer  sr;
 
-    GameManager gm;
-    Goal_Ctrl goal;
+    GameManager     gm;
+    Goal_Ctrl       goal;
 
-    Pl_States pl_st;
-    Pl_HP pl_hp;
-    Pl_Camera cam;            // カメラ
+    Pl_States       pl_st;
+    Pl_HP           pl_hp;
+    Pl_Camera       cam;        // カメラ
 
     //-------------------------------------------------------------------
 
@@ -72,6 +73,7 @@ public class Pl_Action : MonoBehaviour
         pl_hp       = GetComponent<Pl_HP>();
 
         cam         = cam_obj.GetComponent<Pl_Camera>();
+
         /* 初期化 */
 
     }
@@ -80,51 +82,73 @@ public class Pl_Action : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!gm.isGameOver&&!goal.isGoaled) {
+        if (!gm.isGameOver && !goal.isGoaled) {
             scrEdge = cam.scrn_EdgeX;       // スクリーン端の座標更新
             pos = transform.position;       // 位置
             vel = rb.velocity;              // 速度
 
-            Move_Side();
+            Move();
+            Rotate();
+            OutScr();
         }
 
+        // ゲームオーバー時に不透明にする
         else if(gm.isGameOver) {
-            sr.color = new Color(1, 1, 1,1);
+            sr.color = Color.white;
 		}
     }
 
     //-------------------------------------------------------------------
 
-    // 左右移動
-    public void Move_Side()
+    // 移動
+    void Move()
     {
-        // ----------------------------------------------------------
         // 移動
         rb.AddForce(Vector2.right * gm.inpVer * moveForce);
 
-        // 速度制限
+        SpdLimit();     // 速度制限
+        Breaking();     // ブレーキ(慣性無視)
+    }
+
+    // 速度制限
+    void SpdLimit()
+	{
         // 右
-        if (vel.x > spdMax) {
+        if(vel.x > spdMax) {
             rb.velocity = new Vector2(spdMax, vel.y);
         }
 
         // 左
-        else if (vel.x < -spdMax) {
+        else if(vel.x < -spdMax) {
             rb.velocity = new Vector2(-spdMax, vel.y);
         }
+    }
 
+    // ブレーキ(スティックを急に反対方向に傾けたときに慣性を軽減するようにする)
+    void Breaking()
+	{
         // 左→右
-        if (gm.inpVerOld < 0 && gm.inpVer > 0) {
+        if(gm.inpVerOld < 0 && gm.inpVer > 0) {
             rb.velocity = new Vector2(vel.x * 0.75f, vel.y);
         }
 
         // 右→左
-        if (gm.inpVerOld > 0 && gm.inpVer < 0) {
+        if(gm.inpVerOld > 0 && gm.inpVer < 0) {
             rb.velocity = new Vector2(vel.x * 0.75f, vel.y);
         }
+    }
 
-        if (!pl_st.isLanding) {
-            // 移動方向に合わせて回転
+    //-------------------------------------------------------------------
+
+    // 回転
+    void Rotate()
+    {
+        if(pl_st.stateNum == Pl_States.States.landing) {
+            transform.rotation = Quaternion.identity;
+        }
+
+        // 移動方向に合わせて回転
+        else {
             transform.rotation = Quaternion.Euler(0, 0, gm.inpVer * moveRot);
         }
 
@@ -132,8 +156,11 @@ public class Pl_Action : MonoBehaviour
         if (gm.inpVer == 0) {
             rb.velocity = new Vector2(vel.x * moveDec, vel.y);
         }
+    }
 
-        // 画面外はみ出し時
+    // はみ出し時の処理
+    void OutScr()
+    {
         if (pos.x > scrEdge) {        // 右端→左端
             pos.x = -scrEdge;
             transform.position = new Vector2(pos.x, pos.y);
@@ -143,35 +170,19 @@ public class Pl_Action : MonoBehaviour
             pos.x = scrEdge;
             transform.position = new Vector2(pos.x, pos.y);
         }
-
-        else {
-            sr.flipX = false;
-        }
     }
 
-    // 地上移動
-    public void LandMove()
-    {
-        // 左移動時
-        if(gm.inpVer < 0) {
-            sr.flipX = false;
-        }
+    //-------------------------------------------------------------------
+    /* Pl_State内に呼び出す関数 */
 
-        // 右移動時
-        else if(gm.inpVer > 0) {
-            sr.flipX = true;
-        }
-
-        else {
-            sr.flipX = false;
-        }
-    }
 
     //-------------------------------------------------------------------
     // ダメージ
     public void Damage()
     {
         dmgCnt++;
+
+        transform.localScale = Vector2.one;
 
         // ダメージくらった瞬間
         if (dmgCnt == 1) {
@@ -181,17 +192,17 @@ public class Pl_Action : MonoBehaviour
 
         // 点滅
         if (dmgCnt % 2 == 0) {
-            sr.color = new Color(1, 1, 1, 0);
+            sr.color = Color.clear;
         }
 
         else {
-            sr.color = new Color(1, 1, 1, 1);
+            sr.color = Color.white;
         }
 
         // ダメージ処理終了
         if (dmgCnt > invTime) {
             dmgCnt = 0;
-            pl_st.isDamaging = false;
+            pl_st.stateNum = Pl_States.States.normal;
         }
     }
 
@@ -199,13 +210,12 @@ public class Pl_Action : MonoBehaviour
     public void Attack()
     {
         atkCnt++;      // カウンター増加
-        transform.localScale = new Vector2(3 + atkCnt * 0.05f, 3 + atkCnt * 0.05f);
+        transform.localScale = new Vector2(1 + atkCnt * 0.01f, 1 + atkCnt * 0.01f);
 
         // 時間経過後、通常状態へ戻る
         if (atkCnt > atkTime) {
             atkCnt = 0;
 
-            pl_st.isAttacking = false;
             pl_st.stateNum = Pl_States.States.normal;
         }
     }
@@ -221,9 +231,9 @@ public class Pl_Action : MonoBehaviour
         }
 
         // 解除
-        if(jumpCnt > 60) {
+        if(jumpCnt > jumpTime) {
             jumpCnt = 0;
-            pl_st.isJamping = false;
+            pl_st.stateNum = Pl_States.States.normal;
         }
     }
 }

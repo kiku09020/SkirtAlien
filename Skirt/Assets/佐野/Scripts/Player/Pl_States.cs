@@ -21,11 +21,6 @@ public class Pl_States : MonoBehaviour
 		goaled,			// ゴール後
 	}
 
-	public bool isLanding;      // 地上にいるか
-	public bool isJamping;		// ジャンプ中か
-	public bool isAttacking;	// 捕食中か
-	public bool isDamaging;		// ダメージ中か
-
 	[Header("入力判定")]
 	[SerializeField] float inpY_up_jdge = 0.6f;     // 上入力時の判定
 	[SerializeField] float inpY_dn_jdge = 0.6f;     // 下入力時の判定
@@ -34,6 +29,9 @@ public class Pl_States : MonoBehaviour
 	[SerializeField] float drag_flt = 0.5f;			// ふわふわ時の空気抵抗
 	[SerializeField] float drag_swp = 0;			// 急降下時
 	float drag_nml;                                 // 通常時の空気抵抗
+
+	[Header("サイズ")]
+	[SerializeField] float size_big = 1.5f;         // 拡大時のサイズ
 
 	/* オブジェクト */
 	GameObject gm_obj;
@@ -72,9 +70,7 @@ public class Pl_States : MonoBehaviour
 	void FixedUpdate()
 	{
 		if (stateNum != States.goaled && !gm.isGameOver) {
-			TransStates();
 			StateProc();
-			StateSizeChange();
 		}
 	}
 
@@ -104,8 +100,7 @@ public class Pl_States : MonoBehaviour
 			// 地上
 			case States.landing:
 				pl_hp.Flg();
-				pl_act.LandMove();      // 地上移動
-				Landing();				// 地上にいるときの処理
+				Landing();
 				break;
 
 			// -------------------------------------------
@@ -129,71 +124,8 @@ public class Pl_States : MonoBehaviour
 			// -------------------------------------------
 			// ゴール
 			case States.goaled:
+				Goaled();
 				break;
-		}
-	}
-
-	void TransStates()
-    {
-		// 地上
-        if (isLanding) {
-			stateNum = States.landing;
-        }
-
-		// 攻撃中
-        else if (isAttacking) {
-			stateNum = States.attacking;
-        }
-
-		else if(isJamping) {
-			stateNum = States.jumping;
-		}
-
-		// ダメージ
-		else if (isDamaging) {
-			stateNum = States.damage;
-        }
-
-		// 判定値(上)よりも大きくなったら、ふわふわ
-		else if (gm.inpHor > inpY_up_jdge) {
-			stateNum = States.floating;
-		}
-		// 判定値(上)より小さく、判定値(下)より大きい
-		else if (gm.inpHor > -inpY_dn_jdge) {
-			stateNum = States.normal;
-		}
-
-		// 判定値(下)よりも小さくなったら、急降下
-		else if (gm.inpHor < -inpY_dn_jdge) {
-			stateNum = States.swooping;
-		}
-	}
-
-	// 入力値ごとに大きさ変える
-	void StateSizeChange()
-	{
-		// 攻撃時
-		if (stateNum == States.attacking) {
-
-		}
-
-		// ダメージ時
-		else if (stateNum == States.damage) {
-			transform.localScale = new Vector2(3, 3);
-		}
-
-		// 地上にいるとき
-		else if (stateNum == States.landing) {
-			transform.localScale = new Vector2(3, 3);
-		}
-
-		else {
-			if (gm.inpHor < 0) {        // 上
-				transform.localScale = new Vector2(3, 3 + Mathf.Abs(gm.inpHor) * 3);
-			}
-			else if (gm.inpHor > 0) {   // 下
-				transform.localScale = new Vector2(3 + Mathf.Abs(gm.inpHor) * 3, 3);
-			}
 		}
 	}
 
@@ -203,32 +135,79 @@ public class Pl_States : MonoBehaviour
 	public void Normal()
     {
 		// 元の大きさに戻す
-		transform.localScale = new Vector2(3, 3);
+		transform.localScale = Vector2.one;
 
 		// 色を不透明に
-		sr.color = new Color(1, 1, 1, 1);
+		sr.color = Color.white;
 
-		rb.drag = drag_nml;                 // 空気抵抗を元に戻す
+		// 空気抵抗を元に戻す
+		rb.drag = drag_nml;
+
+		// 判定値(上)よりも大きくなったら、ふわふわ
+		if(gm.inpHor > inpY_up_jdge) {
+			stateNum = States.floating;
+		}
+		// 判定値(下)よりも小さくなったら、急降下
+		else if(gm.inpHor < -inpY_dn_jdge) {
+			stateNum = States.swooping;
+		}
 	}
 
 	// 急降下状態
 	public void Swooping()
 	{
+		// 大きさを縦に伸ばす
+		transform.localScale = new Vector2(1, 1 + Mathf.Abs(gm.inpHor) * size_big);
+
+		// 空気抵抗を少なくする
 		rb.drag = drag_swp;
+
+		// ノーマル状態に遷移
+		if(gm.inpHor > -inpY_dn_jdge && gm.inpHor < inpY_up_jdge) {
+			stateNum = States.normal;
+		}
+
 	}
 
 	// ふわふわ状態
 	public void Floating()
 	{
 		rb.drag = drag_flt;             // 空気抵抗追加
+
+		// ノーマル状態に遷移
+		if(gm.inpHor > -inpY_dn_jdge && gm.inpHor < inpY_up_jdge) {
+			stateNum = States.normal;
+		}
+
+		if(gm.inpHor > 0) {   // 下
+			transform.localScale = new Vector2(1 + Mathf.Abs(gm.inpHor) * size_big, 1);
+		}
 	}
 
-	//-------------------------------------------------------------------
-	// 地上にいる状態
-	public void Landing()
+
+	// 地上移動
+	void Landing()
 	{
-		// 回転しない
-		transform.rotation = Quaternion.identity;
+		transform.localScale = Vector2.one;
+
+		// 左移動時
+		if(gm.inpVer < 0) {
+			sr.flipX = false;
+		}
+
+		// 右移動時
+		else if(gm.inpVer > 0) {
+			sr.flipX = true;
+		}
+
+		else {
+			sr.flipX = false;
+		}
+	}
+
+	void Goaled()
+	{
+		transform.localScale = Vector2.one;
 	}
 
 	//-------------------------------------------------------------------
@@ -237,20 +216,23 @@ public class Pl_States : MonoBehaviour
 		// 敵
 		if (col.gameObject.tag == "Enemy") {
 			// ダメージ状態
-			isDamaging = true;
+			stateNum = States.damage;
 		}
 
 		// 床
-		if (col.gameObject.name == "Floor") {
-			isLanding = true;
-		}
+        if (col.gameObject.tag == "Floor") {
+			if(stateNum != States.jumping) {
+				stateNum = States.landing;
+			}
+
+        }
 	}
 
 	void OnCollisionExit2D(Collision2D col)
 	{
-		// 床
-		if (col.gameObject.name == "Floor") {
-			isLanding = false;
+		// 床から離れたら、通常状態に戻す
+		if(col.gameObject.tag == "Floor" && stateNum == States.landing) {
+			stateNum = States.normal;
 		}
 	}
 }

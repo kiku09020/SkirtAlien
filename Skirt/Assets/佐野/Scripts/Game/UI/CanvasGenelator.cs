@@ -7,7 +7,6 @@ using UnityEngine;
 public class CanvasGenelator : MonoBehaviour
 {
     /* オブジェクト */
-    GameObject goal_obj;
 
     /* コンポーネント取得用 */
     // プレハブ
@@ -15,14 +14,14 @@ public class CanvasGenelator : MonoBehaviour
     [SerializeField] GameObject cvsPref_game;
     [SerializeField] GameObject cvsPref_pause;
     [SerializeField] GameObject cvsPref_gameOver;
+    [SerializeField] GameObject cvsPref_goal;
 
     // インスタンス
     GameObject cvsInst_ctrl;
     GameObject cvsInst_game;        // gameUI
     GameObject cvsInst_pause;       // pause
     GameObject cvsInst_gameOver;    // gameOver
-
-    Goal_Ctrl goal;
+    GameObject cvsInst_goal;        // goal
 
     //-------------------------------------------------------------------
 
@@ -35,10 +34,8 @@ public class CanvasGenelator : MonoBehaviour
         cvsInst_pause = Instantiate(cvsPref_pause);
 
         cvsInst_pause.SetActive(false);
-        goal_obj = GameObject.Find("Goal");
 
         /* コンポーネント取得 */
-        goal = goal_obj.GetComponent<Goal_Ctrl>();
 
         /* 初期化 */
 
@@ -48,9 +45,7 @@ public class CanvasGenelator : MonoBehaviour
 
     void Update()
     {
-        if(goal.isGoaled) {
-            Goaled();
-        }
+
     }
 
     //-------------------------------------------------------------------
@@ -84,4 +79,12 @@ public class CanvasGenelator : MonoBehaviour
         cvsInst_ctrl.SetActive(false);
         cvsInst_game.SetActive(false);
     }
+
+    // ゴール時
+    public void Inst_Goal()
+	{
+        cvsInst_goal = Instantiate(cvsPref_goal);
+        cvsInst_ctrl.SetActive(false);
+        cvsInst_game.SetActive(false);
+	}
 }

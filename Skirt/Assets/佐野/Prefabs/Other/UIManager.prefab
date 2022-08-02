@@ -73,3 +73,4 @@ MonoBehaviour:
   cvsPref_game: {fileID: 5107872167746621915, guid: 1e38bf54f5967594c8253e44dfe003c1, type: 3}
   cvsPref_pause: {fileID: 1160045672351688827, guid: 1ae6257e9f65cdb40b42849256b6c034, type: 3}
   cvsPref_gameOver: {fileID: 8408683968174828191, guid: ad149883132a555469959155c156443d, type: 3}
+  cvsPref_goal: {fileID: 6029714600613156230, guid: d85d4dbc022c0614c9c10159df2249fa, type: 3}
