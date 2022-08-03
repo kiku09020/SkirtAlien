@@ -1,8 +1,6 @@
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 /* ★ゲーム全般の処理を行うスクリプトです
  * ・シーン管理
@@ -14,27 +12,12 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     /* 値 */
-    [Header("シーン関係")]
-    const int sceneCnt = 10;        // シーンの数
-    string[] sceneNames;            // 各シーン名の配列
-    public string nowSceneName;     // 現在のシーン名
-    public int sceneIndex;                 // 現在のシーン番号を取得
-
-    [Header("ステージ関係")]
-    const int stgCnt = 4;           // ステージの数
-    string[] stgNames;              // 各ステージ名の配列
-    public string nowStgName;       // 現在のステージ名
-
-    public float stg_length;        // ステージの長さ
-    public float stg_drag;          // ステージの空気抵抗(仮)
-    public float stg_grav;          // ステージの重力
-
     [Header("スマホ用の値")]
-    Joystick stick;    // スティック
-    public float inpVer, inpHor;      // スティックの入力値
-    public float inpVerOld, inpHorOld;
+    public float inpVer, inpHor;            // スティックの入力値
+    public float inpVerOld, inpHorOld;      // ひとつ前の入力値
+    Joystick stick;                         // スティック
 
-    /* フラグ */
+    [Header("フラグ")]
     public bool isGameOver;        // ゲームオーバー
     public bool isPaused;
 
@@ -42,10 +25,9 @@ public class GameManager : MonoBehaviour
 
     /* コンポーネント取得用 */
 
-
 //-------------------------------------------------------------------
 
-    void Start()
+    void Awake()
     {
         /* オブジェクト検索 */
 
@@ -53,8 +35,6 @@ public class GameManager : MonoBehaviour
         stick = GameObject.Find("Stick").GetComponent<Joystick>();
 
         /* 初期化 */
-        Stage();
-        Scene();
 
         isPaused = false;
     }
@@ -71,21 +51,4 @@ public class GameManager : MonoBehaviour
     }
 
 //-------------------------------------------------------------------
-
-    void Scene()
-	{
-        sceneIndex = SceneManager.GetActiveScene().buildIndex;
-
-        sceneNames = new string[10] { "Title", "Menu", "Stage1", "Stage2", "Stage3", "BossStage", "Clear", "Tutorial", "Debug", "" };
-        nowSceneName = sceneNames[sceneIndex];
-    }
-
-    // ステージごとの処理
-    void Stage()
-    {
-        // ステージ名
-        stgNames = new string[stgCnt] { "ステージ1", "ステージ2", "ステージ3", "ボスステージ" };
-    }
-
-
 }

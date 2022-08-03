@@ -112,7 +112,6 @@ public class Pl_Action : MonoBehaviour
             rb.AddForce(Vector2.up * 20);
            
         }
-        print(velY);
 
         SpdLimit();     // 速度制限
         Breaking();     // ブレーキ(慣性無視)
@@ -183,8 +182,6 @@ public class Pl_Action : MonoBehaviour
     //-------------------------------------------------------------------
     /* Pl_State内に呼び出す関数 */
 
-
-    //-------------------------------------------------------------------
     // ダメージ
     public void Damage()
     {
@@ -218,7 +215,6 @@ public class Pl_Action : MonoBehaviour
     public void Attack()
     {
         atkCnt++;      // カウンター増加
-        transform.localScale = new Vector2(1 + atkCnt * 0.01f, 1 + atkCnt * 0.01f);
 
         // 時間経過後、通常状態へ戻る
         if (atkCnt > atkTime) {

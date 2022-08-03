@@ -7,7 +7,8 @@ using UnityEngine;
 public class Pl_Anim : MonoBehaviour
 {
     /* 値 */
-
+    bool jump_Once;
+    bool atk_Once;
 
     /* ゲームオブジェクト */
     GameObject gm_obj;
@@ -45,60 +46,65 @@ public class Pl_Anim : MonoBehaviour
     {
         switch (pl_st.stateNum) {
             case Pl_States.States.normal:        // 通常時
-                anim.SetBool("isFloat", false);
-                anim.SetBool("isSwoop", false);
-                anim.SetBool("isDamaged", false);
-                anim.SetBool("isAttack", false);
-                anim.SetBool("isLanding", false);
-                anim.SetBool("isJumping", false);
-                anim.SetBool("isWalk", false);
-
+                anim.SetBool("walking", false);
+                anim.SetBool("landing", false);
+                jump_Once = false;
+                atk_Once = false;
                 break;
 
             //------------------------------
             case Pl_States.States.floating:      // ふわふわ
-                anim.SetBool("isFloat", true);
-
+                anim.SetTrigger("float");
+                anim.SetBool("walking", false);
+                anim.SetBool("landing", false);
                 break;
 
             //------------------------------
             case Pl_States.States.swooping:      // 急降下
-                anim.SetBool("isSwoop", true);
-
+                anim.SetTrigger("swoop");
+                anim.SetBool("walking", false);
+                anim.SetBool("landing", false);
                 break;
 
             //------------------------------
             case Pl_States.States.landing:       // 地上
-                anim.SetBool("isFloat", false);
-                anim.SetBool("isSwoop", false);
-
                 // 歩行
                 if (gm.inpVer != 0) {
-                    anim.SetBool("isWalk", true);
+                    anim.SetBool("walking", true);
+                    anim.SetBool("landing", false);
                 }
 
                 // 地上で停止
                 else {
-                    anim.SetBool("isLanding", true);
-                    anim.SetBool("isWalk", false);
+                    anim.SetBool("landing", true);
+                    anim.SetBool("walking", false);
+                }
+                break;
+
+            //------------------------------
+            case Pl_States.States.jumping:       // ジャンプ中
+
+                // 一度のみ再生
+                if (!jump_Once) {
+                    jump_Once = true;
+                    anim.SetTrigger("isJumping");
+                    anim.SetBool("landing", false);
                 }
 
                 break;
 
             //------------------------------
-            case Pl_States.States.jumping:       // ジャンプ中
-                anim.SetBool("isJumping", true);
-                anim.SetBool("isLanding", false);
-                break;
-
-            //------------------------------
             case Pl_States.States.attacking:     // 捕食中
-                anim.SetBool("isAttack", true);
+
+                if (!atk_Once) {
+                    atk_Once = true;
+                    anim.SetTrigger("isAttacking");
+                }
                 break;
 
             //------------------------------
             case Pl_States.States.damage:        // ダメージ時
-                anim.SetBool("isDamaged", true);
+                anim.SetTrigger("damaged");
                 break;
 
             //------------------------------

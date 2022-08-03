@@ -22,6 +22,7 @@ public class BG_Ctrl : MonoBehaviour
     Pl_States plst;
     Pl_Camera cam;
     GameManager gm;
+    StageManager stg;
 
 //-------------------------------------------------------------------
 
@@ -38,6 +39,7 @@ public class BG_Ctrl : MonoBehaviour
         plst = pl_obj.GetComponent<Pl_States>();
         cam = cam_obj.GetComponent<Pl_Camera>();
         gm = gm_obj.GetComponent<GameManager>();
+        stg = gm_obj.GetComponent<StageManager>();
 
         /* 初期化 */
     }
@@ -51,7 +53,7 @@ public class BG_Ctrl : MonoBehaviour
         // ゲームオーバー時、ゴール時は追尾しない
         if (!gm.isGameOver && plst.stateNum != Pl_States.States.goaled) {
             // 速度
-            scrlSpd = gm.stg_length - pl.transform.position.y;
+            scrlSpd = stg.stg_length - pl.transform.position.y;
             float y = Mathf.Repeat(-scrlSpd * spd / 100, 1);
 
             // オフセット

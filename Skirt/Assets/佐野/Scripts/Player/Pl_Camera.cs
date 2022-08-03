@@ -21,6 +21,7 @@ public class Pl_Camera : MonoBehaviour
     Player pl;
     Pl_States pl_st;
     GameManager gm;
+    StageManager stg;
 
 //-------------------------------------------------------------------
 
@@ -34,9 +35,10 @@ public class Pl_Camera : MonoBehaviour
         pl = pl_obj.GetComponent<Player>();
         pl_st = pl_obj.GetComponent<Pl_States>();
         gm = gm_obj.GetComponent<GameManager>();
+        stg = gm_obj.GetComponent<StageManager>();
 
         /* 初期化 */
-        transform.position = new Vector3(0, gm.stg_length, -10);
+        transform.position = new Vector3(0, stg.stg_length, -10);
     }
 
 //-------------------------------------------------------------------

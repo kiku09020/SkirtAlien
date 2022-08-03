@@ -1,12 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 /* ★ボタンに関するスクリプトです */
 public class Btn_Ctrl : MonoBehaviour
 {
     /* フラグ */
+
+    GameObject actbtn;
 
     /* オブジェクト */
     GameObject pl_obj;
@@ -15,8 +15,9 @@ public class Btn_Ctrl : MonoBehaviour
     /* コンポーネント取得用 */
     Pl_States pl_st;
 
-    CanvasGenelator cvsGen;
     GameManager gm;
+    SceneController sc;
+    CanvasGenelator cvsGen;
 
 //-------------------------------------------------------------------
 
@@ -30,6 +31,7 @@ public class Btn_Ctrl : MonoBehaviour
         pl_st = pl_obj.GetComponent<Pl_States>();
 
         gm = gm_obj.GetComponent<GameManager>();
+        sc = gm_obj.GetComponent<SceneController>();
         cvsGen = gm_obj.transform.GetChild(0).GetComponent<CanvasGenelator>();
 
         /* 初期化 */
@@ -55,6 +57,9 @@ public class Btn_Ctrl : MonoBehaviour
         }
     }
 
+    //-------------------------------------------------------------------
+    /* ポーズ画面内のボタン */
+
     // ポーズボタン
     public void Btn_Pause()
     {
@@ -75,9 +80,10 @@ public class Btn_Ctrl : MonoBehaviour
         }
     }
 
+    // リトライボタン
     public void Btn_Retry()
     {
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+        sc.SceneReload();
 
         Time.timeScale = 1;
 	}
@@ -88,9 +94,19 @@ public class Btn_Ctrl : MonoBehaviour
         gm.isPaused = false;
         Time.timeScale = 1;
 
-        SceneManager.LoadScene("Title");
+        sc.SceneLoading("Title");
     }
 
+    // --------------------------------------------------------------
+    /*  */
+    // ゴール時
+
+    public void Btn_NextStage()
+    {
+        sc.SceneNext();
+    }
+
+    //-------------------------------------------------------------------
     // アクションボタン
     public void Btn_Action()
 	{
@@ -104,8 +120,8 @@ public class Btn_Ctrl : MonoBehaviour
 
         }
 
-        // それ以外のときは、捕食
-        else if(pl_st.stateNum != Pl_States.States.jumping){
+        // 通常時のみ捕食
+        else if(pl_st.stateNum == Pl_States.States.normal){
             pl_st.stateNum = Pl_States.States.attacking;
 		}
 	}

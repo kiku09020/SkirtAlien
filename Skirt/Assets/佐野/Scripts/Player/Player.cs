@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
 
     /* コンポーネント取得用 */
     GameManager gm;
+    StageManager stg;
 
     Pl_States pl_st;
 
@@ -30,6 +31,7 @@ public class Player : MonoBehaviour
 
         /* コンポーネント取得 */
         gm          = gm_obj.GetComponent<GameManager>();
+        stg = gm_obj.GetComponent<StageManager>();
 
         pl_st       = GetComponent<Pl_States>();
 
@@ -37,7 +39,7 @@ public class Player : MonoBehaviour
 
         /* 初期化 */
         // スタート地点を、ステージの長さに合わせる
-        transform.position = new Vector2(0, gm.stg_length);
+        transform.position = new Vector2(0, stg.stg_length);
     }
 
     //-------------------------------------------------------------------

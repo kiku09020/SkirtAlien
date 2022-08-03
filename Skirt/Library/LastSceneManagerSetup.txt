@@ -1,5 +1,5 @@
 sceneSetups:
-- path: "Assets/\u4F50\u91CE/Scenes/DebugStage 1.unity"
+- path: "Assets/\u4F50\u91CE/Scenes/Stage/StageBoss.unity"
   isLoaded: 1
   isActive: 1
   isSubScene: 0
