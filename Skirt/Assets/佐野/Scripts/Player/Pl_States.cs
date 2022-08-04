@@ -43,7 +43,8 @@ public class Pl_States : MonoBehaviour
 	GameManager gm;
 
 	Pl_Action pl_act;
-	Pl_HP pl_hp;
+	Pl_HP hp;
+	Pl_Hunger hung;
 
 	//-------------------------------------------------------------------
 
@@ -59,7 +60,8 @@ public class Pl_States : MonoBehaviour
 		gm		= gm_obj.GetComponent<GameManager>();
 
 		pl_act	= GetComponent<Pl_Action>();
-		pl_hp	= GetComponent<Pl_HP>();
+		hp	= GetComponent<Pl_HP>();
+		hung = GetComponent<Pl_Hunger>();
 
 		/* 初期化 */
 		stateNum = States.normal;          // 状態
@@ -72,6 +74,8 @@ public class Pl_States : MonoBehaviour
 		if (stateNum != States.goaled && !gm.isGameOver) {
 			StateProc();
 		}
+
+		Debug.Log("<b><color=yellow>" + stateNum+"</color></b>");
 	}
 
 	//-------------------------------------------------------------------
@@ -92,7 +96,6 @@ public class Pl_States : MonoBehaviour
 				break;
 
 			case States.landing:	// 地上
-				pl_hp.Flg();
 				Landing();
 				break;
 
@@ -118,7 +121,7 @@ public class Pl_States : MonoBehaviour
 
 	// 通常状態
 	public void Normal()
-    {
+	{
 		// 元の大きさに戻す
 		transform.localScale = Vector2.one;
 
@@ -129,11 +132,11 @@ public class Pl_States : MonoBehaviour
 		rb.drag = drag_nml;
 
 		// 判定値(上)よりも大きくなったら、ふわふわ
-		if(gm.inpHor > inpY_up_jdge) {
+		if (gm.inpHor > inpY_up_jdge) {
 			stateNum = States.floating;
 		}
 		// 判定値(下)よりも小さくなったら、急降下
-		else if(gm.inpHor < -inpY_dn_jdge) {
+		else if (gm.inpHor < inpY_dn_jdge) {
 			stateNum = States.swooping;
 		}
 	}
@@ -141,34 +144,38 @@ public class Pl_States : MonoBehaviour
 	// 急降下状態
 	public void Swooping()
 	{
-		// 大きさを縦に伸ばす
+		// 縦に伸ばす
 		transform.localScale = new Vector2(1, 1 + Mathf.Abs(gm.inpHor) * size_big);
 
 		// 空気抵抗を少なくする
 		rb.drag = drag_swp;
 
+		// 満腹度処理
+		hung.HungDec_State();
+
 		// ノーマル状態に遷移
-		if(gm.inpHor > -inpY_dn_jdge && gm.inpHor < inpY_up_jdge) {
+		if(gm.inpHor > inpY_dn_jdge && gm.inpHor < inpY_up_jdge) {
 			stateNum = States.normal;
 		}
-
 	}
 
 	// ふわふわ状態
 	public void Floating()
 	{
-		rb.drag = drag_flt;             // 空気抵抗追加
+		// 横に伸ばす
+		transform.localScale = new Vector2(1 + Mathf.Abs(gm.inpHor) * size_big, 1);
+
+		// 空気抵抗追加
+		rb.drag = drag_flt;
+
+		// 満腹度処理
+		hung.HungDec_State();
 
 		// ノーマル状態に遷移
-		if(gm.inpHor > -inpY_dn_jdge && gm.inpHor < inpY_up_jdge) {
+		if (gm.inpHor > inpY_dn_jdge && gm.inpHor < inpY_up_jdge) {
 			stateNum = States.normal;
 		}
-
-		if(gm.inpHor > 0) {   // 下
-			transform.localScale = new Vector2(1 + Mathf.Abs(gm.inpHor) * size_big, 1);
-		}
 	}
-
 
 	// 地上移動
 	void Landing()
@@ -190,12 +197,31 @@ public class Pl_States : MonoBehaviour
 		}
 	}
 
+	// ゴール時の処理
 	void Goaled()
 	{
 		transform.localScale = Vector2.one;
 	}
 
 	//-------------------------------------------------------------------
+
+	// ボタン押したときの処理
+	public void Act()
+    {
+		// 地上にいたらジャンプする
+		if (stateNum == States.landing) {
+			 stateNum = States.jumping;
+		}
+
+		// 通常時のみ捕食
+		else if (stateNum == States.normal) {
+			stateNum = States.attacking;
+			hung.HungDec_Atk();
+		}
+	}
+
+	//-------------------------------------------------------------------
+	
 	void OnCollisionStay2D(Collision2D col)
 	{
 		// 敵
@@ -203,12 +229,21 @@ public class Pl_States : MonoBehaviour
 			// ダメージ状態
 			stateNum = States.damage;
 		}
+
+		// 床
+		if (col.gameObject.tag == "Floor" && (
+			stateNum == States.normal ||
+			stateNum == States.floating ||
+			stateNum == States.swooping)) {
+			stateNum = States.landing;
+		}
 	}
 
     void OnCollisionExit2D(Collision2D col)
     {
-		if (col.gameObject.tag == "Floor" && stateNum != States.jumping) {
+		if (col.gameObject.tag == "Floor" &&
+			stateNum != States.jumping && stateNum != States.damage) {
 			stateNum = States.normal;
-        }
-    }
+		}
+	}
 }

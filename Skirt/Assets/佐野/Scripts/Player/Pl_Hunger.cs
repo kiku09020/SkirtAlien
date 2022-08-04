@@ -5,19 +5,14 @@ using UnityEngine.UI;
 
 /* ★満腹度に関するスクリプトです */
 //-------------------------------------------------------------------
-public class Pl_Hunger : MonoBehaviour
-{
+public class Pl_Hunger : MonoBehaviour {
     [Header("満腹度")]
-    [SerializeField] int   hungLv;   // 現在の満腹度レベル
-    [SerializeField] float nowHung;     // 満腹度の数値
-    [SerializeField] float decVal;      // 満腹度減らす量
-    float hungMax = 100;                // 最大満腹度
+    [SerializeField] float nowHung;                 // 満腹度の数値
+                     float hungMax = 100;           // 最大満腹度
 
-    [Header("スカートサイズ")]
-    float size_one = 3;   //lv1
-    float size_two = 4;   //lv2
-    float size_thr = 5;   //lv3
-    public float skirtSize;
+    [SerializeField] float hungValDec_State;           // 一度に減らす量(ふわふわ、急降下中)
+    [SerializeField] float hungValDec_Atk;          // 一度に減らす量(捕食時)
+    [SerializeField] float hungIncVal;              // 一度に増やす量
 
     [Header("フラグ")]
     [SerializeField] bool decFlg;       // 減ってるとき
@@ -29,9 +24,9 @@ public class Pl_Hunger : MonoBehaviour
 
     /* コンポーネント取得用 */
     Image hungImage;
-    Player pl;
+    Pl_HP hp;
 
-//-------------------------------------------------------------------
+    //-------------------------------------------------------------------
 
     void Start()
     {
@@ -41,45 +36,47 @@ public class Pl_Hunger : MonoBehaviour
 
         /* コンポーネント取得 */
         hungImage = hungbar_obj.GetComponent<Image>();
-        pl = pl_obj.GetComponent<Player>();
+
+        hp = pl_obj.GetComponent<Pl_HP>();
 
         /* 初期化 */
         nowHung = hungMax;
-        hungLv = 1;
     }
 
-//-------------------------------------------------------------------
+    //-------------------------------------------------------------------
 
-    void Update()
+    void FixedUpdate()
     {
-        // 満腹度バー更新
+        HungDisp();
+    }
+
+    //-------------------------------------------------------------------
+    // 満腹度バー更新
+    void HungDisp()
+    {
         hungImage.fillAmount = nowHung / hungMax;
     }
 
-//-------------------------------------------------------------------
+    // 減らす(状態)
+    public  void HungDec_State()
+    {
+        nowHung -= hungValDec_State;
+    }
 
-    // レベル変更時の処理
-    void ChangeLevel()
-	{
-        // 満腹度レベルごとの処理
-        switch(hungLv)
-        {
-            
-            case 1:     // レベル1
-                skirtSize = size_one;
-            break;
+    // 減らす(捕食)
+    public void HungDec_Atk()
+    {
+        nowHung -= hungValDec_Atk;
+    }
 
-            // ----------------------------
+    // 増やす
+    public void HungInc()
+    {
+        nowHung += hungIncVal;
 
-            case 2:     // レベル2
-                skirtSize = size_two;
-            break;
-
-            // ----------------------------
-
-            case 3:     // レベル3
-                skirtSize = size_thr;
-            break;
+        // 最大値よりも大きくなったら、戻す
+        if (nowHung > hungMax) {
+            nowHung = hungMax;
         }
-	}
+    }
 }

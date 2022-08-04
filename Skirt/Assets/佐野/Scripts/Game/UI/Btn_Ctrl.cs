@@ -110,19 +110,6 @@ public class Btn_Ctrl : MonoBehaviour
     // アクションボタン
     public void Btn_Action()
 	{
-        // 地上にいたらジャンプする
-        if(pl_st.stateNum == Pl_States.States.landing) {
-            pl_st.stateNum = Pl_States.States.jumping;
-        }
-
-        // ダメージ時はなにもしない
-        else if(pl_st.stateNum == Pl_States.States.damage) {
-
-        }
-
-        // 通常時のみ捕食
-        else if(pl_st.stateNum == Pl_States.States.normal){
-            pl_st.stateNum = Pl_States.States.attacking;
-		}
+        pl_st.Act();
 	}
 }

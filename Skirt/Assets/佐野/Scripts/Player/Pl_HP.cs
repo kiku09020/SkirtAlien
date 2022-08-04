@@ -13,8 +13,6 @@ public class Pl_HP : MonoBehaviour
 
     [Header("表示関係")]
     [SerializeField] float dispDec      = 0.1f; // 表示HPを減らす量
-    [SerializeField] float dispDecDif   = 10;   // 減らす速度が速くなる、表示HPと現HPの差 
-    [SerializeField] float dispDecTime  = 2;    // ダメージくらってから減らすまでの時間
                      float dispHP;              // 表示HP
 
     [Header("回復関係")]
@@ -24,7 +22,6 @@ public class Pl_HP : MonoBehaviour
     [SerializeField] float dmg          = 20;   // ダメージ
 
     /* フラグ */
-    bool decFlg;        // 減ってるときのフラグ
 
     /* オブジェクト */
     GameObject hpGauge;
@@ -62,25 +59,14 @@ public class Pl_HP : MonoBehaviour
     // HPセット
     void HP_Set()
     {
-        if (decFlg) {
-
+        // 表示HPが今のHPよりも大きかったら、表示HP減らす
+        if (nowHP < dispHP) {
+            dispHP -= dispDec;
         }
 
-        else {
-            // 表示HPが今のHPよりも大きかったら、表示HP減らす
-            if (nowHP < dispHP) {
-                if ((dispHP - nowHP) < dispDecDif) {
-                    dispHP -= dispDec;
-                }
-                else {
-                    dispHP -= dispDec * 2;
-                }
-            }
-
-            // 表示HP = 今のHPだったら揃える
-            else if (dispHP == nowHP) {
-                dispHP = nowHP;
-            }
+        // 表示HP = 今のHPだったら揃える
+        else if (dispHP == nowHP) {
+            dispHP = nowHP;
         }
 
         // 表示
@@ -91,13 +77,11 @@ public class Pl_HP : MonoBehaviour
     // 回復
     public void HP_Heal()
     {
-        // 最大HP以下のとき回復
-        if(nowHP < maxHP) {
-            nowHP += heal;
-        }
+        // 回復
+        nowHP += heal;
 
-        // 最大HP以上だったら、最大HPにもどす
-        else {
+        // 最大HPより大きかったら、戻す
+        if (nowHP > maxHP) {
             nowHP = maxHP;
         }
     }
@@ -108,20 +92,7 @@ public class Pl_HP : MonoBehaviour
     public void HP_Damage()
     {
         nowHP -= dmg;
-        decFlg = true;
     }
 
     //-------------------------------------------------------------------
-
-    // 離したとき
-    public void Flg()
-    {
-        StartCoroutine("Flg_");
-    }
-
-    IEnumerator Flg_()
-    {
-        yield return new WaitForSeconds(dispDecTime);       // 待つ
-        decFlg = false;         // 減らす
-    }
 }

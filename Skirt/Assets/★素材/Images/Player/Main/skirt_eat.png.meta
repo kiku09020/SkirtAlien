@@ -1,5 +1,8 @@
 fileFormatVersion: 2
 guid: 5c9e4ec2eb03b0a489ad9824ffea00c5
+labels:
+- Character
+- Player
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -284,5 +287,5 @@ TextureImporter:
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
   userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+  assetBundleName: player
+  assetBundleVariant: player

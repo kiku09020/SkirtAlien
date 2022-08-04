@@ -14,16 +14,16 @@ public class Pl_Btm : MonoBehaviour
     GameObject pl_obj;
 
     /* コンポーネント取得用 */
-    Pl_States pl_st;
-    Pl_HP pl_hp;
+    Pl_States st;
+    Pl_Hunger hung;
 
 //-------------------------------------------------------------------
 
     void Start()
     {
         pl_obj = transform.parent.gameObject;
-        pl_st = pl_obj.GetComponent<Pl_States>();
-        pl_hp = pl_obj.GetComponent<Pl_HP>();
+        st = pl_obj.GetComponent<Pl_States>();
+        hung = pl_obj.GetComponent<Pl_Hunger>();
     }
 
     //-------------------------------------------------------------------
@@ -33,15 +33,30 @@ public class Pl_Btm : MonoBehaviour
         // 敵
         if (col.tag == "Enemy" ){
             // 攻撃したら消える
-            if(pl_st.stateNum == Pl_States.States.attacking){
-                pl_hp.HP_Heal();
+            if(st.stateNum == Pl_States.States.attacking){
+                hung.HungInc();
                 Destroy(col.gameObject);
             }
         }
 
+        /*
         // 床
-        if (col.tag == "Floor" && pl_st.stateNum != Pl_States.States.jumping) {
-            pl_st.stateNum = Pl_States.States.landing;
+        if (col.tag == "Floor" && ( 
+            st.stateNum == Pl_States.States.normal   ||
+            st.stateNum == Pl_States.States.floating ||
+            st.stateNum == Pl_States.States.swooping )) {
+            st.stateNum = Pl_States.States.landing;
+        }
+        */
+    }
+
+    /*
+    void OnTriggerExit2D(Collider2D col)
+    {
+        if (col.gameObject.tag == "Floor" &&
+            st.stateNum != Pl_States.States.jumping && st.stateNum != Pl_States.States.damage) {
+            st.stateNum = Pl_States.States.normal;
         }
     }
+    */
 }

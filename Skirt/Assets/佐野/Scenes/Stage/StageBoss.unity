@@ -233,30 +233,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1919153456624284991, guid: cccadfe19c55b344ab27354fd0dc8100, type: 3}
-      propertyPath: stick
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3558443101835374046, guid: cccadfe19c55b344ab27354fd0dc8100, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3558443101835374046, guid: cccadfe19c55b344ab27354fd0dc8100, type: 3}
-      propertyPath: txt_dbg_cam
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3558443101835374046, guid: cccadfe19c55b344ab27354fd0dc8100, type: 3}
-      propertyPath: txt_stgName
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3696198401535402249, guid: cccadfe19c55b344ab27354fd0dc8100, type: 3}
-      propertyPath: bg_parent
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8585331921804387304, guid: cccadfe19c55b344ab27354fd0dc8100, type: 3}
-      propertyPath: stick
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 8585331921804387305, guid: cccadfe19c55b344ab27354fd0dc8100, type: 3}
       propertyPath: m_RootOrder
       value: 0

@@ -35,7 +35,7 @@ public class Pl_Anim : MonoBehaviour
 
 //-------------------------------------------------------------------
 
-    void Update()
+    void FixedUpdate()
     {
         StatesAnim();
     }

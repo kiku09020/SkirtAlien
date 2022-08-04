@@ -86,6 +86,7 @@ GameObject:
   - component: {fileID: 2283851557005410474}
   - component: {fileID: 1493154652}
   - component: {fileID: 5297649651518445171}
+  - component: {fileID: 3942020655683820548}
   - component: {fileID: 7752226494457446854}
   - component: {fileID: 8190699613534235346}
   m_Layer: 8
@@ -236,6 +237,7 @@ MonoBehaviour:
   spdMax: 7.5
   moveDec: 0.96
   moveRot: 15
+  velY: 0
   invTime: 120
   dmgJumpForce: 300
   atkTime: 60
@@ -255,7 +257,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stateNum: 0
   inpY_up_jdge: 0.6
-  inpY_dn_jdge: 0.6
+  inpY_dn_jdge: -0.6
   drag_flt: 0.5
   drag_swp: 0
   size_big: 1.2
@@ -272,11 +274,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nowHP: 100
-  dispDec: 0.2
-  dispDecDif: 15
-  dispDecTime: 1
+  dispDec: 0.3
   heal: 10
-  dmg: 50
+  dmg: 20
+--- !u!114 &3942020655683820548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2296475401055147467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7267244b27d975438f26a83cc1402f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nowHung: 0
+  hungValDec_State: 0.15
+  hungValDec_Atk: 5
+  hungIncVal: 15
+  decFlg: 0
+  incFlg: 0
 --- !u!114 &7752226494457446854
 MonoBehaviour:
   m_ObjectHideFlags: 0

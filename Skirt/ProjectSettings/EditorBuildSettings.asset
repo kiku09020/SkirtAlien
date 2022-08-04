@@ -6,11 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: "Assets/\u4F50\u91CE/Scenes/Title.unity"
+    path: "Assets/\u4F50\u91CE/Scenes/OutGame/Title.unity"
     guid: c9b123de345237b4e86884533b7f96be
   - enabled: 1
-    path: "Assets/\u4F50\u91CE/Scenes/Menu.unity"
-    guid: bb57a95a0cb2aa340a7c75a9efd6ed54
+    path: "Assets/\u4F50\u91CE/Scenes/OutGame/Tutorial.unity"
+    guid: b530145835608d24fafc4453bd2a0606
   - enabled: 1
     path: "Assets/\u4F50\u91CE/Scenes/Stage/Stage1.unity"
     guid: e3dcfa6a0bda9b04cb3e5be561514b9a
@@ -24,12 +24,12 @@ EditorBuildSettings:
     path: "Assets/\u4F50\u91CE/Scenes/Stage/StageBoss.unity"
     guid: 7c4823952e40baf4ea90ce17ae082439
   - enabled: 1
-    path: "Assets/\u4F50\u91CE/Scenes/Clear.unity"
+    path: "Assets/\u4F50\u91CE/Scenes/OutGame/Clear.unity"
     guid: fc076fe2e62934e42badab5e24e4466a
   - enabled: 1
-    path: "Assets/\u4F50\u91CE/Scenes/Tutorial.unity"
-    guid: b530145835608d24fafc4453bd2a0606
-  - enabled: 1
-    path: "Assets/\u4F50\u91CE/Scenes/DebugStage.unity"
+    path: "Assets/\u4F50\u91CE/Scenes/!Debug/DebugStage.unity"
     guid: 51a8ecc6866c8b148b5b7599219b8376
+  - enabled: 1
+    path: "Assets/\u4F50\u91CE/Scenes/OutGame/Menu.unity"
+    guid: bb57a95a0cb2aa340a7c75a9efd6ed54
   m_configObjects: {}

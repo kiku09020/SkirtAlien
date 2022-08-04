@@ -35,8 +35,6 @@ public class StageManager : MonoBehaviour
         FindObj();
         GetComp();
 
-        Stage();
-
         /* 初期化 */
         stg_length = 3000;
     }
@@ -46,7 +44,6 @@ public class StageManager : MonoBehaviour
     {
         sldr_obj = GameObject.Find("StageSlider");
         pl_obj = GameObject.Find("Player");
-
     }
 
     /* コンポーネント取得 */
@@ -54,25 +51,15 @@ public class StageManager : MonoBehaviour
     {
         sldr = sldr_obj.GetComponent<Slider>();
         pl = pl_obj.GetComponent<Player>();
-
-
     }
 
     //-------------------------------------------------------------------
-
     void Update()
     {
         Slider();
     }
 
     //-------------------------------------------------------------------
-    // ステージごとの処理
-    void Stage()
-    {
-        // ステージ名
-        stgNames = new string[stgCnt] { "ステージ1", "ステージ2", "ステージ3", "ボスステージ" };
-    }
-
     void Slider()
     {
         sldr.value = 1 - (pl.gameObject.transform.position.y / stg_length);

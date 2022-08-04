@@ -1,5 +1,7 @@
 fileFormatVersion: 2
 guid: 73c95cd46eedf8c4194845828cc8bd1d
+labels:
+- Player
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 7400000

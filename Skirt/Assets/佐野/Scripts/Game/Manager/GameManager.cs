@@ -13,7 +13,8 @@ public class GameManager : MonoBehaviour
 {
     /* 値 */
     [Header("スマホ用の値")]
-    public float inpVer, inpHor;            // スティックの入力値
+    public float inpVer;                    // 垂直(縦)
+    public float inpHor;                    // 平行(横)
     public float inpVerOld, inpHorOld;      // ひとつ前の入力値
     Joystick stick;                         // スティック
 
