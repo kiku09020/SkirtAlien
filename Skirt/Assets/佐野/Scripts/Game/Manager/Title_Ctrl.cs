@@ -45,4 +45,10 @@ public class Title_Ctrl : MonoBehaviour
         SceneManager.LoadScene("Stage1");
     }
 
+    // デバッグステージ
+    public void Btn_Dbg()
+    {
+        SceneManager.LoadScene("DebugStage");
+	}
+
 }

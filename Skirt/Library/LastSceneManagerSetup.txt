@@ -1,5 +1,5 @@
 sceneSetups:
-- path: "Assets/\u677E\u539F/Scenes/EnemyDebugStage.unity"
+- path: "Assets/\u4F50\u91CE/Scenes/!Debug/DebugStage.unity"
   isLoaded: 1
   isActive: 1
   isSubScene: 0

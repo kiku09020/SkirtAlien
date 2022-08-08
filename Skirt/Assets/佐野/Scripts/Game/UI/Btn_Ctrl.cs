@@ -1,42 +1,40 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 /* ★ボタンに関するスクリプトです */
 public class Btn_Ctrl : MonoBehaviour
 {
-    /* 値 */
-
-
     /* フラグ */
-    public bool isPause;
+
+    GameObject actbtn;
 
     /* オブジェクト */
-    public GameObject stick;
-    GameObject hpBar;
-    GameObject atkBtn;
-
-    [SerializeField] GameObject pauseUI_pref;   // Canvasのプレハブ
-                     GameObject pauseUI_inst;   // Canvasのインスタンス
-
+    GameObject pl_obj;
+    GameObject gm_obj;
 
     /* コンポーネント取得用 */
+    Pl_States pl_st;
+
+    GameManager gm;
+    SceneController sc;
+    CanvasGenelator cvsGen;
 
 //-------------------------------------------------------------------
 
     void Start()
     {
         /* オブジェクト検索 */
-        hpBar = GameObject.Find("HPGauge"); 
-        atkBtn= GameObject.Find("Btn_Attack");
+        pl_obj = GameObject.Find("Player");
+        gm_obj = GameObject.Find("GameManager");
 
         /* コンポーネント取得 */
+        pl_st = pl_obj.GetComponent<Pl_States>();
+
+        gm = gm_obj.GetComponent<GameManager>();
+        sc = gm_obj.GetComponent<SceneController>();
+        cvsGen = gm_obj.transform.GetChild(0).GetComponent<CanvasGenelator>();
 
         /* 初期化 */
-        isPause = false;
-        pauseUI_inst = Instantiate(pauseUI_pref, Vector2.zero, Quaternion.identity);
-        pauseUI_inst.SetActive(false);
     }
 
 //-------------------------------------------------------------------
@@ -59,37 +57,33 @@ public class Btn_Ctrl : MonoBehaviour
         }
     }
 
+    //-------------------------------------------------------------------
+    /* ポーズ画面内のボタン */
+
     // ポーズボタン
     public void Btn_Pause()
     {
         // 停止中のとき
-		if(isPause) {
-            isPause = false;
+		if(gm.isPaused) {
+            gm.isPaused = false;
             Time.timeScale = 1;
 
-            pauseUI_inst.SetActive(false);
-            stick.SetActive(true);
-            atkBtn.SetActive(true);
-            hpBar.SetActive(true);
+            cvsGen.Pause();
         }
 
         // 停止してないとき
 		else {
-            isPause = true;
+            gm.isPaused = true;
             Time.timeScale = 0;
 
-            pauseUI_inst.SetActive(true);
-            stick.SetActive(false);
-            atkBtn.SetActive(false);
-            hpBar.SetActive(false);
+            cvsGen.UnPause();
         }
-
-        Debug.Log(isPause);
     }
 
+    // リトライボタン
     public void Btn_Retry()
     {
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+        sc.SceneReload();
 
         Time.timeScale = 1;
 	}
@@ -97,9 +91,25 @@ public class Btn_Ctrl : MonoBehaviour
     // ポーズボタン/終了
     public void Btn_Quit()
     {
-        isPause = false;
+        gm.isPaused = false;
         Time.timeScale = 1;
 
-        SceneManager.LoadScene("Title");
+        sc.SceneLoading("Title");
     }
+
+    // --------------------------------------------------------------
+    /*  */
+    // ゴール時
+
+    public void Btn_NextStage()
+    {
+        sc.SceneNext();
+    }
+
+    //-------------------------------------------------------------------
+    // アクションボタン
+    public void Btn_Action()
+	{
+        pl_st.Act();
+	}
 }
