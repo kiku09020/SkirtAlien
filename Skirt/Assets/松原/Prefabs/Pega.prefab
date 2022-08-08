@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5682989839391005249}
   - component: {fileID: 7638256809617132748}
   m_Layer: 0
-  m_Name: Circle
+  m_Name: Pega
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -100,12 +100,12 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 5
 --- !u!58 &5682989839391005249
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -134,7 +134,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8ec3b9b0166be446a6ba36464caf1b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spd: 1
-  y1: 3000
-  y2: 2995
-  moveforce: 30
+  moveSpeed: 5
+  moveDist: 5
