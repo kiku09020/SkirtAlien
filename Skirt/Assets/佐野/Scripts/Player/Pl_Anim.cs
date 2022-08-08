@@ -94,12 +94,17 @@ public class Pl_Anim : MonoBehaviour
                 break;
 
             //------------------------------
-            case Pl_States.States.attacking:     // 捕食中
+            case Pl_States.States.eating:     // 捕食中
 
                 if (!atk_Once) {
                     atk_Once = true;
                     anim.SetTrigger("isAttacking");
                 }
+                break;
+
+            //------------------------------
+            case Pl_States.States.digest:       // 
+
                 break;
 
             //------------------------------

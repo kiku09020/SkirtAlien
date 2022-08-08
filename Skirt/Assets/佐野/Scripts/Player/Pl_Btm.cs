@@ -33,13 +33,12 @@ public class Pl_Btm : MonoBehaviour
         // 敵
         if (col.tag == "Enemy" ){
             // 攻撃したら消える
-            if(st.stateNum == Pl_States.States.attacking){
+            if(st.stateNum == Pl_States.States.eating){
                 hung.HungInc();
                 Destroy(col.gameObject);
             }
         }
 
-        /*
         // 床
         if (col.tag == "Floor" && ( 
             st.stateNum == Pl_States.States.normal   ||
@@ -47,7 +46,6 @@ public class Pl_Btm : MonoBehaviour
             st.stateNum == Pl_States.States.swooping )) {
             st.stateNum = Pl_States.States.landing;
         }
-        */
     }
 
     /*

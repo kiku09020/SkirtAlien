@@ -23,9 +23,12 @@ public class Pl_Action : MonoBehaviour
     [SerializeField] float dmgJumpForce = 300;      // ダメージ時のジャンプ力
     int dmgCnt;
 
-    [Header("攻撃")]
-    [SerializeField] float atkTime      = 60;       // 攻撃の長さ
-    int atkCnt;
+    [Header("捕食")]
+    [SerializeField] float eatTime      = 60;       // 捕食の長さ
+    int eatCnt;
+
+    [Header("消化")]
+    [SerializeField] int digBtnCntMax = 10;         // 消化ボタン押す数
 
     [Header("ジャンプ")]
     [SerializeField] float jumpForce    = 50;       // ジャンプ力
@@ -211,18 +214,24 @@ public class Pl_Action : MonoBehaviour
         }
     }
 
-    // アタック
-    public void Attack()
+    // 捕食
+    public void Eating()
     {
-        atkCnt++;      // カウンター増加
+        eatCnt++;      // カウンター増加
 
         // 時間経過後、通常状態へ戻る
-        if (atkCnt > atkTime) {
-            atkCnt = 0;
+        if (eatCnt > eatTime) {
+            eatCnt = 0;
 
             pl_st.stateNum = Pl_States.States.normal;
         }
     }
+
+    // 消化
+    public void Digest()
+	{
+
+	}
 
     // ジャンプ
     public void Jump()

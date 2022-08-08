@@ -16,7 +16,8 @@ public class Pl_States : MonoBehaviour
 		swooping,		// 急降下
 		landing,		// 地上
 		jumping,		// ジャンプ中
-		attacking,		// アタック
+		eating,			// アタック
+		digest,			// 消化
 		damage,			// 被ダメージ
 		goaled,			// ゴール後
 	}
@@ -103,8 +104,12 @@ public class Pl_States : MonoBehaviour
 				pl_act.Jump();
 				break;
 
-			case States.attacking:	// アタック中
-				pl_act.Attack();
+			case States.eating:		// 捕食中
+				pl_act.Eating();
+				break;
+
+			case States.digest:		// 消化
+
 				break;
 
 			case States.damage:		// 被ダメージ
@@ -215,7 +220,7 @@ public class Pl_States : MonoBehaviour
 
 		// 通常時のみ捕食
 		else if (stateNum == States.normal) {
-			stateNum = States.attacking;
+			stateNum = States.eating;
 			hung.HungDec_Atk();
 		}
 	}
@@ -228,14 +233,6 @@ public class Pl_States : MonoBehaviour
 		if (col.gameObject.tag == "Enemy") {
 			// ダメージ状態
 			stateNum = States.damage;
-		}
-
-		// 床
-		if (col.gameObject.tag == "Floor" && (
-			stateNum == States.normal ||
-			stateNum == States.floating ||
-			stateNum == States.swooping)) {
-			stateNum = States.landing;
 		}
 	}
 
