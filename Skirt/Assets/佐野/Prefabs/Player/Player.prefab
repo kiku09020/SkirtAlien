@@ -242,7 +242,7 @@ MonoBehaviour:
   invTime: 120
   dmgJumpForce: 300
   eatTime: 60
-  digBtnCntMax: 10
+  digBtnCntMax: 5
   jumpForce: 500
   jumpTime: 30
 --- !u!114 &1493154652

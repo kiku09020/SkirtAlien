@@ -95,6 +95,7 @@ public class Pl_Anim : MonoBehaviour
                     jump_Once = true;
                     anim.SetTrigger("jumping");
                     anim.SetBool("landing", false);
+                    anim.SetBool("walking", false);
                 }
 
                 break;
@@ -105,6 +106,8 @@ public class Pl_Anim : MonoBehaviour
                 if (!atk_Once) {
                     atk_Once = true;
                     anim.SetTrigger("attacking");
+                    DOTween.Sequence()  .Append(transform.DOScale(new Vector2(2f, 1.5f), 0.4f).SetEase(Ease.OutCirc))
+                                        .Append(transform.DOScale(new Vector2(1f, 1f), 0.25f).SetEase(Ease.OutCirc));
                 }
                 break;
 

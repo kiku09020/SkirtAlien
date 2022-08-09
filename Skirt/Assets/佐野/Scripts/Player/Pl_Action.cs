@@ -238,7 +238,7 @@ public class Pl_Action : MonoBehaviour
     // 消化
     public void Digest()
 	{
-        
+        transform.rotation = Quaternion.identity;
     }
 
     public void Digest_Btn()
