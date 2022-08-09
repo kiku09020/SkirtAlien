@@ -12,7 +12,8 @@ public class Pl_Action : MonoBehaviour
 {
     /* 値 */
     [Header("移動")]
-    [SerializeField] float moveForce    = 7;        // 移動に加える力
+    public float startSpd = 7;
+    [HideInInspector] public float moveSpd;        // 移動に加える力
     [SerializeField] float spdMax       = 7.5f;     // 最大速度
     [SerializeField] float moveDec      = 0.96f;    // 減速度
     [SerializeField] float moveRot      = 15;       // 移動時の回転角度
@@ -29,6 +30,7 @@ public class Pl_Action : MonoBehaviour
 
     [Header("消化")]
     [SerializeField] int digBtnCntMax = 10;         // 消化ボタン押す数
+    int digBtnCnt;                                  // ボタン押された回数
 
     [Header("ジャンプ")]
     [SerializeField] float jumpForce    = 50;       // ジャンプ力
@@ -53,9 +55,11 @@ public class Pl_Action : MonoBehaviour
     GameManager     gm;
     Goal_Ctrl       goal;
 
-    Pl_States       pl_st;
-    Pl_HP           pl_hp;
+    Pl_States       st;
+    Pl_HP           hp;
+    Pl_Hunger       hung;
     Pl_Camera       cam;        // カメラ
+    Pl_Anim anim;
 
     //-------------------------------------------------------------------
 
@@ -73,13 +77,15 @@ public class Pl_Action : MonoBehaviour
         gm          = gm_obj.GetComponent<GameManager>();
         goal        = goal_obj.GetComponent<Goal_Ctrl>();
 
-        pl_st       = GetComponent<Pl_States>();
-        pl_hp       = GetComponent<Pl_HP>();
+        st       = GetComponent<Pl_States>();
+        hp       = GetComponent<Pl_HP>();
+        hung = GetComponent<Pl_Hunger>();
+        anim = GetComponent<Pl_Anim>();
 
         cam         = cam_obj.GetComponent<Pl_Camera>();
 
         /* 初期化 */
-
+        moveSpd = startSpd;
     }
 
     //-------------------------------------------------------------------
@@ -92,9 +98,12 @@ public class Pl_Action : MonoBehaviour
             pos = transform.position;       // 位置
             vel = rb.velocity;              // 速度
 
-            Move();
-            Rotate();
-            OutScr();
+            if (st.stateNum != Pl_States.States.digest) {
+                Move();
+                Rotate();
+            }
+
+                OutScr();
         }
 
         // ゲームオーバー時に不透明にする
@@ -109,7 +118,7 @@ public class Pl_Action : MonoBehaviour
     void Move()
     {
         // 移動
-        rb.AddForce(Vector2.right * gm.inpVer * moveForce);
+        rb.AddForce(Vector2.right * gm.inpVer * moveSpd);
 
         if (velY < -100) {
             rb.AddForce(Vector2.up * 20);
@@ -153,7 +162,7 @@ public class Pl_Action : MonoBehaviour
     // 回転
     void Rotate()
     {
-        if(pl_st.stateNum == Pl_States.States.landing) {
+        if(st.stateNum == Pl_States.States.landing) {
             transform.rotation = Quaternion.identity;
         }
 
@@ -194,7 +203,7 @@ public class Pl_Action : MonoBehaviour
 
         // ダメージくらった瞬間
         if (dmgCnt == 1) {
-            pl_hp.HP_Damage();
+            hp.HP_Damage();
             rb.AddForce(Vector2.up * dmgJumpForce);         // 少し飛ばす
         }
 
@@ -210,7 +219,7 @@ public class Pl_Action : MonoBehaviour
         // ダメージ処理終了
         if (dmgCnt > invTime) {
             dmgCnt = 0;
-            pl_st.stateNum = Pl_States.States.normal;
+            st.stateNum = Pl_States.States.normal;
         }
     }
 
@@ -222,16 +231,30 @@ public class Pl_Action : MonoBehaviour
         // 時間経過後、通常状態へ戻る
         if (eatCnt > eatTime) {
             eatCnt = 0;
-
-            pl_st.stateNum = Pl_States.States.normal;
+            st.stateNum = Pl_States.States.normal;
         }
     }
 
     // 消化
     public void Digest()
 	{
+        transform.rotation = Quaternion.identity;
+    }
 
-	}
+    public void Digest_Btn()
+    {
+        print(digBtnCnt);
+
+        if (digBtnCnt < digBtnCntMax) {
+            digBtnCnt++;
+            anim.DigBtnAnim();          // クリック時に再生
+        }
+        else {
+            st.stateNum = Pl_States.States.normal;
+            hung.HungInc();
+            digBtnCnt = 0;
+        }
+    }
 
     // ジャンプ
     public void Jump()
@@ -246,7 +269,7 @@ public class Pl_Action : MonoBehaviour
         // 解除
         if(jumpCnt > jumpTime) {
             jumpCnt = 0;
-            pl_st.stateNum = Pl_States.States.normal;
+            st.stateNum = Pl_States.States.normal;
         }
     }
 }
