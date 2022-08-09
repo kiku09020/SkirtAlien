@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /* ★プレイヤーの下部に敵がいるかどうかを確認するスクリプトです
@@ -34,27 +32,28 @@ public class Pl_Btm : MonoBehaviour
         if (col.tag == "Enemy" ){
             // 攻撃したら消える
             if(st.stateNum == Pl_States.States.eating){
-                hung.HungInc();
+                st.stateNum = Pl_States.States.digest;      // 消化状態にする
+                
                 Destroy(col.gameObject);
             }
         }
 
         // 床
-        if (col.tag == "Floor" && ( 
-            st.stateNum == Pl_States.States.normal   ||
-            st.stateNum == Pl_States.States.floating ||
-            st.stateNum == Pl_States.States.swooping )) {
+        if (col.tag == "Floor" && (
+            st.stateNum == Pl_States.States.normal ||
+            st.stateNum == Pl_States.States.floating)) {
             st.stateNum = Pl_States.States.landing;
         }
     }
 
-    /*
+    
     void OnTriggerExit2D(Collider2D col)
     {
         if (col.gameObject.tag == "Floor" &&
-            st.stateNum != Pl_States.States.jumping && st.stateNum != Pl_States.States.damage) {
+            st.stateNum != Pl_States.States.jumping && st.stateNum != Pl_States.States.damage &&
+            st.stateNum!=Pl_States.States.digest) {
             st.stateNum = Pl_States.States.normal;
         }
     }
-    */
+    
 }

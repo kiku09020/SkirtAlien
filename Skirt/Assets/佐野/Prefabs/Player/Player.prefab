@@ -207,7 +207,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2, y: 4.5}
+  m_Size: {x: 2, y: 4}
   m_EdgeRadius: 0
 --- !u!114 &7664640652142410176
 MonoBehaviour:
@@ -233,14 +233,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3a9230375d68344f9cb5f79fd3d6a39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveForce: 7
+  startSpd: 7
+  moveSpd: 0
   spdMax: 7.5
   moveDec: 0.96
   moveRot: 15
   velY: 0
   invTime: 120
   dmgJumpForce: 300
-  atkTime: 60
+  eatTime: 60
+  digBtnCntMax: 10
   jumpForce: 500
   jumpTime: 30
 --- !u!114 &1493154652
@@ -260,7 +262,7 @@ MonoBehaviour:
   inpY_dn_jdge: -0.6
   drag_flt: 0.5
   drag_swp: 0
-  size_big: 1.2
+  size_big: 1.01
 --- !u!114 &5297649651518445171
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -295,6 +297,8 @@ MonoBehaviour:
   hungIncVal: 15
   decFlg: 0
   incFlg: 0
+  hungFlg: 0
+  hungColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &7752226494457446854
 MonoBehaviour:
   m_ObjectHideFlags: 0

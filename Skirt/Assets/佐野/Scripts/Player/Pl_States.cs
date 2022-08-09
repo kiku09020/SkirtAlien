@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /* ★プレイヤーの状態に関するスクリプトです */
@@ -19,6 +17,7 @@ public class Pl_States : MonoBehaviour
 		eating,			// アタック
 		digest,			// 消化
 		damage,			// 被ダメージ
+		hungry,
 		goaled,			// ゴール後
 	}
 
@@ -74,6 +73,10 @@ public class Pl_States : MonoBehaviour
 	{
 		if (stateNum != States.goaled && !gm.isGameOver) {
 			StateProc();
+
+            if (hung.hungFlg) {
+				stateNum = States.hungry;
+            }
 		}
 
 		Debug.Log("<b><color=yellow>" + stateNum+"</color></b>");
@@ -108,12 +111,16 @@ public class Pl_States : MonoBehaviour
 				pl_act.Eating();
 				break;
 
-			case States.digest:		// 消化
-
+			case States.digest:     // 消化
+				pl_act.Digest();
 				break;
 
 			case States.damage:		// 被ダメージ
 				pl_act.Damage();
+				break;
+
+			case States.hungry:
+				hung.HungState();
 				break;
 
 			case States.goaled:		// ゴール
@@ -214,15 +221,19 @@ public class Pl_States : MonoBehaviour
 	public void Act()
     {
 		// 地上にいたらジャンプする
-		if (stateNum == States.landing) {
-			 stateNum = States.jumping;
+		if (stateNum == States.landing || stateNum == States.hungry) {
+			stateNum = States.jumping;
 		}
 
 		// 通常時のみ捕食
-		else if (stateNum == States.normal) {
+		else if (stateNum == States.normal || stateNum == States.hungry) {
 			stateNum = States.eating;
 			hung.HungDec_Atk();
 		}
+
+		else if (stateNum == States.digest) {
+			pl_act.Digest_Btn();
+        }
 	}
 
 	//-------------------------------------------------------------------
@@ -236,6 +247,9 @@ public class Pl_States : MonoBehaviour
 		}
 	}
 
+	
+
+	/*
     void OnCollisionExit2D(Collision2D col)
     {
 		if (col.gameObject.tag == "Floor" &&
@@ -243,4 +257,5 @@ public class Pl_States : MonoBehaviour
 			stateNum = States.normal;
 		}
 	}
+	*/
 }
