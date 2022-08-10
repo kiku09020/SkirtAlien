@@ -15,7 +15,7 @@ public class SceneController : MonoBehaviour {
 
     //-------------------------------------------------------------------
 
-    void Start()
+    void Awake()
     {
         sceneCnt = SceneManager.sceneCount;         // 合計シーン数
 

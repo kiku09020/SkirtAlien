@@ -25,7 +25,7 @@ public class Pl_Action : MonoBehaviour
     int dmgCnt;
 
     [Header("捕食")]
-    [SerializeField] float eatTime      = 60;       // 捕食の長さ
+    [SerializeField] float eatTime      = 90    ;       // 捕食の長さ
     int eatCnt;
 
     [Header("消化")]
@@ -44,6 +44,7 @@ public class Pl_Action : MonoBehaviour
 
     /* オブジェクト */
     GameObject gm_obj;
+    GameObject part_obj;
     GameObject goal_obj;
 
     GameObject cam_obj;
@@ -60,12 +61,14 @@ public class Pl_Action : MonoBehaviour
     Pl_Hunger       hung;
     Pl_Camera       cam;        // カメラ
     Pl_Anim anim;
+    Pl_Particle part;
 
     //-------------------------------------------------------------------
 
     void Start()
     {
         gm_obj      = GameObject.Find("GameManager");
+        part_obj    = GameObject.Find("ParticleManager");
         goal_obj    = GameObject.Find("Goal");
 
         cam_obj     = GameObject.Find("PlayerCamera");
@@ -75,6 +78,7 @@ public class Pl_Action : MonoBehaviour
         sr          = GetComponent<SpriteRenderer>();
 
         gm          = gm_obj.GetComponent<GameManager>();
+        part        = part_obj.GetComponent<Pl_Particle>();
         goal        = goal_obj.GetComponent<Goal_Ctrl>();
 
         st       = GetComponent<Pl_States>();
@@ -204,6 +208,7 @@ public class Pl_Action : MonoBehaviour
         // ダメージくらった瞬間
         if (dmgCnt == 1) {
             hp.HP_Damage();
+            part.Part_Damaged();
             rb.AddForce(Vector2.up * dmgJumpForce);         // 少し飛ばす
         }
 
@@ -228,17 +233,15 @@ public class Pl_Action : MonoBehaviour
     {
         eatCnt++;      // カウンター増加
 
+        if (eatCnt == 1) {
+            part.Part_Eating();
+        }
+
         // 時間経過後、通常状態へ戻る
         if (eatCnt > eatTime) {
             eatCnt = 0;
             st.stateNum = Pl_States.States.normal;
         }
-    }
-
-    // 消化
-    public void Digest()
-	{
-        transform.rotation = Quaternion.identity;
     }
 
     public void Digest_Btn()
@@ -264,6 +267,7 @@ public class Pl_Action : MonoBehaviour
         // 一瞬ジャンプ
 		if(jumpCnt == 1) {
             rb.AddForce(Vector2.up * jumpForce);
+            part.Part_Jumping();
         }
 
         // 解除

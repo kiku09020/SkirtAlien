@@ -233,9 +233,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3a9230375d68344f9cb5f79fd3d6a39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startSpd: 7
+  startSpd: 10
   moveSpd: 0
-  spdMax: 7.5
+  spdMax: 15
   moveDec: 0.96
   moveRot: 15
   velY: 0
@@ -243,7 +243,7 @@ MonoBehaviour:
   dmgJumpForce: 300
   eatTime: 60
   digBtnCntMax: 5
-  jumpForce: 500
+  jumpForce: 1000
   jumpTime: 30
 --- !u!114 &1493154652
 MonoBehaviour:
@@ -258,10 +258,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateNum: 0
-  inpY_up_jdge: 0.6
-  inpY_dn_jdge: -0.6
-  drag_flt: 0.5
-  drag_swp: 0
+  inpY_up_jdge: 0.3
+  inpY_dn_jdge: -0.3
+  drag_flt: 0.75
+  drag_swp: 0.25
+  drag_dig: 0
+  drag_nml: 0.5
   size_big: 1.01
 --- !u!114 &5297649651518445171
 MonoBehaviour:
@@ -292,7 +294,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nowHung: 0
-  hungValDec_State: 0.15
+  hungValDec_State: 0.1
   hungValDec_Atk: 5
   hungIncVal: 15
   decFlg: 0

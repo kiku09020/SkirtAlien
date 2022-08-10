@@ -24,11 +24,13 @@ public class Pl_States : MonoBehaviour
 	[Header("入力判定")]
 	[SerializeField] float inpY_up_jdge = 0.6f;     // 上入力時の判定
 	[SerializeField] float inpY_dn_jdge = 0.6f;     // 下入力時の判定
+	
 
 	[Header("空気抵抗")]
-	[SerializeField] float drag_flt = 0.5f;			// ふわふわ時の空気抵抗
-	[SerializeField] float drag_swp = 0;			// 急降下時
-	float drag_nml;                                 // 通常時の空気抵抗
+	[SerializeField] float drag_flt = 1.5f;			// ふわふわ時
+	[SerializeField] float drag_nml = 1;            // 通常時
+	[SerializeField] float drag_swp = 0.5f;         // 急降下時
+	[SerializeField] float drag_dig = 0;            // 捕食時
 
 	[Header("サイズ")]
 	[SerializeField] float size_big = 1.5f;         // 拡大時のサイズ
@@ -112,7 +114,7 @@ public class Pl_States : MonoBehaviour
 				break;
 
 			case States.digest:     // 消化
-				pl_act.Digest();
+				Digest();
 				break;
 
 			case States.damage:		// 被ダメージ
@@ -207,6 +209,11 @@ public class Pl_States : MonoBehaviour
 		else {
 			sr.flipX = false;
 		}
+	}
+
+	void Digest()
+    {
+		rb.drag = drag_dig;								// 空気抵抗
 	}
 
 	// ゴール時の処理

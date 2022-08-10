@@ -9,6 +9,8 @@ public class BG_Ctrl : MonoBehaviour
     float scrlSpd;
     [SerializeField] float spd;
 
+    Vector2 ofst;
+
     /* フラグ */
 
     /* オブジェクト */
@@ -42,6 +44,7 @@ public class BG_Ctrl : MonoBehaviour
         stg = gm_obj.GetComponent<StageManager>();
 
         /* 初期化 */
+        ofst = Vector2.zero;
     }
 
     //-------------------------------------------------------------------
@@ -57,7 +60,7 @@ public class BG_Ctrl : MonoBehaviour
             float y = Mathf.Repeat(-scrlSpd * spd / 100, 1);
 
             // オフセット
-            Vector2 ofst = new Vector2(0, y);
+            ofst = new Vector2(0, y);
 
             rend.sharedMaterial.SetTextureOffset("_MainTex", ofst);
         }

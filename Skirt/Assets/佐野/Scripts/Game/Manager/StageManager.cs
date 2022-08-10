@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,12 +7,11 @@ public class StageManager : MonoBehaviour
 {
     /* 値 */
     [Header("ステージ関係")]
-    const int stgCnt = 4;           // ステージの数
-    string[] stgNames;              // 各ステージ名の配列
+    const int stgCnt = 5;           // ステージの数
+    string[] stgNames = { "ステージ1", "ステージ2", "ステージ3", "ステージボス","デバッグ" };              // 各ステージ名の配列
     public string nowStgName;       // 現在のステージ名
 
     public float stg_length;        // ステージの長さ
-    public float stg_drag;          // ステージの空気抵抗(仮)
     public float stg_grav;          // ステージの重力
 
     /* フラグ */
@@ -23,10 +20,15 @@ public class StageManager : MonoBehaviour
     /* オブジェクト */
     GameObject sldr_obj;
     GameObject pl_obj;
+    GameObject gm_obj;
+
+    [SerializeField] Text stgTxt;
 
     /* コンポーネント取得用 */
     Slider sldr;
     Player pl;
+    GameManager gm;
+    SceneController scene;
 
 
     //-------------------------------------------------------------------
@@ -37,6 +39,7 @@ public class StageManager : MonoBehaviour
 
         /* 初期化 */
         stg_length = 3000;
+        nowStgName = stgNames[scene.nowSceneIndex - 2];
     }
 
     /* オブジェクト検索 */
@@ -44,6 +47,7 @@ public class StageManager : MonoBehaviour
     {
         sldr_obj = GameObject.Find("StageSlider");
         pl_obj = GameObject.Find("Player");
+        gm_obj = GameObject.Find("GameManager");
     }
 
     /* コンポーネント取得 */
@@ -51,6 +55,8 @@ public class StageManager : MonoBehaviour
     {
         sldr = sldr_obj.GetComponent<Slider>();
         pl = pl_obj.GetComponent<Player>();
+        gm = gm_obj.GetComponent<GameManager>();
+        scene = gm_obj.GetComponent<SceneController>();
     }
 
     //-------------------------------------------------------------------
