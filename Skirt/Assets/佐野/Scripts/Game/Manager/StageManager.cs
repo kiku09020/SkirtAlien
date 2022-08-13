@@ -38,7 +38,6 @@ public class StageManager : MonoBehaviour
         GetComp();
 
         /* 初期化 */
-        stg_length = 3000;
         nowStgName = stgNames[scene.nowSceneIndex - 2];
     }
 

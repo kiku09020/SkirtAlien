@@ -261,9 +261,9 @@ MonoBehaviour:
   inpY_up_jdge: 0.3
   inpY_dn_jdge: -0.3
   drag_flt: 0.75
-  drag_swp: 0.25
-  drag_dig: 0
   drag_nml: 0.5
+  drag_swp: 0.1
+  drag_dig: 0
   size_big: 1.01
 --- !u!114 &5297649651518445171
 MonoBehaviour:

@@ -10,6 +10,11 @@ public class Pl_Camera : MonoBehaviour
     public float scrnHeightWld;
     public float scrnYWld;
 
+    [Header("カメラ")]
+    [SerializeField] float camVal = 0.15f;
+    [SerializeField] float camMinSize = 8;
+    [SerializeField] float camMaxSize = 32;
+
     /* フラグ */
 
     /* オブジェクト */
@@ -39,12 +44,17 @@ public class Pl_Camera : MonoBehaviour
 
         /* 初期化 */
         transform.position = new Vector3(0, stg.stg_length, -10);
+        cam.orthographicSize = camMinSize;
     }
 
 //-------------------------------------------------------------------
 
-    void Update()
+    void FixedUpdate()
 	{
+		if(gm.isStarting) {
+            StartingCamera();
+		}
+
         if (!gm.isGameOver && pl_st.stateNum != Pl_States.States.goaled) {
             // y座標のみ追従
             transform.position = new Vector3(transform.position.x, pl_obj.transform.position.y, transform.position.z);
@@ -53,6 +63,15 @@ public class Pl_Camera : MonoBehaviour
             scrnWidthWld = cam.ScreenToWorldPoint(new Vector2(Screen.width, 0)).x;
             scrnHeightWld = cam.ScreenToWorldPoint(new Vector2(0, Screen.height)).y;
             scrnYWld = cam.ViewportToWorldPoint(new Vector2(0, cam.rect.y)).y;
+        }
+    }
+
+    // 開始時のカメラ制御
+    void StartingCamera()
+	{
+        // カメラズームアウト
+        if(cam.orthographicSize < camMaxSize) {
+            cam.orthographicSize += camVal;
         }
     }
 

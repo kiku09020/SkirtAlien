@@ -44,6 +44,7 @@ public class Pl_Action : MonoBehaviour
 
     /* オブジェクト */
     GameObject gm_obj;
+    GameObject aud_obj;
     GameObject part_obj;
     GameObject goal_obj;
 
@@ -54,6 +55,7 @@ public class Pl_Action : MonoBehaviour
     SpriteRenderer  sr;
 
     GameManager     gm;
+    AudioManager    aud;
     Goal_Ctrl       goal;
 
     Pl_States       st;
@@ -70,6 +72,7 @@ public class Pl_Action : MonoBehaviour
         gm_obj      = GameObject.Find("GameManager");
         part_obj    = GameObject.Find("ParticleManager");
         goal_obj    = GameObject.Find("Goal");
+        aud_obj     = GameObject.Find("AudioManager");
 
         cam_obj     = GameObject.Find("PlayerCamera");
 
@@ -78,13 +81,14 @@ public class Pl_Action : MonoBehaviour
         sr          = GetComponent<SpriteRenderer>();
 
         gm          = gm_obj.GetComponent<GameManager>();
+        aud         = aud_obj.GetComponent<AudioManager>();
         part        = part_obj.GetComponent<Pl_Particle>();
         goal        = goal_obj.GetComponent<Goal_Ctrl>();
 
-        st       = GetComponent<Pl_States>();
-        hp       = GetComponent<Pl_HP>();
-        hung = GetComponent<Pl_Hunger>();
-        anim = GetComponent<Pl_Anim>();
+        st          = GetComponent<Pl_States>();
+        hp          = GetComponent<Pl_HP>();
+        hung        = GetComponent<Pl_Hunger>();
+        anim        = GetComponent<Pl_Anim>();
 
         cam         = cam_obj.GetComponent<Pl_Camera>();
 
@@ -209,6 +213,7 @@ public class Pl_Action : MonoBehaviour
         if (dmgCnt == 1) {
             hp.HP_Damage();
             part.Part_Damaged();
+            aud.PlaySE((int)SELists.SETypeList.pl, (int)SELists.SEList_Pl.damage);
             rb.AddForce(Vector2.up * dmgJumpForce);         // 少し飛ばす
         }
 
@@ -234,6 +239,7 @@ public class Pl_Action : MonoBehaviour
         eatCnt++;      // カウンター増加
 
         if (eatCnt == 1) {
+            aud.PlaySE((int)SELists.SETypeList.pl, (int)SELists.SEList_Pl.eat);
             part.Part_Eating();
         }
 
@@ -266,6 +272,7 @@ public class Pl_Action : MonoBehaviour
 
         // 一瞬ジャンプ
 		if(jumpCnt == 1) {
+            aud.PlaySE((int)SELists.SETypeList.pl, (int)SELists.SEList_Pl.jump);
             rb.AddForce(Vector2.up * jumpForce);
             part.Part_Jumping();
         }
@@ -276,4 +283,15 @@ public class Pl_Action : MonoBehaviour
             st.stateNum = Pl_States.States.normal;
         }
     }
+
+    // 値リセット
+    public void ResetValues()
+	{
+        digBtnCnt = 0;
+        dmgCnt = 0;
+        eatCnt = 0;
+        jumpCnt = 0;
+
+
+	}
 }

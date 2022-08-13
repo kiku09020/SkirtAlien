@@ -91,6 +91,7 @@ public class Pl_States : MonoBehaviour
 		switch (stateNum) {
 			case States.normal:		// 通常
 				Normal();
+				pl_act.ResetValues();
 				break;
 
 			case States.floating:	// ふわふわ
