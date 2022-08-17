@@ -229,7 +229,7 @@ public class Pl_States : MonoBehaviour
 	public void Act()
     {
 		// 地上にいたらジャンプする
-		if (stateNum == States.landing || stateNum == States.hungry) {
+		if(stateNum == States.landing || stateNum == States.hungry) {
 			stateNum = States.jumping;
 		}
 

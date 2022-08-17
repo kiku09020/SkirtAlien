@@ -45,23 +45,30 @@ public class AudioManager : MonoBehaviour
 
     //-------------------------------------------------------------------
 
-    public void PlaySE(int seTypeNum, int seNum)
+    // BGM再生
+    public void PlayBGM(int bgmNum)
+	{
+
+	}
+
+    // 効果音再生
+    public void PlaySE(AudLists.SETypeList seTypeNum, int seNum)
 	{
         AudioClip clip = null;
 
-        switch(seTypeNum) {
+        switch((int)seTypeNum) {
             // プレイヤー
-            case (int)SELists.SETypeList.pl:
+            case (int)AudLists.SETypeList.pl:
                 clip = SE_Pl[seNum];
                 break;
 
                 // 敵
-            case (int)SELists.SETypeList.enm:
+            case (int)AudLists.SETypeList.enm:
                 clip = SE_enm[seNum];
                 break;
 
                 // UI
-            case (int)SELists.SETypeList.ui:
+            case (int)AudLists.SETypeList.ui:
                 clip = SE_ui[seNum];
                 break;
 		}
@@ -72,9 +79,21 @@ public class AudioManager : MonoBehaviour
 	}
 }
 
-// 効果音
-public class SELists:MonoBehaviour 
+// ------------------------------------------------------------------------
+
+// 音声の列挙体クラス
+public class AudLists:MonoBehaviour 
 {
+    // BGM
+    public enum BGMList {
+        stg_normal,     // 通常
+        stg_fast,       // 速い
+        stg_orgel,      // オルゴール調
+        gameOver,       // ゲームオーバー
+        clear,          // クリア
+	}
+    // ------------------------------------------
+
     // SEの種類
     public enum SETypeList {
         pl,
@@ -85,6 +104,7 @@ public class SELists:MonoBehaviour
     // プレイヤー
     public enum SEList_Pl {
         damage,
+        dig,
         eat,
         heal,
         jump,

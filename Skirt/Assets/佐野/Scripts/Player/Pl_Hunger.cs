@@ -5,12 +5,14 @@ using UnityEngine.UI;
 //-------------------------------------------------------------------
 public class Pl_Hunger : MonoBehaviour {
     [Header("満腹度")]
-    [SerializeField] float nowHung;                 // 満腹度の数値
+    public           float nowHung;                 // 満腹度の数値
                      float hungMax = 100;           // 最大満腹度
 
     [SerializeField] float hungValDec_State;        // 一度に減らす量(ふわふわ、急降下中)
     [SerializeField] float hungValDec_Atk;          // 一度に減らす量(捕食時)
     [SerializeField] float hungIncVal;              // 一度に増やす量
+
+    [SerializeField] float hungSpdVal=0.75f;           // 空腹時の速度
 
     [Header("フラグ")]
     [SerializeField] bool decFlg;                   // 減ってるとき
@@ -77,15 +79,15 @@ public class Pl_Hunger : MonoBehaviour {
     }
 
     //-------------------------------------------------------------------
-
+    // 空腹時の処理
     public void HungState()
     {
-        // 空腹時の処理
         if (hungFlg) {
             if (!onceFlg) {
-                act.moveSpd *= 0.75f;                   // 速度おそくする
+                act.moveSpd *= hungSpdVal;              // 速度おそくする
                 onceFlg = true;
             }
+
             transform.localScale = Vector2.one;         // 大きさ
             sr.color = hungColor;                       // 色変更
         }

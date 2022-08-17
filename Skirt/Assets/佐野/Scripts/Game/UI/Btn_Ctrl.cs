@@ -18,6 +18,7 @@ public class Btn_Ctrl : MonoBehaviour
     GameManager gm;
     SceneController sc;
     CanvasGenelator cvsGen;
+    Pl_Hunger hung;
 
 //-------------------------------------------------------------------
 
@@ -33,6 +34,7 @@ public class Btn_Ctrl : MonoBehaviour
         gm = gm_obj.GetComponent<GameManager>();
         sc = gm_obj.GetComponent<SceneController>();
         cvsGen = gm_obj.transform.GetChild(0).GetComponent<CanvasGenelator>();
+        hung = pl_obj.GetComponent<Pl_Hunger>();
 
         /* 初期化 */
     }
@@ -111,5 +113,12 @@ public class Btn_Ctrl : MonoBehaviour
     public void Btn_Action()
 	{
         pl_st.Act();
+	}
+
+    //-------------------------------------------------------------------
+    // 空腹にするボタン
+    public void Btn_Hung()
+	{
+        hung.nowHung = 0;
 	}
 }

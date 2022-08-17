@@ -263,6 +263,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 481102331152792672, guid: 13c245a3985ff0b47b3aae93e55e5c0a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1811104227}
+    - target: {fileID: 481102331152792672, guid: 13c245a3985ff0b47b3aae93e55e5c0a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Btn_Hung
+      objectReference: {fileID: 0}
     - target: {fileID: 4178257252543136561, guid: 13c245a3985ff0b47b3aae93e55e5c0a, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1469,17 +1477,6 @@ Transform:
   m_Father: {fileID: 88339380}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1356650112 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7481409907997720056, guid: 13c245a3985ff0b47b3aae93e55e5c0a, type: 3}
-  m_PrefabInstance: {fileID: 73318008}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1417914993 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1657415641508288313, guid: 46a99a7a060a40c43b57abd1c48c37ea, type: 3}
@@ -1569,18 +1566,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2086036804, guid: cccadfe19c55b344ab27354fd0dc8100, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 522524592129087641, guid: cccadfe19c55b344ab27354fd0dc8100, type: 3}
-      propertyPath: part_damaged
-      value: 
-      objectReference: {fileID: 2869477249256982592, guid: 87f8225396d8b574290c756f26c53584, type: 3}
-    - target: {fileID: 3558443101835374046, guid: cccadfe19c55b344ab27354fd0dc8100, type: 3}
-      propertyPath: txt_dbg_cam
-      value: 
-      objectReference: {fileID: 1356650112}
     - target: {fileID: 8458617889915437872, guid: cccadfe19c55b344ab27354fd0dc8100, type: 3}
       propertyPath: stgTxt
       value: 
@@ -1759,6 +1744,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1162582342519037809, guid: 134cd2214f4e96a47a3c7d32f0fda262, type: 3}
   m_PrefabInstance: {fileID: 1592324360}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1811104227 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2052351778500637207, guid: 13c245a3985ff0b47b3aae93e55e5c0a, type: 3}
+  m_PrefabInstance: {fileID: 73318008}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3f7047411a513648a778beb2c1f5d9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1928098373
 PrefabInstance:
   m_ObjectHideFlags: 0

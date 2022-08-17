@@ -130,6 +130,10 @@ public class Pl_Anim : MonoBehaviour
                 DOTween.KillAll();
                 break;
 
+            case Pl_States.States.hungry:
+                anim.SetTrigger("hungry");
+                break;
+
             //------------------------------
             case Pl_States.States.goaled:       // ゴール時
                 break;

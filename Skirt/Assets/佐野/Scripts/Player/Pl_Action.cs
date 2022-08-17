@@ -213,7 +213,7 @@ public class Pl_Action : MonoBehaviour
         if (dmgCnt == 1) {
             hp.HP_Damage();
             part.Part_Damaged();
-            aud.PlaySE((int)SELists.SETypeList.pl, (int)SELists.SEList_Pl.damage);
+            aud.PlaySE(AudLists.SETypeList.pl, (int)AudLists.SEList_Pl.damage);
             rb.AddForce(Vector2.up * dmgJumpForce);         // 少し飛ばす
         }
 
@@ -239,7 +239,7 @@ public class Pl_Action : MonoBehaviour
         eatCnt++;      // カウンター増加
 
         if (eatCnt == 1) {
-            aud.PlaySE((int)SELists.SETypeList.pl, (int)SELists.SEList_Pl.eat);
+            aud.PlaySE(AudLists.SETypeList.pl, (int)AudLists.SEList_Pl.eat);
             part.Part_Eating();
         }
 
@@ -257,6 +257,7 @@ public class Pl_Action : MonoBehaviour
         if (digBtnCnt < digBtnCntMax) {
             digBtnCnt++;
             anim.DigBtnAnim();          // クリック時に再生
+            aud.PlaySE(AudLists.SETypeList.pl, (int)AudLists.SEList_Pl.dig);
         }
         else {
             st.stateNum = Pl_States.States.normal;
@@ -272,7 +273,7 @@ public class Pl_Action : MonoBehaviour
 
         // 一瞬ジャンプ
 		if(jumpCnt == 1) {
-            aud.PlaySE((int)SELists.SETypeList.pl, (int)SELists.SEList_Pl.jump);
+            aud.PlaySE(AudLists.SETypeList.pl, (int)AudLists.SEList_Pl.jump);
             rb.AddForce(Vector2.up * jumpForce);
             part.Part_Jumping();
         }

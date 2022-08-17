@@ -297,6 +297,7 @@ MonoBehaviour:
   hungValDec_State: 0.1
   hungValDec_Atk: 5
   hungIncVal: 15
+  hungSpdVal: 0.5
   decFlg: 0
   incFlg: 0
   hungFlg: 0
