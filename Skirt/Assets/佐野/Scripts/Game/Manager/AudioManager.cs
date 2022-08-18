@@ -105,6 +105,7 @@ public class AudLists:MonoBehaviour
     public enum SEList_Pl {
         damage,
         dig,
+        digDone,
         eat,
         heal,
         jump,

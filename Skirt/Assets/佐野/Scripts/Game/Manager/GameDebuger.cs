@@ -21,11 +21,14 @@ public class GameDebuger : MonoBehaviour
     [SerializeField] Text txt_dbg_cam;
     GameObject pl_obj;
 
+    GameObject eatenCntObj;
+
     /* コンポーネント取得用 */
     Player pl;
     Pl_States pl_st;
     Pl_Camera cam;
     GameManager gm;
+    Pl_Hunger hung;
 
 //-------------------------------------------------------------------
 
@@ -33,10 +36,12 @@ public class GameDebuger : MonoBehaviour
     {
         /* コンポーネント取得 */
         // プレイヤー
+        eatenCntObj = GameObject.Find("eatenCnt");
         pl_obj = GameObject.Find("Player");
         pl = pl_obj.GetComponent<Player>();
         pl_st = pl_obj.GetComponent<Pl_States>();
         gm = GetComponent<GameManager>();
+        hung = pl_obj.GetComponent<Pl_Hunger>();
 
         // カメラ
         GameObject cam_obj = GameObject.Find("PlayerCamera");
@@ -89,5 +94,6 @@ public class GameDebuger : MonoBehaviour
     void Debug_Text()
 	{
         txt_dbg_cam.text = "edge = " + cam.scrnWidthWld.ToString();
+        eatenCntObj.GetComponent<Text>().text = hung.eatenCnt.ToString();
 	}
 }

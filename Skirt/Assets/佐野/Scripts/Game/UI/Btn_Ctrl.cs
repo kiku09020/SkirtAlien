@@ -13,50 +13,30 @@ public class Btn_Ctrl : MonoBehaviour
     GameObject gm_obj;
 
     /* コンポーネント取得用 */
-    Pl_States pl_st;
+    Pl_States       pl_st;
 
-    GameManager gm;
+    GameManager     gm;
     SceneController sc;
     CanvasGenelator cvsGen;
-    Pl_Hunger hung;
+    Pl_Hunger       hung;
 
 //-------------------------------------------------------------------
 
     void Start()
     {
         /* オブジェクト検索 */
-        pl_obj = GameObject.Find("Player");
-        gm_obj = GameObject.Find("GameManager");
+        pl_obj  = GameObject.Find("Player");
+        gm_obj  = GameObject.Find("GameManager");
 
         /* コンポーネント取得 */
-        pl_st = pl_obj.GetComponent<Pl_States>();
+        pl_st   = pl_obj.GetComponent<Pl_States>();
 
-        gm = gm_obj.GetComponent<GameManager>();
-        sc = gm_obj.GetComponent<SceneController>();
-        cvsGen = gm_obj.transform.GetChild(0).GetComponent<CanvasGenelator>();
-        hung = pl_obj.GetComponent<Pl_Hunger>();
+        gm      = gm_obj.GetComponent<GameManager>();
+        sc      = gm_obj.GetComponent<SceneController>();
+        cvsGen  = gm_obj.transform.GetChild(0).GetComponent<CanvasGenelator>();
+        hung    = pl_obj.GetComponent<Pl_Hunger>();
 
         /* 初期化 */
-    }
-
-//-------------------------------------------------------------------
-
-    void Update()
-    {
-        Android_Proc();
-    }
-
-    //-------------------------------------------------------------------
-
-    // androidのボタン処理
-    void Android_Proc()
-    {
-        // 戻るボタン押したときも、ポーズボタンと同様の処理
-        if (Application.platform == RuntimePlatform.Android) {
-            if (Input.GetKeyDown(KeyCode.Escape)) {
-                Btn_Pause();
-            }
-        }
     }
 
     //-------------------------------------------------------------------
@@ -100,19 +80,33 @@ public class Btn_Ctrl : MonoBehaviour
     }
 
     // --------------------------------------------------------------
-    /*  */
     // ゴール時
-
     public void Btn_NextStage()
     {
         sc.SceneNext();
     }
 
     //-------------------------------------------------------------------
+
+    // アクションボタンを、状態によって変色したりする関数
+    public void Btn_Action_States()
+    {
+        switch (pl_st.stateNum) {
+            // 地上
+            case Pl_States.States.landing:
+
+                break;
+            // 消化
+            case Pl_States.States.digest:
+
+                break;
+        }
+    }
+
     // アクションボタン
     public void Btn_Action()
 	{
-        pl_st.Act();
+        pl_st.ActBtnProc();
 	}
 
     //-------------------------------------------------------------------

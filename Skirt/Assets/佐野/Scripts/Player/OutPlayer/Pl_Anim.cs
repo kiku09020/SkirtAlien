@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
@@ -130,10 +128,6 @@ public class Pl_Anim : MonoBehaviour
                 DOTween.KillAll();
                 break;
 
-            case Pl_States.States.hungry:
-                anim.SetTrigger("hungry");
-                break;
-
             //------------------------------
             case Pl_States.States.goaled:       // ゴール時
                 break;
@@ -144,5 +138,11 @@ public class Pl_Anim : MonoBehaviour
     public void DigBtnAnim()
     {
         transform.DOShakeRotation(0.25f, new Vector3(0, 0, 30)).SetEase(Ease.InCirc);
+    }
+
+    // 消化完了時のアニメーション
+    public void DigDoneAnim()
+    {
+        transform.DOScale(new Vector2(3f, 3f), 1f);
     }
 }

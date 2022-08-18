@@ -5,7 +5,7 @@ using UnityEngine;
 public class Pl_States : MonoBehaviour
 {
 	[Header("状態")]
-	public  States stateNum;               // キャラの状態(0:通常 1:ふわふわ 2:急降下 )
+	public  States stateNum;		// キャラの状態(0:通常 1:ふわふわ 2:急降下 )
 
 	// キャラ状態の列挙
 	public enum States {
@@ -17,14 +17,12 @@ public class Pl_States : MonoBehaviour
 		eating,			// アタック
 		digest,			// 消化
 		damage,			// 被ダメージ
-		hungry,
 		goaled,			// ゴール後
 	}
 
 	[Header("入力判定")]
 	[SerializeField] float inpY_up_jdge = 0.6f;     // 上入力時の判定
 	[SerializeField] float inpY_dn_jdge = 0.6f;     // 下入力時の判定
-	
 
 	[Header("空気抵抗")]
 	[SerializeField] float drag_flt = 1.5f;			// ふわふわ時
@@ -39,15 +37,13 @@ public class Pl_States : MonoBehaviour
 	GameObject gm_obj;
 
 	/* コンポーネント取得用 */
-	Rigidbody2D rb;
-	SpriteRenderer sr;
+	GameManager		gm;
 
-	GameManager gm;
+	Rigidbody2D		rb;
+	SpriteRenderer	sr;
 
-	Pl_Action pl_act;
-	Pl_HP hp;
-	Pl_Hunger hung;
-
+	Pl_Action		pl_act;
+	Pl_Hunger		hung;
 	//-------------------------------------------------------------------
 
 	void Start()
@@ -56,14 +52,13 @@ public class Pl_States : MonoBehaviour
 		gm_obj	= GameObject.Find("GameManager");
 
 		/* コンポーネント取得 */
-		rb		= GetComponent<Rigidbody2D>();
-		sr		= GetComponent<SpriteRenderer>();
-		
 		gm		= gm_obj.GetComponent<GameManager>();
 
+		rb		= GetComponent<Rigidbody2D>();
+		sr		= GetComponent<SpriteRenderer>();
+
 		pl_act	= GetComponent<Pl_Action>();
-		hp	= GetComponent<Pl_HP>();
-		hung = GetComponent<Pl_Hunger>();
+		hung	= GetComponent<Pl_Hunger>();
 
 		/* 初期化 */
 		stateNum = States.normal;          // 状態
@@ -74,18 +69,19 @@ public class Pl_States : MonoBehaviour
 	void FixedUpdate()
 	{
 		if (stateNum != States.goaled && !gm.isGameOver) {
-			StateProc();
+			StateProc();        // メイン処理
 
             if (hung.hungFlg) {
-				stateNum = States.hungry;
+				hung.HungState();	// 空腹時処理
             }
 		}
 
+		// state表示
 		Debug.Log("<b><color=yellow>" + stateNum+"</color></b>");
 	}
 
 	//-------------------------------------------------------------------
-
+	// 各状態時に行う処理
 	void StateProc()
 	{
 		switch (stateNum) {
@@ -121,20 +117,12 @@ public class Pl_States : MonoBehaviour
 			case States.damage:		// 被ダメージ
 				pl_act.Damage();
 				break;
-
-			case States.hungry:
-				hung.HungState();
-				break;
-
-			case States.goaled:		// ゴール
-				Goaled();
-				break;
 		}
 	}
 
 	//-------------------------------------------------------------------
 
-	// 通常状態
+	// ★通常状態
 	public void Normal()
 	{
 		// 元の大きさに戻す
@@ -156,17 +144,19 @@ public class Pl_States : MonoBehaviour
 		}
 	}
 
-	// 急降下状態
+	// ★急降下状態
 	public void Swooping()
 	{
 		// 縦に伸ばす
 		transform.localScale = new Vector2(1, 1 + Mathf.Abs(gm.inpHor) * size_big);
 
-		// 空気抵抗を少なくする
-		rb.drag = drag_swp;
+        if (!hung.hungFlg) {
+			// 空気抵抗を減らす
+			rb.drag = drag_swp;
 
-		// 満腹度処理
-		hung.HungDec_State();
+			// 満腹度を少しずつ減らす
+			hung.HungDec_State();
+		}
 
 		// ノーマル状態に遷移
 		if(gm.inpHor > inpY_dn_jdge && gm.inpHor < inpY_up_jdge) {
@@ -174,17 +164,19 @@ public class Pl_States : MonoBehaviour
 		}
 	}
 
-	// ふわふわ状態
+	// ★ふわふわ状態
 	public void Floating()
 	{
 		// 横に伸ばす
 		transform.localScale = new Vector2(1 + Mathf.Abs(gm.inpHor) * size_big, 1);
 
-		// 空気抵抗追加
-		rb.drag = drag_flt;
+		if (!hung.hungFlg) {
+			// 空気抵抗を増やす
+			rb.drag = drag_flt;
 
-		// 満腹度処理
-		hung.HungDec_State();
+			// 満腹度を少しずつ減らす
+			hung.HungDec_State();
+		}
 
 		// ノーマル状態に遷移
 		if (gm.inpHor > inpY_dn_jdge && gm.inpHor < inpY_up_jdge) {
@@ -192,53 +184,46 @@ public class Pl_States : MonoBehaviour
 		}
 	}
 
-	// 地上移動
+	// ★地上
 	void Landing()
 	{
-		transform.localScale = Vector2.one;
-
-		// 左移動時
-		if(gm.inpVer < 0) {
-			sr.flipX = false;
-		}
+		transform.localScale = Vector2.one;						// 大きさ戻す
+		hung.EatCntSetter(Pl_Hunger.EatenCntEnum.reset);		// 地面についたら、消化数を0に戻す
 
 		// 右移動時
-		else if(gm.inpVer > 0) {
-			sr.flipX = true;
+		if(gm.inpVer > 0) {
+			sr.flipX = true;					// スプライト反転
 		}
 
+		// 左移動時、停止時
 		else {
-			sr.flipX = false;
+			sr.flipX = false;					// 反転を元に戻す
 		}
 	}
 
+	// ★消化時の処理
 	void Digest()
     {
-		rb.drag = drag_dig;								// 空気抵抗
-	}
-
-	// ゴール時の処理
-	void Goaled()
-	{
-		transform.localScale = Vector2.one;
+		rb.drag = drag_dig;				// 空気抵抗を減らす
 	}
 
 	//-------------------------------------------------------------------
 
-	// ボタン押したときの処理
-	public void Act()
+	// ★ボタン押したときの処理
+	public void ActBtnProc()
     {
 		// 地上にいたらジャンプする
-		if(stateNum == States.landing || stateNum == States.hungry) {
+		if (stateNum == States.landing) {
 			stateNum = States.jumping;
 		}
 
-		// 通常時のみ捕食
-		else if (stateNum == States.normal || stateNum == States.hungry) {
+		// 通常時のみ、捕食状態にする
+		else if (stateNum == States.normal) {
 			stateNum = States.eating;
 			hung.HungDec_Atk();
 		}
 
+		// 消化時
 		else if (stateNum == States.digest) {
 			pl_act.Digest_Btn();
         }
@@ -248,14 +233,11 @@ public class Pl_States : MonoBehaviour
 	
 	void OnCollisionStay2D(Collision2D col)
 	{
-		// 敵
+		// 敵に触れたら、ダメージ状態にする
 		if (col.gameObject.tag == "Enemy") {
-			// ダメージ状態
 			stateNum = States.damage;
 		}
 	}
-
-	
 
 	/*
     void OnCollisionExit2D(Collision2D col)
