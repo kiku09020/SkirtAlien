@@ -39,21 +39,29 @@ public class Pl_Btm : MonoBehaviour
         }
 
         // 床
-        if (col.tag == "Floor" && (
-            st.stateNum == Pl_States.States.normal ||
-            st.stateNum == Pl_States.States.floating)) {
-            st.stateNum = Pl_States.States.landing;
+        if(col.tag == "Floor") {
+            st.landFlg = true;
+
+            // 地上状態
+            if( st.stateNum == Pl_States.States.normal ||
+                st.stateNum == Pl_States.States.floating) {
+                st.stateNum = Pl_States.States.landing;
+            }
         }
     }
-
     
     void OnTriggerExit2D(Collider2D col)
     {
-        if (col.gameObject.tag == "Floor" &&
-            st.stateNum != Pl_States.States.jumping && st.stateNum != Pl_States.States.damage &&
-            st.stateNum!=Pl_States.States.digest) {
-            st.stateNum = Pl_States.States.normal;
-        }
+        if (col.gameObject.tag == "Floor") {
+            st.landFlg = false;
+
+            // 通常状態
+            if( st.stateNum != Pl_States.States.jumping && 
+                st.stateNum != Pl_States.States.damage &&
+                st.stateNum!=Pl_States.States.digest) {
+                st.stateNum = Pl_States.States.normal;
+            }
+		}
     }
     
 }

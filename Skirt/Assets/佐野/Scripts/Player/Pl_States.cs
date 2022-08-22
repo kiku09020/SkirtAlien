@@ -20,6 +20,9 @@ public class Pl_States : MonoBehaviour
 		goaled,			// ゴール後
 	}
 
+	[Header("フラグ")]
+	public bool landFlg;					// 地上にいるか
+
 	[Header("入力判定")]
 	[SerializeField] float inpY_up_jdge = 0.6f;     // 上入力時の判定
 	[SerializeField] float inpY_dn_jdge = 0.6f;     // 下入力時の判定
@@ -71,9 +74,15 @@ public class Pl_States : MonoBehaviour
 		if (stateNum != States.goaled && !gm.isGameOver) {
 			StateProc();        // メイン処理
 
+			// 空腹
             if (hung.hungFlg) {
-				hung.HungState();	// 空腹時処理
+				hung.HungState();
             }
+
+			// 地上
+			if(landFlg) {
+				hung.EatCntSetter(Pl_Hunger.EatenCntEnum.reset);        // 地面についたら、消化数を0に戻す
+			}
 		}
 
 		// state表示
@@ -188,7 +197,6 @@ public class Pl_States : MonoBehaviour
 	void Landing()
 	{
 		transform.localScale = Vector2.one;						// 大きさ戻す
-		hung.EatCntSetter(Pl_Hunger.EatenCntEnum.reset);		// 地面についたら、消化数を0に戻す
 
 		// 右移動時
 		if(gm.inpVer > 0) {

@@ -7,9 +7,6 @@ using DG.Tweening;
 //-------------------------------------------------------------------
 public class CanvasGenelator : MonoBehaviour
 {
-    /* フラグ */
-    bool onceStartFlg;      // スタート時のフラグ
-
     /* オブジェクト */
     // プレハブ
     [SerializeField] GameObject cvsPref_ctrl;
@@ -25,9 +22,16 @@ public class CanvasGenelator : MonoBehaviour
     GameObject cvsInst_gameOver;    // gameOver
     GameObject cvsInst_goal;        // goal
 
+
+    GameObject goalObj;
+
     /* コンポーネント取得用 */
     GameObject gm_obj;
     GameManager gm;
+    Goal_Ctrl goal;
+
+    CanvasGroup cg_game;
+    CanvasGroup cg_ctrl;
 
     //-------------------------------------------------------------------
 
@@ -35,9 +39,11 @@ public class CanvasGenelator : MonoBehaviour
     {
         /* オブジェクト検索 */
         gm_obj = transform.parent.gameObject;
+        goalObj = GameObject.Find("Goal");
 
         /* コンポーネント取得 */
         gm = gm_obj.GetComponent<GameManager>();
+        goal = goalObj.GetComponent<Goal_Ctrl>();
 
         /* 初期化 */
         cvsInst_ctrl = Instantiate(cvsPref_ctrl);
@@ -45,36 +51,20 @@ public class CanvasGenelator : MonoBehaviour
         cvsInst_pause = Instantiate(cvsPref_pause);
 
         cvsInst_pause.SetActive(false);
-    }
 
-    public void SetAct()
-	{
-        cvsInst_ctrl.SetActive(false);
-        cvsInst_game.SetActive(false);
-	}
+        // CanvasGroup
+        cg_game = cvsInst_game.GetComponent<CanvasGroup>();
+        cg_ctrl = cvsInst_ctrl.GetComponent<CanvasGroup>();
+    }
 
     //-------------------------------------------------------------------
 
     void FixedUpdate()
     {
-        Starting();
+
     }
 
     //-------------------------------------------------------------------
-
-    // スタート時
-    void Starting()
-	{
-        if(!gm.isStarting) {
-            if(!onceStartFlg) {
-                onceStartFlg = true;
-
-                // キャンバス生成
-                cvsInst_ctrl.SetActive(true);
-                cvsInst_game.SetActive(true);
-            }
-        }
-    }
 
     // ポーズ時
     public void Pause()
@@ -104,7 +94,8 @@ public class CanvasGenelator : MonoBehaviour
     public void Inst_Goal()
 	{
         cvsInst_goal = Instantiate(cvsPref_goal);
+
         cvsInst_ctrl.SetActive(false);
         cvsInst_game.SetActive(false);
-	}
+    }
 }

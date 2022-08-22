@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nowStgName: 
-  stg_length: 3030
+  stg_length: 3060
   stg_grav: 0
   stgTxt: {fileID: 0}
 --- !u!114 &1419464441

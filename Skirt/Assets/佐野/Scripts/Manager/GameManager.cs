@@ -24,9 +24,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] float cameraDist;      // カメラの距離
 
     [Header("フラグ")]
-    public bool isStarting;                 // 開始
-    public bool isGameOver;                 // ゲームオーバー
-    public bool isPaused;                   // ポーズ中
+    public bool isStarting;         // 開始
+    public bool isStarted;
+    public bool isGameOver;         // ゲームオーバー
+    public bool isPaused;           // ポーズ中
 
     /* オブジェクト */
     GameObject cvs_obj;
@@ -51,7 +52,7 @@ public class GameManager : MonoBehaviour
 
 	void Start()
 	{
-        cvs.SetAct();
+        
     }
 
     //-------------------------------------------------------------------
@@ -79,7 +80,12 @@ public class GameManager : MonoBehaviour
 			if(time > startTime) {
                 time = 0;
                 isStarting = false;     // スタート終了
-			}
+                isStarted = true;
+            }
 		}
+
+        else {
+            isStarted = false;
+        }
 	}
 }
