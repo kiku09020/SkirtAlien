@@ -10,6 +10,15 @@ public class Pl_Particle : MonoBehaviour
     Vector2 pos;
     [SerializeField] float destTime = 3;        // 削除までの時間
 
+    public enum PartNames{
+        damaged,
+        jump,
+        eat,
+        eating,
+        eated,
+        swoop
+	}
+
     /* フラグ */
 
 
@@ -19,13 +28,10 @@ public class Pl_Particle : MonoBehaviour
     /* コンポーネント取得用 */
     [SerializeField] GameObject part_damaged;
     [SerializeField] GameObject part_jump;
-    [SerializeField] GameObject part_eat;
+    [SerializeField] GameObject part_eat;       // 捕食空振り
+    [SerializeField] GameObject part_eating;    // 捕食中
+    [SerializeField] GameObject part_eated;     // 捕食完了
     [SerializeField] GameObject part_swoop;
-
-    GameObject inst_dmg;
-    GameObject inst_jump;
-    GameObject inst_eat;
-    GameObject inst_swp;
 
 //-------------------------------------------------------------------
     void Start()
@@ -59,34 +65,38 @@ public class Pl_Particle : MonoBehaviour
 
 //-------------------------------------------------------------------
     // ダメージ
-    public void Part_Damaged()
+    public void InstPart(PartNames name)
     {
-        inst_dmg = Instantiate(part_damaged, pos, Quaternion.identity);         // 生成
-        inst_dmg.GetComponent<ParticleSystem>().Play();                         // 再生
-        Destroy(inst_dmg, destTime);                                            // 5秒後に削除
-    }    
-    
-    // ジャンプ
-    public void Part_Jumping()
-    {
-        inst_jump = Instantiate(part_jump, pos, Quaternion.identity);           // 生成
-        inst_jump.GetComponent<ParticleSystem>().Play();                        // 再生
-        Destroy(inst_jump, destTime);                                           // 5秒後に削除
-    }    
+        GameObject pref = part_damaged, inst;
 
-    // 捕食
-    public void Part_Eating()
-    {
-        inst_eat = Instantiate(part_eat, pos, Quaternion.identity);             // 生成
-        inst_eat.GetComponent<ParticleSystem>().Play();                         // 再生
-        Destroy(inst_eat, destTime);                                            // 5秒後に削除
-    }    
+        switch(name){
+            case PartNames.damaged:
+                pref = part_damaged;
+                break;
 
-    // パーティクルの生成
-    public void Part_Swooping()
-    {
-        inst_swp = Instantiate(part_swoop, pos, Quaternion.identity);           // 生成
-        inst_swp.GetComponent<ParticleSystem>().Play();                         // 再生
-        Destroy(inst_swp, destTime);                                            // 5秒後に削除
-    }    
+            case PartNames.jump:
+                pref = part_jump;
+                break;
+
+            case PartNames.eat:
+                pref = part_eat;
+                break;
+
+            case PartNames.eating:
+                pref = part_eating;
+                break;
+
+            case PartNames.eated:
+                pref = part_eated;
+                break;
+
+            case PartNames.swoop:
+                pref = part_swoop;
+                break;
+		}
+
+        inst = Instantiate(pref, pos, Quaternion.identity);
+        inst.GetComponent<ParticleSystem>().Play();
+        Destroy(inst, destTime);
+    } 
 }
