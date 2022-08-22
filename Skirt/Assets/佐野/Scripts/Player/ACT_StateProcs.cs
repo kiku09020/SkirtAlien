@@ -13,7 +13,7 @@ public partial class Pl_Action
         // ダメージくらった瞬間
         if (dmgCnt == 1) {
             hp.HP_Damage();
-            part.Part_Damaged();
+            part.InstPart(Pl_Particle.PartNames.damaged);
             aud.PlaySE(AudLists.SETypeList.pl, (int)AudLists.SEList_Pl.damage);
             rb.AddForce(Vector2.up * dmgJumpForce);         // 少し飛ばす
         }
@@ -41,7 +41,7 @@ public partial class Pl_Action
 
         if (eatCnt == 1) {
             aud.PlaySE(AudLists.SETypeList.pl, (int)AudLists.SEList_Pl.eat);
-            part.Part_Eating();
+            part.InstPart(Pl_Particle.PartNames.eat);
         }
 
         // 時間経過後、通常状態へ戻る
@@ -60,6 +60,7 @@ public partial class Pl_Action
 
             anim.DigBtnAnim();                                                      // アニメーション
             aud.PlaySE(AudLists.SETypeList.pl, (int)AudLists.SEList_Pl.dig);        // 効果音
+            part.InstPart(Pl_Particle.PartNames.eating);
         }
 
         // 消化完了時(最後の消化)
@@ -71,6 +72,7 @@ public partial class Pl_Action
 
             anim.DigDoneAnim();                                                     // アニメーション
             aud.PlaySE(AudLists.SETypeList.pl, (int)AudLists.SEList_Pl.digDone);    // 効果音再生
+            part.InstPart(Pl_Particle.PartNames.eated);
         }
     }
 
@@ -92,7 +94,7 @@ public partial class Pl_Action
             rb.AddForce(Vector2.up * nowJumpForce);
 
             aud.PlaySE(AudLists.SETypeList.pl, (int)AudLists.SEList_Pl.jump);
-            part.Part_Jumping();
+            part.InstPart(Pl_Particle.PartNames.jump);
         }
 
         // 解除

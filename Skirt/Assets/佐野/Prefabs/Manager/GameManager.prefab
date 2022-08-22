@@ -57,6 +57,7 @@ MonoBehaviour:
   startTime: 3
   cameraDist: 0
   isStarting: 0
+  isStarted: 0
   isGameOver: 0
   isPaused: 0
 --- !u!114 &2002095581093782911
@@ -297,6 +298,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: ParticleManager
       objectReference: {fileID: 0}
+    - target: {fileID: 7967288118391547561, guid: 789f231a4f8f2b24bbc0f0f9483c7a78, type: 3}
+      propertyPath: part_eated
+      value: 
+      objectReference: {fileID: 150945737444257449, guid: 40991427e5891664ba03c23b94825c3b, type: 3}
+    - target: {fileID: 7967288118391547561, guid: 789f231a4f8f2b24bbc0f0f9483c7a78, type: 3}
+      propertyPath: part_eating
+      value: 
+      objectReference: {fileID: 150945737444257449, guid: ba3fa0295502989408479d2e7e2b901c, type: 3}
     - target: {fileID: 7967288118391547561, guid: 789f231a4f8f2b24bbc0f0f9483c7a78, type: 3}
       propertyPath: part_damaged
       value: 
