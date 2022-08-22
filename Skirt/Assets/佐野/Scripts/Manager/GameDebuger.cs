@@ -18,7 +18,7 @@ public class GameDebuger : MonoBehaviour
     [SerializeField] bool isInfinity;       // ステージ長さ無限
 
     /* オブジェクト */
-    [SerializeField] Text txt_dbg_cam;
+    Text txt_dbg_cam;
     GameObject pl_obj;
 
     GameObject eatenCntObj;
@@ -46,6 +46,8 @@ public class GameDebuger : MonoBehaviour
         // カメラ
         GameObject cam_obj = GameObject.Find("PlayerCamera");
         cam = cam_obj.GetComponent<Pl_Camera>();
+
+        txt_dbg_cam = GameObject.Find("DBG_edge").GetComponent<Text>();
         
         /* 初期化 */
     }
@@ -93,7 +95,7 @@ public class GameDebuger : MonoBehaviour
     // 画面上に表示するテキスト
     void Debug_Text()
 	{
-        txt_dbg_cam.text = "edge = " + cam.scrnWidthWld.ToString();
+        txt_dbg_cam.text = "edge = " + cam.camSize.ToString();
         eatenCntObj.GetComponent<Text>().text = hung.eatenCnt.ToString();
 	}
 }

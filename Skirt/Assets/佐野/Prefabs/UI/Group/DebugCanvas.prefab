@@ -450,11 +450,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5705338161052168124, guid: 5d787438765353f4291c3b6c7a3b3e23, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 100
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 5705338161052168124, guid: 5d787438765353f4291c3b6c7a3b3e23, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 30
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 5705338161052168124, guid: 5d787438765353f4291c3b6c7a3b3e23, type: 3}
       propertyPath: m_LocalPosition.x
@@ -518,6 +518,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4178257252543136561}
     m_Modifications:
+    - target: {fileID: 8546121920467254417, guid: 4bcd11b463a176640b438ee5c551ff64, type: 3}
+      propertyPath: m_Text
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8546121920467254418, guid: 4bcd11b463a176640b438ee5c551ff64, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -605,6 +609,10 @@ PrefabInstance:
     - target: {fileID: 8546121920467254419, guid: 4bcd11b463a176640b438ee5c551ff64, type: 3}
       propertyPath: m_Name
       value: StageName
+      objectReference: {fileID: 0}
+    - target: {fileID: 8546121920467254419, guid: 4bcd11b463a176640b438ee5c551ff64, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4bcd11b463a176640b438ee5c551ff64, type: 3}

@@ -10,6 +10,8 @@ public class Pl_Camera : MonoBehaviour
     public float scrnHeightWld;
     public float scrnYWld;
 
+    public float camSize;
+
     [Header("カメラ")]
     [SerializeField] float camVal = 0.15f;
     [SerializeField] float camMinSize = 8;
@@ -27,6 +29,8 @@ public class Pl_Camera : MonoBehaviour
     Pl_States pl_st;
     GameManager gm;
     StageManager stg;
+
+
 
 //-------------------------------------------------------------------
 
@@ -63,6 +67,8 @@ public class Pl_Camera : MonoBehaviour
             scrnWidthWld = cam.ScreenToWorldPoint(new Vector2(Screen.width, 0)).x;
             scrnHeightWld = cam.ScreenToWorldPoint(new Vector2(0, Screen.height)).y;
             scrnYWld = cam.ViewportToWorldPoint(new Vector2(0, cam.rect.y)).y;
+
+            camSize = cam.orthographicSize;
         }
     }
 

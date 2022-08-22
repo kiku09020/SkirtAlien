@@ -22,7 +22,7 @@ public class Enm_Pega : MonoBehaviour
     }
 
 
-    void Update()
+    void FixedUpdate()
     {
         // Œ»İˆÊ’uæ“¾
         posNow = transform.position;

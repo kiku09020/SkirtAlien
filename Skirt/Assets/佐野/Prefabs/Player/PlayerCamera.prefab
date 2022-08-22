@@ -99,6 +99,7 @@ MonoBehaviour:
   scrnWidthWld: 0
   scrnHeightWld: 0
   scrnYWld: 0
+  camSize: 0
   camVal: 0.16
   camMinSize: 8
   camMaxSize: 32

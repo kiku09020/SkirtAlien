@@ -4,28 +4,19 @@ using UnityEngine;
 
 public class HitChecker : MonoBehaviour
 {
-    public bool isGroundHit;
-    public bool isPlayerHit;
-    public bool isEnemyHit;
+    public bool isGroundHit;        // 地上にいるか
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-    
-    void OnTriggerEnter2D ( Collider2D col ) {//接触した
+    //着地したか
+    void OnTriggerEnter2D ( Collider2D col ) {
         if( col.gameObject.tag == "Floor"){
             isGroundHit = true;
-            Debug.Log("Ground");
         }
     }
 
+    // 地面から離れたか
     void OnTriggerExit2D( Collider2D col )
     {
-        // 地面から離れた
-        if (col.gameObject.tag == "Floor")
-        {
+        if (col.gameObject.tag == "Floor"){
             isGroundHit = false;
         }
     }
