@@ -116,7 +116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b426af9d28e631499e0554364615c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trgAspctVec: {x: 1080, y: 1920}
+  trgAspctVec: {x: 1080, y: 2400}
   cam: {fileID: 3676935269728458182, guid: 13e0d05f093ff764e876370c0258de00, type: 3}
 --- !u!1001 &2201139776813434956
 PrefabInstance:
