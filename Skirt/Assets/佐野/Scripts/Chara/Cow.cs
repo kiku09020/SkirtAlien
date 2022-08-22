@@ -32,7 +32,7 @@ public class Cow : MonoBehaviour
 
 //-------------------------------------------------------------------
 
-    void Update()
+    void FixedUpdate()
     {
         transform.Translate(new Vector2(spd, 0));
 

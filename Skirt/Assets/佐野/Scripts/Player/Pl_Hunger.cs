@@ -5,7 +5,7 @@ using UnityEngine.UI;
 //-------------------------------------------------------------------
 public class Pl_Hunger : MonoBehaviour {
     [Header("満腹度")]
-    [SerializeField] float nowHung;                 // 満腹度の数値
+    public           float nowHung;                 // 満腹度の数値
                      float hungMax = 100;           // 最大満腹度
 
     [SerializeField] float hungValDec_State;        // 一度に減らす量(ふわふわ、急降下中)
@@ -19,7 +19,15 @@ public class Pl_Hunger : MonoBehaviour {
     bool onceFlg;
 
     [Header("その他")]
+    public int eatenCnt;                  // 消化した敵の数
     [SerializeField] Color hungColor;
+
+    // 消化数の扱い
+    public enum EatenCntEnum {
+        inc,        // 増やす
+        dec,        // 減らす
+        reset,      // 0にする
+    }
 
     /* オブジェクト */
     GameObject hungbar_obj;
@@ -55,6 +63,8 @@ public class Pl_Hunger : MonoBehaviour {
     {
         HungDisp();
         Hungry();
+
+        print("EatenCnt = " + eatenCnt);
     }
 
     //-------------------------------------------------------------------
@@ -77,21 +87,20 @@ public class Pl_Hunger : MonoBehaviour {
     }
 
     //-------------------------------------------------------------------
-
+    // 空腹時の処理
     public void HungState()
     {
-        // 空腹時の処理
         if (hungFlg) {
+            // 一度のみ実行
             if (!onceFlg) {
-                act.moveSpd *= 0.75f;                   // 速度おそくする
                 onceFlg = true;
             }
+
             transform.localScale = Vector2.one;         // 大きさ
             sr.color = hungColor;                       // 色変更
         }
 
         else {
-            act.moveSpd = act.startSpd;                 // 速度戻す
             onceFlg = false;                            // onceフラグ降ろす
 
             st.stateNum = Pl_States.States.normal;      // 通常状態にする
@@ -123,6 +132,27 @@ public class Pl_Hunger : MonoBehaviour {
         // 最大値よりも大きくなったら、戻す
         if (nowHung > hungMax) {
             nowHung = hungMax;
+        }
+    }
+
+    // 消化した敵の数を増減する
+    public void EatCntSetter(EatenCntEnum setType)
+    {
+        switch (setType) {
+            // 増やす
+            case EatenCntEnum.inc:
+                eatenCnt++;
+                break;
+
+            //減らす
+            case EatenCntEnum.dec:
+                eatenCnt--;
+                break;
+
+            // 0に戻す
+            case EatenCntEnum.reset:
+                eatenCnt = 0;
+                break;
         }
     }
 }

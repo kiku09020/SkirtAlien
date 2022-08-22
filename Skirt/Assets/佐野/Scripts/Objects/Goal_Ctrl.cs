@@ -53,6 +53,7 @@ public class Goal_Ctrl : MonoBehaviour
 
             pl_st.stateNum = Pl_States.States.goaled;
             cvsGen.Inst_Goal();
+            
         }
 
 	}
