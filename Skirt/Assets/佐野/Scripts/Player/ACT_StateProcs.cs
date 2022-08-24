@@ -16,6 +16,7 @@ public partial class Pl_Action
             part.InstPart(Pl_Particle.PartNames.damaged);
             aud.PlaySE(AudLists.SETypeList.pl, (int)AudLists.SEList_Pl.damage);
             rb.AddForce(Vector2.up * dmgJumpForce);         // 少し飛ばす
+            Vibration.Vibrate(300);
         }
 
         // 点滅

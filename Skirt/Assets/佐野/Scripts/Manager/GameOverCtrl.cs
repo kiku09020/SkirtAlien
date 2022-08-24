@@ -58,18 +58,23 @@ public class GameOverCtrl : MonoBehaviour
 		if (gm.isGameOver) {
 			pl.GetComponent<Collider2D>().enabled = false;        // プレイヤーのcol無効化
 
-			StartCoroutine("GmOv");
+			if(!isInsted) {
+				StartCoroutine("GmOv");
+			}
 		}
 	}
 
-	// UI表示
+	// ゲームオーバー後
 	IEnumerator GmOv()
 	{
+		Time.timeScale = 0.5f;          // スローにする
+
 		yield return new WaitForSeconds(gmovTime);
 
-        if (!isInsted) {
-			cnvs.Inst_GameOver();
-			isInsted = true;
-        }
+		if(!isInsted) {
+			Time.timeScale = 1;         // 時間戻す
+			cnvs.Inst_GameOver();       // キャンバス生成
+			isInsted = true;            // フラグ立てる
+		}
 	}
 }
