@@ -12,11 +12,13 @@ public partial class Pl_Action
 
         // ダメージくらった瞬間
         if (dmgCnt == 1) {
-            hp.HP_Damage();
-            part.InstPart(Pl_Particle.PartNames.damaged);
-            aud.PlaySE(AudLists.SETypeList.pl, (int)AudLists.SEList_Pl.damage);
-            rb.AddForce(Vector2.up * dmgJumpForce);         // 少し飛ばす
-            Vibration.Vibrate(300);
+            rb.AddForce(Vector2.up * dmgJumpForce);                                 // 少し飛ばす
+            hp.HP_Damage();                                                         // HP減らす
+            hung.ComboSetter(Pl_Hunger.ComboEnum.reset);                            // 消化コンボ数リセット
+                                                                                    
+            part.InstPart(Pl_Particle.PartNames.damaged);                           // パーティクル生成
+            aud.PlaySE(AudLists.SETypeList.pl, (int)AudLists.SEList_Pl.damage);     // 効果音再生
+            Vibration.Vibrate(300);                                                 // スマホ振動
         }
 
         // 点滅
@@ -68,9 +70,9 @@ public partial class Pl_Action
         else {
             hung.HungInc();                                                         // 満腹度増やす
             digBtnCnt = 0;                                                          // 消化ボタン回数0にする
-            hung.EatCntSetter(Pl_Hunger.EatenCntEnum.inc);                          // コンボ数増加
+            hung.ComboSetter(Pl_Hunger.ComboEnum.inc);                          // コンボ数増加
 
-            score.AddScore(hung.eatenCnt);                                          // スコア追加
+            score.AddScore(hung.eatCombo);                                          // スコア追加
             anim.DigDoneAnim();                                                     // アニメーション
             aud.PlaySE(AudLists.SETypeList.pl, (int)AudLists.SEList_Pl.digDone);    // 効果音再生
             part.InstPart(Pl_Particle.PartNames.eated);

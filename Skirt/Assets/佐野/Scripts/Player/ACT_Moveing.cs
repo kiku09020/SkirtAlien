@@ -5,9 +5,9 @@ public partial class Pl_Action
     // 移動
     void Move()
     {
-        // 空腹時は速度半減
-        if (hung.hungFlg) {
-            nowSpd = normalSpd * 0.75f;
+        // 空腹時,消化時は速度半減
+        if (hung.hungFlg || st.stateNum == Pl_States.States.digest) {
+            nowSpd = normalSpd / 2;
         }
 
         // 空腹じゃなかったら、速度戻す
@@ -36,8 +36,8 @@ public partial class Pl_Action
         }
 
         // 下
-        if (velY < -100) {
-            rb.AddForce(Vector2.up * 20);
+        if (vel.y < -100) {
+            rb.AddForce(Vector2.up * 30);
         }
     }
 
@@ -70,7 +70,7 @@ public partial class Pl_Action
 
         // 停止
         if (gm.inpVer == 0) {
-            rb.velocity = new Vector2(vel.x * 0.96f, velY);
+            rb.velocity = new Vector2(vel.x * 0.96f, vel.y);
         }
     }
 

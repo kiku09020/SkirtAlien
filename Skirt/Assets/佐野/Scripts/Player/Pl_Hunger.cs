@@ -19,11 +19,11 @@ public class Pl_Hunger : MonoBehaviour {
     bool onceFlg;
 
     [Header("その他")]
-    public int eatenCnt;                  // 消化した敵の数
+    public int eatCombo;                  // 消化した敵の数
     [SerializeField] Color hungColor;
 
     // 消化数の扱い
-    public enum EatenCntEnum {
+    public enum ComboEnum {
         inc,        // 増やす
         dec,        // 減らす
         reset,      // 0にする
@@ -64,7 +64,7 @@ public class Pl_Hunger : MonoBehaviour {
         HungDisp();
         Hungry();
 
-        print("EatenCnt = " + eatenCnt);
+        print("EatenCnt = " + eatCombo);
     }
 
     //-------------------------------------------------------------------
@@ -136,22 +136,22 @@ public class Pl_Hunger : MonoBehaviour {
     }
 
     // 消化した敵の数を増減する
-    public void EatCntSetter(EatenCntEnum setType)
+    public void ComboSetter(ComboEnum setType)
     {
         switch (setType) {
             // 増やす
-            case EatenCntEnum.inc:
-                eatenCnt++;
+            case ComboEnum.inc:
+                eatCombo++;
                 break;
 
             //減らす
-            case EatenCntEnum.dec:
-                eatenCnt--;
+            case ComboEnum.dec:
+                eatCombo--;
                 break;
 
             // 0に戻す
-            case EatenCntEnum.reset:
-                eatenCnt = 0;
+            case ComboEnum.reset:
+                eatCombo = 0;
                 break;
         }
     }

@@ -1,11 +1,6 @@
 using UnityEngine;
 
-/* プレイヤーの捕食や移動などの行動に関するスクリプトです
- * ・移動 
- * ・ダメージ
- * ・捕食
- * ・消化
- */
+/* プレイヤーの捕食や移動などの行動に関するスクリプトです */
 public partial class Pl_Action : MonoBehaviour
 {
     /* 値 */
@@ -14,36 +9,28 @@ public partial class Pl_Action : MonoBehaviour
     [SerializeField] float nowSpd;      // 現在の速度
     [SerializeField] float spdMax;      // 最大速度
     [SerializeField] float moveDec;     // 減速度
-    public float velY;                  // 速度(Y)カメラ用
 
     [Header("回転")]
-    [SerializeField] float moveRot;     // 移動時の回転角度
-    [SerializeField] float rotDec;      // キーを離したときの回転速度
+    [SerializeField] float moveRot;             // 移動時の回転角度
+    [SerializeField] float rotDec;              // キーを離したときの回転速度
 
-    [Header("ダメージ関係")]  //--------------------
-    [SerializeField, Tooltip("無敵時間")]
-    int     invTime;
-    [SerializeField,Tooltip("ダメージ時のジャンプ力")]
-    float   dmgJumpForce;
-    int     dmgCnt;
+    [Header("ダメージ")]  //--------------------
+    [SerializeField] int    invTime;            // 無敵時間
+    [SerializeField] float  dmgJumpForce;       // ダメージ時のジャンプ力
+    int dmgCnt;
 
     [Header("捕食")]          //--------------------
-    [SerializeField,Tooltip("捕食時間")]
-    float   eatTime;
+    [SerializeField] float  eatTime;            // 捕食時間
     int     eatCnt;
 
     [Header("消化")]          //--------------------
-    [SerializeField,Tooltip("消化するまでにボタンを押す回数")]
-    int     digBtnCntMax;
-    int     digBtnCnt;      // ボタンが押された回数
+    [SerializeField] int    digBtnCntMax;       // 消化するまでに押す回数
+    int digBtnCnt;                              // ボタンが押された回数
 
     [Header("ジャンプ")]      //--------------------
-    [SerializeField,Tooltip("通常時のジャンプ力")] 
-    float normalJumpForce;
-    [SerializeField,Tooltip("現在のジャンプ力")]
-    float   nowJumpForce;
-    [SerializeField,Tooltip("ジャンプ状態が終わるまでの時間")]
-    float   jumpTime;
+    [SerializeField] float  normalJumpForce;    // 通常時のジャンプ力
+    [SerializeField] float  nowJumpForce;       // 現在のジャンプ力
+    [SerializeField] float  jumpTime;           // ジャンプ時間
     int     jumpCnt;
 
     float scrEdge;          // 画面端のX座標
@@ -113,17 +100,13 @@ public partial class Pl_Action : MonoBehaviour
     void FixedUpdate()
     {
         if (!gm.isGameOver && !goal.isGoaled) {
-            velY = rb.velocity.y;
-            scrEdge = cam.scrnWidthWld;       // スクリーン端の座標更新
+            scrEdge = cam.scrnWidthWld;     // スクリーン端の座標更新
             pos = transform.position;       // 位置
             vel = rb.velocity;              // 速度
 
-            if (st.stateNum != Pl_States.States.digest) {
-                Move();
-                Rotate();
-            }
-
-            OutScr();
+            Move();         // 移動
+            Rotate();       // 回転
+            OutScr();       // はみ出し
         }
 
         // ゲームオーバー時に不透明にする

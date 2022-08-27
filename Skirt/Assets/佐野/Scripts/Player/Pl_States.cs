@@ -82,7 +82,7 @@ public class Pl_States : MonoBehaviour
 
 			// 地上
 			if(landFlg) {
-				hung.EatCntSetter(Pl_Hunger.EatenCntEnum.reset);        // 地面についたら、消化数を0に戻す
+				hung.ComboSetter(Pl_Hunger.ComboEnum.reset);        // 地面についたら、消化数を0に戻す
 			}
 		}
 

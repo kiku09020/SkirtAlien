@@ -110,6 +110,6 @@ public class GameDebuger : MonoBehaviour
     void Debug_Text()
 	{
         txt_dbg_cam.text = "edge = " + cam.camSize.ToString();
-        eatenCntObj.GetComponent<Text>().text = hung.eatenCnt.ToString();
+        eatenCntObj.GetComponent<Text>().text = hung.eatCombo.ToString();
 	}
 }

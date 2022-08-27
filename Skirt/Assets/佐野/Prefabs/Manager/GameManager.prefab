@@ -131,7 +131,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3a956d7bb7e4c74289eb8caf263da9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  addDispScore: 5
+  addScore: 100
+  div: 50
+  dispTime: 1.5
   scorePref: {fileID: 3490567411236916009, guid: c1b215f09ea08904e90fb749449304aa, type: 3}
 --- !u!1001 &2201139776813434956
 PrefabInstance:
