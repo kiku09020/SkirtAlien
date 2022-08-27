@@ -21,7 +21,8 @@ public class Pl_States : MonoBehaviour
 	}
 
 	[Header("フラグ")]
-	public bool landFlg;					// 地上にいるか
+	public bool landFlg;                    // 地上にいるか
+	public bool dmgFlg;						// 無敵時間中かどうか
 
 	[Header("入力判定")]
 	[SerializeField] float inpY_up_jdge = 0.6f;     // 上入力時の判定
@@ -220,13 +221,8 @@ public class Pl_States : MonoBehaviour
 	// ★ボタン押したときの処理
 	public void ActBtnProc()
     {
-		// 地上にいたらジャンプする
-		if (stateNum == States.landing) {
-			stateNum = States.jumping;
-		}
-
 		// 通常時のみ、捕食状態にする
-		else if (stateNum == States.normal) {
+		if (stateNum == States.normal) {
 			stateNum = States.eating;
 			hung.HungDec_Atk();
 		}
@@ -234,7 +230,12 @@ public class Pl_States : MonoBehaviour
 		// 消化時
 		else if (stateNum == States.digest) {
 			pl_act.Digest_Btn();
-        }
+		}
+
+		// 地上にいたらジャンプする
+		else if (landFlg && stateNum != States.eating) {
+			stateNum = States.jumping;
+		}
 	}
 
 	//-------------------------------------------------------------------

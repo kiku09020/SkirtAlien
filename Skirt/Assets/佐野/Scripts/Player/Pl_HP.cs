@@ -12,7 +12,7 @@ public class Pl_HP : MonoBehaviour
             float maxHP = 100;                  // 最大HP
 
     [Header("表示関係")]
-    [SerializeField] float dispDec      = 0.1f; // 表示HPを減らす量
+    [SerializeField] float dispVal; // 表示HPを増減させる量
                      float dispHP;              // 表示HP
 
     [Header("回復関係")]
@@ -61,7 +61,11 @@ public class Pl_HP : MonoBehaviour
     {
         // 表示HPが今のHPよりも大きかったら、表示HP減らす
         if (nowHP < dispHP) {
-            dispHP -= dispDec;
+            dispHP -= dispVal;
+        }
+
+        else if (nowHP > dispHP) {
+            dispHP += dispVal;      
         }
 
         // 表示HP = 今のHPだったら揃える

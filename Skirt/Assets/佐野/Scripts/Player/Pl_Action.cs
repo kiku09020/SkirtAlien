@@ -65,6 +65,7 @@ public partial class Pl_Action : MonoBehaviour
 
     GameManager     gm;
     AudioManager    aud;
+    ScoreManager    score;
     Goal_Ctrl       goal;
 
     Pl_States       st;
@@ -79,10 +80,10 @@ public partial class Pl_Action : MonoBehaviour
     void Start()
     {
         gm_obj      = GameObject.Find("GameManager");
-        part_obj    = GameObject.Find("ParticleManager");
-        goal_obj    = GameObject.Find("Goal");
-        aud_obj     = GameObject.Find("AudioManager");
+        part_obj    = gm_obj.transform.Find("ParticleManager").gameObject;
+        aud_obj     = gm_obj.transform.Find("AudioManager").gameObject;
 
+        goal_obj    = GameObject.Find("Goal");
         cam_obj     = GameObject.Find("PlayerCamera");
 
         /* コンポーネント取得 */
@@ -90,9 +91,9 @@ public partial class Pl_Action : MonoBehaviour
         sr          = GetComponent<SpriteRenderer>();
 
         gm          = gm_obj.GetComponent<GameManager>();
+        score       = gm_obj.GetComponent<ScoreManager>();
         aud         = aud_obj.GetComponent<AudioManager>();
         part        = part_obj.GetComponent<Pl_Particle>();
-        goal        = goal_obj.GetComponent<Goal_Ctrl>();
 
         st          = GetComponent<Pl_States>();
         hp          = GetComponent<Pl_HP>();
@@ -100,6 +101,7 @@ public partial class Pl_Action : MonoBehaviour
         anim        = GetComponent<Pl_Anim>();
 
         cam         = cam_obj.GetComponent<Pl_Camera>();
+        goal        = goal_obj.GetComponent<Goal_Ctrl>();
 
         /* 初期化 */
         nowSpd = normalSpd;

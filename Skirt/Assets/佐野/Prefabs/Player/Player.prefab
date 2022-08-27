@@ -281,7 +281,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nowHP: 100
-  dispDec: 0.3
+  dispVal: 0.3
   heal: 10
   dmg: 20
 --- !u!114 &3942020655683820548

@@ -61,19 +61,21 @@ public partial class Pl_Action
 
             anim.DigBtnAnim();                                                      // アニメーション
             aud.PlaySE(AudLists.SETypeList.pl, (int)AudLists.SEList_Pl.dig);        // 効果音
-            part.InstPart(Pl_Particle.PartNames.eating);
+            part.InstPart(Pl_Particle.PartNames.eating);                            // パーティクル生成
         }
 
         // 消化完了時(最後の消化)
         else {
             hung.HungInc();                                                         // 満腹度増やす
             digBtnCnt = 0;                                                          // 消化ボタン回数0にする
-            hung.EatCntSetter(Pl_Hunger.EatenCntEnum.inc);                          // 消化数増加
-            st.stateNum = Pl_States.States.normal;                                  // 通常状態に戻す
+            hung.EatCntSetter(Pl_Hunger.EatenCntEnum.inc);                          // コンボ数増加
 
+            score.AddScore(hung.eatenCnt);                                          // スコア追加
             anim.DigDoneAnim();                                                     // アニメーション
             aud.PlaySE(AudLists.SETypeList.pl, (int)AudLists.SEList_Pl.digDone);    // 効果音再生
             part.InstPart(Pl_Particle.PartNames.eated);
+
+            st.stateNum = Pl_States.States.normal;                                  // 通常状態に戻す
         }
     }
 
@@ -84,18 +86,23 @@ public partial class Pl_Action
 
         // 一瞬ジャンプ
         if (jumpCnt == 1) {
+
+            // 空腹時のジャンプ力
             if (hung.hungFlg) {
                 nowJumpForce = normalJumpForce * 0.75f;
             }
 
+            // 通常時のジャンプ力
             else {
                 nowJumpForce = normalJumpForce;
             }
 
+            // ジャンプ
             rb.AddForce(Vector2.up * nowJumpForce);
 
-            aud.PlaySE(AudLists.SETypeList.pl, (int)AudLists.SEList_Pl.jump);
-            part.InstPart(Pl_Particle.PartNames.jump);
+            aud.PlaySE(AudLists.SETypeList.pl, (int)AudLists.SEList_Pl.jump);       // 効果音再生
+            part.InstPart(Pl_Particle.PartNames.jump);                              // パーティクル生成
+            sr.color = Color.white;                                                 // 色変更
         }
 
         // 解除
