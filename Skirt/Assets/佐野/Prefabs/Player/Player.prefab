@@ -236,8 +236,8 @@ MonoBehaviour:
   normalSpd: 9
   nowSpd: 0
   spdMax: 15
+  fallSpdMax: 80
   moveDec: 0.96
-  velY: 0
   moveRot: 15
   rotDec: 1
   invTime: 120
@@ -261,6 +261,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stateNum: 0
   landFlg: 0
+  dmgFlg: 0
   inpY_up_jdge: 0.3
   inpY_dn_jdge: -0.3
   drag_flt: 0.75
@@ -281,7 +282,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nowHP: 100
-  dispDec: 0.3
+  dispVal: 0.3
   heal: 10
   dmg: 20
 --- !u!114 &3942020655683820548
@@ -297,13 +298,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nowHung: 0
-  hungValDec_State: 0.1
+  hungValDec_State: 0.2
   hungValDec_Atk: 7.5
   hungIncVal: 15
   decFlg: 0
   incFlg: 0
   hungFlg: 0
-  eatenCnt: 0
+  eatCombo: 0
   hungColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &7752226494457446854
 MonoBehaviour:

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5756471999357389469}
   - component: {fileID: 8458617889915437872}
   - component: {fileID: 1419464441}
+  - component: {fileID: 318295767460810678}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -118,6 +119,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trgAspctVec: {x: 1080, y: 2400}
   cam: {fileID: 3676935269728458182, guid: 13e0d05f093ff764e876370c0258de00, type: 3}
+--- !u!114 &318295767460810678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8585331921804387307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3a956d7bb7e4c74289eb8caf263da9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  addScore: 200
+  div: 50
+  dispTime: 1.5
+  scorePref: {fileID: 3490567411236916009, guid: c1b215f09ea08904e90fb749449304aa, type: 3}
 --- !u!1001 &2201139776813434956
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -175,6 +192,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6432861738727483892, guid: aa50e6f8dd2be004d9dc1c49a0f8f0c4, type: 3}
+    - {fileID: 3041276728641174744, guid: aa50e6f8dd2be004d9dc1c49a0f8f0c4, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: aa50e6f8dd2be004d9dc1c49a0f8f0c4, type: 3}
 --- !u!4 &5362448159183943261 stripped
 Transform:

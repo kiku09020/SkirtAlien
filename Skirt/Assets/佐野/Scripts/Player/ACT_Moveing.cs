@@ -5,18 +5,25 @@ public partial class Pl_Action
     // 移動
     void Move()
     {
-        // 空腹時は速度半減
+        // 空腹時
         if (hung.hungFlg) {
-            nowSpd = normalSpd * 0.75f;
+            nowSpd = normalSpd / 2;
         }
 
-        // 空腹じゃなかったら、速度戻す
+        // 消化時
+        else if (st.stateNum == Pl_States.States.digest)
+        {
+            nowSpd=normalSpd / 6;
+        }
+
+        // 空腹、消化時じゃなかったら、速度戻す
         else {
             nowSpd = normalSpd;
         }
 
         // 移動
         rb.AddForce(Vector2.right * gm.inpVer * nowSpd);
+        
 
         SpdLimit();     // 速度制限
         Breaking();     // ブレーキ(慣性無視)
@@ -36,8 +43,8 @@ public partial class Pl_Action
         }
 
         // 下
-        if (velY < -100) {
-            rb.AddForce(Vector2.up * 20);
+        if (vel.y < -fallSpdMax) {
+            rb.drag=3;
         }
     }
 
@@ -55,6 +62,11 @@ public partial class Pl_Action
         }
     }
 
+    public Vector2 GetSpd()
+    {
+        return vel;
+    }
+
     // ブレーキ(スティックを急に反対方向に傾けたときに慣性を軽減するようにする)
     void Breaking()
     {
@@ -70,7 +82,7 @@ public partial class Pl_Action
 
         // 停止
         if (gm.inpVer == 0) {
-            rb.velocity = new Vector2(vel.x * 0.96f, velY);
+            rb.velocity = new Vector2(vel.x * 0.96f, vel.y);
         }
     }
 
