@@ -236,7 +236,7 @@ MonoBehaviour:
   normalSpd: 9
   nowSpd: 0
   spdMax: 15
-  fallSpdMax: 80
+  fallSpdMax: 60
   moveDec: 0.96
   moveRot: 15
   rotDec: 1

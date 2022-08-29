@@ -44,7 +44,7 @@ public partial class Pl_Action
 
         // 下
         if (vel.y < -fallSpdMax) {
-            rb.drag=3;
+            rb.velocity = new Vector2(vel.x, -fallSpdMax);
         }
     }
 

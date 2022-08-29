@@ -345,10 +345,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2283851557005410474, guid: 8c2667ba865a25e4a984798add83014e, type: 3}
-      propertyPath: fallSpdMax
-      value: 50
-      objectReference: {fileID: 0}
     - target: {fileID: 2296475401055147463, guid: 8c2667ba865a25e4a984798add83014e, type: 3}
       propertyPath: m_RootOrder
       value: 4

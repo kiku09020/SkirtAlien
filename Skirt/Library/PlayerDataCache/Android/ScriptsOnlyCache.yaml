@@ -35,11 +35,8 @@ ScriptsOnlyBuild:
     - UnityEditor.U2D.Animation.BoneGizmo
     Unity.2D.IK.Editor.dll:
     - UnityEditor.U2D.IK.IKEditorManager
-    - UnityEditor.U2D.IK.IKGizmos
     Unity.2D.Tilemap.Editor.dll:
     - UnityEditor.Tilemaps.GridPaintingState
-    - UnityEditor.Tilemaps.GridPaletteBrushes
-    - UnityEditor.Tilemaps.GridPalettes
     - UnityEditor.Tilemaps.SceneViewGridManager
     - UnityEditor.Tilemaps.SceneViewOpenTilePaletteHelper
     - UnityEditor.Tilemaps.TileDragAndDropManager
@@ -172,7 +169,7 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 5910}
     - Class: 114
-      Script: {instanceID: 6092}
+      Script: {instanceID: 6090}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -937,7 +934,7 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 5910}
     - Class: 114
-      Script: {instanceID: 6092}
+      Script: {instanceID: 6090}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -1151,7 +1148,7 @@ ScriptsOnlyBuild:
     className: CanvasScaler
   - hash:
       serializedVersion: 2
-      Hash: bfbf75ee2f4624969cef2d0f0bf58250
+      Hash: ba2ed91d57aaabd6ed844d17a32a53ab
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Pl_Hunger
@@ -1319,7 +1316,7 @@ ScriptsOnlyBuild:
     className: SpriteShapeController
   - hash:
       serializedVersion: 2
-      Hash: 017069dde060f2d47d50c0365077f462
+      Hash: a7de0c76cbb637877aed9835ac07c3a3
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Pl_States
@@ -1601,7 +1598,7 @@ ScriptsOnlyBuild:
     className: SpriteSkinEntity
   - hash:
       serializedVersion: 2
-      Hash: 24defa19ca9e6947015a2833d9a8696c
+      Hash: 13bec164b9a046f680b587e7d8f18068
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Pl_Action
@@ -1643,7 +1640,7 @@ ScriptsOnlyBuild:
     className: AspectSetter
   - hash:
       serializedVersion: 2
-      Hash: eab1d9ad76a2059423b6c486fb13aca4
+      Hash: 0038e15341c2231be6207c6c5adf1f4d
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ScoreManager
@@ -1743,4 +1740,4 @@ ScriptsOnlyBuild:
   - "Assets/\u6771/Scenes/DebugStage_Azuma.unity"
   - "Assets/\u4F50\u91CE/Scenes/OutGame/Clear.unity"
   - "Assets/\u4F50\u91CE/Scenes/OutGame/Menu.unity"
-  playerPath: D:/School/2nd/GameSeminar/skirt_android.apk
+  playerPath: F:/School/2nd/GameSeminar/skirt_android.apk
