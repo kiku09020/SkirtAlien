@@ -82,12 +82,17 @@ public class CanvasGenelator : MonoBehaviour
         cvsInst_game.SetActive(false);
     }
 
-    // ゲームオーバー時に表示
-    public void Inst_GameOver()
+    // ゲームオーバー時に削除
+    public void GmOv_Del()
     {
-        cvsInst_gameOver = Instantiate(cvsPref_gameOver);
         cvsInst_ctrl.SetActive(false);
         cvsInst_game.SetActive(false);
+    }
+
+    // ゲームオーバー時に表示
+    public void GmOv_Inst()
+    {
+        cvsInst_gameOver = Instantiate(cvsPref_gameOver);
     }
 
     // ゴール時

@@ -22,9 +22,10 @@ public class GameDebuger : MonoBehaviour
     GameObject audObj;
 
     Text txt_dbg_cam;
+    Text txt_fallSpd;
+    Text txt_eatenCnt;
     GameObject pl_obj;
 
-    GameObject eatenCntObj;
 
     /* コンポーネント取得用 */
     GameManager gm;
@@ -32,7 +33,8 @@ public class GameDebuger : MonoBehaviour
     AudioSource audsrc;
 
     Player pl;
-    Pl_States pl_st;
+    Pl_Action act;
+    Pl_States st;
     Pl_Camera cam;
     Pl_Hunger hung;
 
@@ -42,7 +44,6 @@ public class GameDebuger : MonoBehaviour
     void Start()
     {
         /* コンポーネント取得 */
-        eatenCntObj = GameObject.Find("eatenCnt");
         pl_obj  = GameObject.Find("Player");
 
         gmObj   = GameObject.Find("GameManager");
@@ -53,7 +54,8 @@ public class GameDebuger : MonoBehaviour
         
 
         pl      = pl_obj.GetComponent<Player>();
-        pl_st   = pl_obj.GetComponent<Pl_States>();
+        act=pl_obj.GetComponent<Pl_Action>();
+        st   = pl_obj.GetComponent<Pl_States>();
         hung    = pl_obj.GetComponent<Pl_Hunger>();
 
         // カメラ
@@ -61,6 +63,8 @@ public class GameDebuger : MonoBehaviour
         cam = cam_obj.GetComponent<Pl_Camera>();
 
         txt_dbg_cam = GameObject.Find("DBG_edge").GetComponent<Text>();
+        txt_fallSpd=GameObject.Find("fallspd").GetComponent<Text>();
+        txt_eatenCnt = GameObject.Find("eatenCnt").GetComponent<Text>();
 
         /* 初期化 */
         audsrc.enabled = false;
@@ -103,13 +107,14 @@ public class GameDebuger : MonoBehaviour
     // ログ
     void Debug_Log()
 	{
-        print(pl_st.stateNum);
+        print(st.stateNum);
 	}
 
     // 画面上に表示するテキスト
     void Debug_Text()
 	{
         txt_dbg_cam.text = "edge = " + cam.camSize.ToString();
-        eatenCntObj.GetComponent<Text>().text = hung.eatCombo.ToString();
+        txt_fallSpd.text="fallSpd = "+act.GetSpd().ToString();
+        txt_eatenCnt.text = hung.eatCombo.ToString();
 	}
 }

@@ -8,6 +8,7 @@ public partial class Pl_Action : MonoBehaviour
     [SerializeField] float normalSpd;   // 通常時の速度
     [SerializeField] float nowSpd;      // 現在の速度
     [SerializeField] float spdMax;      // 最大速度
+    [SerializeField] float fallSpdMax;  // 最大落下速度
     [SerializeField] float moveDec;     // 減速度
 
     [Header("回転")]

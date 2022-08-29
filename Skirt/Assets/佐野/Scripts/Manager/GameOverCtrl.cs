@@ -7,7 +7,6 @@ public class GameOverCtrl : MonoBehaviour
 	/* 値 */
 	[SerializeField] float gmovTime;            // 体力0になってからテキスト表示されるまでの時間
 
-
 	/* フラグ */
 	bool isInsted;
 
@@ -20,7 +19,7 @@ public class GameOverCtrl : MonoBehaviour
 	CanvasGenelator cnvs;
 
 	Pl_HP hp;
-	Player pl;
+	Collider2D col;
 
 	//-------------------------------------------------------------------
 
@@ -32,8 +31,8 @@ public class GameOverCtrl : MonoBehaviour
 
 		gm		= GetComponent<GameManager>();
 		cnvs	= ui_obj.GetComponent<CanvasGenelator>();
-		pl		= pl_obj.GetComponent<Player>();
 		hp		= pl_obj.GetComponent<Pl_HP>();
+		col=pl_obj.GetComponent<Collider2D>();
 
 		/* 初期化 */
 
@@ -41,7 +40,7 @@ public class GameOverCtrl : MonoBehaviour
 
 	//-------------------------------------------------------------------
 
-	void Update()
+	void FixedUpdate()
 	{
 		GameOver();
 	}
@@ -56,7 +55,7 @@ public class GameOverCtrl : MonoBehaviour
 		}
 
 		if (gm.isGameOver) {
-			pl.GetComponent<Collider2D>().enabled = false;        // プレイヤーのcol無効化
+			col.enabled = false;        // プレイヤーのcol無効化
 
 			if(!isInsted) {
 				StartCoroutine("GmOv");
@@ -68,12 +67,13 @@ public class GameOverCtrl : MonoBehaviour
 	IEnumerator GmOv()
 	{
 		Time.timeScale = 0.5f;          // スローにする
+		cnvs.GmOv_Del();
 
 		yield return new WaitForSeconds(gmovTime);
 
 		if(!isInsted) {
 			Time.timeScale = 1;         // 時間戻す
-			cnvs.Inst_GameOver();       // キャンバス生成
+			cnvs.GmOv_Inst();			// キャンバス生成
 			isInsted = true;            // フラグ立てる
 		}
 	}
