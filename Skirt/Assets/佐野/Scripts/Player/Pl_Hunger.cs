@@ -63,8 +63,6 @@ public class Pl_Hunger : MonoBehaviour {
     {
         HungDisp();
         Hungry();
-
-        print("EatenCnt = " + eatCombo);
     }
 
     //-------------------------------------------------------------------

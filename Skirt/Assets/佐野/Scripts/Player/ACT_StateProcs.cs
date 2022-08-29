@@ -4,7 +4,7 @@ using UnityEngine;
 public partial class Pl_Action
 {
     // ダメージ
-    public void Damage()
+    public void Damage_Proc()
     {
         dmgCnt++;
 
@@ -12,13 +12,7 @@ public partial class Pl_Action
 
         // ダメージくらった瞬間
         if (dmgCnt == 1) {
-            rb.AddForce(Vector2.up * dmgJumpForce);                                 // 少し飛ばす
-            hp.HP_Damage();                                                         // HP減らす
-            hung.ComboSetter(Pl_Hunger.ComboEnum.reset);                            // 消化コンボ数リセット
-                                                                                    
-            part.InstPart(Pl_Particle.PartNames.damaged);                           // パーティクル生成
-            aud.PlaySE(AudLists.SETypeList.pl, (int)AudLists.SEList_Pl.damage);     // 効果音再生
-            Vibration.Vibrate(300);                                                 // スマホ振動
+            Damage();
         }
 
         // 点滅
@@ -36,6 +30,18 @@ public partial class Pl_Action
             st.stateNum = Pl_States.States.normal;
         }
     }
+
+    public void Damage()
+    {
+        rb.AddForce(Vector2.up * dmgJumpForce);                                 // 少し飛ばす
+        hp.HP_Damage();                                                         // HP減らす
+        hung.ComboSetter(Pl_Hunger.ComboEnum.reset);                            // 消化コンボ数リセット
+
+        part.InstPart(Pl_Particle.PartNames.damaged);                           // パーティクル生成
+        aud.PlaySE(AudLists.SETypeList.pl, (int)AudLists.SEList_Pl.damage);     // 効果音再生
+        Vibration.Vibrate(300);                                                 // スマホ振動
+    }
+
 
     // 捕食
     public void Eating()

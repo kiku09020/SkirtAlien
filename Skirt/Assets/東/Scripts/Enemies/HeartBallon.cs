@@ -2,10 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HeartBallon : MonoBehaviour
+public class HeartBallon : BallonClass
 {
-    [SerializeField] float movespeed = 0.01f;       // ë¨ìx
-
     GameObject audObj;
     GameObject plObj;
 
@@ -23,8 +21,7 @@ public class HeartBallon : MonoBehaviour
 
     void FixedUpdate()
     {
-        // è„è∏
-        transform.Translate(0, movespeed, 0);
+        Up();
     }
 
     // ìñÇΩÇ¡ÇΩéû
@@ -37,11 +34,5 @@ public class HeartBallon : MonoBehaviour
 
             Destroy(gameObject);        // çÌèú
         }
-    }
-
-    // è„Ç‹Ç≈çsÇ¡ÇΩÇÁè¡Ç∑
-    void OnBecameInvisible()
-    {
-        Destroy(this.gameObject);
     }
 }

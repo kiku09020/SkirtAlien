@@ -107,7 +107,7 @@ public class GameDebuger : MonoBehaviour
     // ログ
     void Debug_Log()
 	{
-        print(st.stateNum);
+        
 	}
 
     // 画面上に表示するテキスト

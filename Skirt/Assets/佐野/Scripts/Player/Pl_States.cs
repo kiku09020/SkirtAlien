@@ -75,15 +75,13 @@ public class Pl_States : MonoBehaviour
 		if (stateNum != States.goaled && !gm.isGameOver) {
 			StateProc();        // メイン処理
 
+			// 満腹度を少しずつ減らす
+			hung.HungDec_State();
+
 			// 空腹
-            if (hung.hungFlg) {
+			if (hung.hungFlg) {
 				hung.HungState();
             }
-
-			// 地上
-			if(landFlg) {
-				hung.ComboSetter(Pl_Hunger.ComboEnum.reset);        // 地面についたら、消化数を0に戻す
-			}
 		}
 
 		// state表示
@@ -125,7 +123,7 @@ public class Pl_States : MonoBehaviour
 				break;
 
 			case States.damage:		// 被ダメージ
-				pl_act.Damage();
+				pl_act.Damage_Proc();
 				break;
 		}
 	}
@@ -163,9 +161,6 @@ public class Pl_States : MonoBehaviour
         if (!hung.hungFlg) {
 			// 空気抵抗を減らす
 			rb.drag = drag_swp;
-
-			// 満腹度を少しずつ減らす
-			hung.HungDec_State();
 		}
 
 		// ノーマル状態に遷移
@@ -183,9 +178,6 @@ public class Pl_States : MonoBehaviour
 		if (!hung.hungFlg) {
 			// 空気抵抗を増やす
 			rb.drag = drag_flt;
-
-			// 満腹度を少しずつ減らす
-			hung.HungDec_State();
 		}
 
 		// ノーマル状態に遷移
