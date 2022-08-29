@@ -8,6 +8,8 @@ TagManager:
   - Wall
   - Item
   - Floor
+  - Gimic
+  - ScoreText
   layers:
   - Default
   - TransparentFX

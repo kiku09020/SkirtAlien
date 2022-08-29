@@ -29,6 +29,7 @@ public class ScoreManager : MonoBehaviour
     /* コンポーネント取得用 */    
     Text dispSumScoreText;                      // 合計スコアのテキスト
     Text scorePrefText;                         // スコアテキスト
+    scoreText st;
 
 //-------------------------------------------------------------------
     void Start()
@@ -50,6 +51,7 @@ public class ScoreManager : MonoBehaviour
     {
         dispSumScoreText = dispSumScoreObj.GetComponent<Text>();
         scorePrefText    = scorePref.GetComponent<Text>();
+        st=scorePref.GetComponent<scoreText>();
     }
 
 //-------------------------------------------------------------------
@@ -84,8 +86,11 @@ public class ScoreManager : MonoBehaviour
         scorePrefText.text = "+" + score.ToString();                  
         Vector3 pos = Camera.main.WorldToScreenPoint(plObj.transform.position);
 
+        st.Play();
+
         // インスタンス化
         scoreInst = Instantiate(scorePref, pos, Quaternion.identity,canvas.transform);
+
 
         // 削除
         Destroy(scoreInst, dispTime);
