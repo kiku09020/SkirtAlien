@@ -9,7 +9,6 @@ TagManager:
   - Item
   - Floor
   - Gimic
-  - ScoreText
   layers:
   - Default
   - TransparentFX
@@ -47,11 +46,11 @@ TagManager:
   - name: BG
     uniqueID: 3995238651
     locked: 0
-  - name: Stages
-    uniqueID: 894747297
-    locked: 0
   - name: Charactors
     uniqueID: 1164056765
+    locked: 0
+  - name: Stages
+    uniqueID: 894747297
     locked: 0
   - name: Default
     uniqueID: 0
