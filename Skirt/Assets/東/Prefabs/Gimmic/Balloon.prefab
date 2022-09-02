@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -482355667348047688}
   - component: {fileID: 664320538058768707}
   - component: {fileID: 8220716216770287726}
-  m_Layer: 7
+  m_Layer: 10
   m_Name: Balloon
   m_TagString: Gimic
   m_Icon: {fileID: 0}

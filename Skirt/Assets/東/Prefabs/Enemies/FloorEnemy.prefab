@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2826499452042357711}
   - component: {fileID: 5717946833901767209}
   - component: {fileID: 4485259348938236763}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FloorEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}

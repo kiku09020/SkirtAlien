@@ -37,6 +37,7 @@ public class GameDebuger : MonoBehaviour
     Pl_States st;
     Pl_Camera cam;
     Pl_Hunger hung;
+    ComboManager combo;
 
 
 //-------------------------------------------------------------------
@@ -51,6 +52,7 @@ public class GameDebuger : MonoBehaviour
         gm      = gmObj.GetComponent<GameManager>();
         aud     = audObj.GetComponent<AudioManager>();
         audsrc = audObj.GetComponent<AudioSource>();
+        combo = gmObj.GetComponent<ComboManager>();
         
 
         pl      = pl_obj.GetComponent<Player>();
@@ -115,6 +117,6 @@ public class GameDebuger : MonoBehaviour
 	{
         txt_dbg_cam.text = "edge = " + cam.camSize.ToString();
         txt_fallSpd.text="fallSpd = "+act.GetSpd().ToString();
-        txt_eatenCnt.text = hung.eatCombo.ToString();
+        txt_eatenCnt.text = combo.cmbCnt.ToString();
 	}
 }

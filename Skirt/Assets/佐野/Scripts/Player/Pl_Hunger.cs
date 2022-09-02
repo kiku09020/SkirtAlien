@@ -19,15 +19,7 @@ public class Pl_Hunger : MonoBehaviour {
     bool onceFlg;
 
     [Header("その他")]
-    public int eatCombo;                  // 消化した敵の数
     [SerializeField] Color hungColor;
-
-    // 消化数の扱い
-    public enum ComboEnum {
-        inc,        // 増やす
-        dec,        // 減らす
-        reset,      // 0にする
-    }
 
     /* オブジェクト */
     GameObject hungbar_obj;
@@ -130,27 +122,6 @@ public class Pl_Hunger : MonoBehaviour {
         // 最大値よりも大きくなったら、戻す
         if (nowHung > hungMax) {
             nowHung = hungMax;
-        }
-    }
-
-    // 消化した敵の数を増減する
-    public void ComboSetter(ComboEnum setType)
-    {
-        switch (setType) {
-            // 増やす
-            case ComboEnum.inc:
-                eatCombo++;
-                break;
-
-            //減らす
-            case ComboEnum.dec:
-                eatCombo--;
-                break;
-
-            // 0に戻す
-            case ComboEnum.reset:
-                eatCombo = 0;
-                break;
         }
     }
 }

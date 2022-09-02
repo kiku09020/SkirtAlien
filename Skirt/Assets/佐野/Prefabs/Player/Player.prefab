@@ -299,7 +299,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nowHung: 0
   hungValDec_State: 0.075
-  hungValDec_Atk: 1
+  hungValDec_Atk: 2
   hungIncVal: 20
   decFlg: 0
   incFlg: 0

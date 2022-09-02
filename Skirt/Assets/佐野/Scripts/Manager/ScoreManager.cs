@@ -30,6 +30,8 @@ public class ScoreManager : MonoBehaviour
     Text dispSumScoreText;                      // 合計スコアのテキスト
     Text scorePrefText;                         // スコアテキスト
 
+    ComboManager combo;
+
 //-------------------------------------------------------------------
     void Start()
     {
@@ -50,6 +52,7 @@ public class ScoreManager : MonoBehaviour
     {
         dispSumScoreText = dispSumScoreObj.GetComponent<Text>();
         scorePrefText    = scorePref.GetComponent<Text>();
+        combo = GetComponent<ComboManager>();
     }
 
 //-------------------------------------------------------------------
@@ -61,11 +64,12 @@ public class ScoreManager : MonoBehaviour
 
 //-------------------------------------------------------------------
 
-    // スコア加算
-    public void AddScore(int addMag)
+    // スコア加算(引数：コンボ数)
+    public void AddScore()
 	{
-        // 追加するスコア
-        int score = addScore * (int)Mathf.Pow(2, addMag - 1);
+        int score = addScore;
+
+        score = combo.Combo( score);
 
         // 合計スコアに加算
         nowSumScore += score;

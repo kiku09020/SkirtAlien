@@ -54,6 +54,7 @@ public partial class Pl_Action : MonoBehaviour
     GameManager     gm;
     AudioManager    aud;
     ScoreManager    score;
+    ComboManager    combo;
     Goal_Ctrl       goal;
 
     Pl_States       st;
@@ -80,6 +81,7 @@ public partial class Pl_Action : MonoBehaviour
 
         gm          = gm_obj.GetComponent<GameManager>();
         score       = gm_obj.GetComponent<ScoreManager>();
+        combo       = gm_obj.GetComponent<ComboManager>();
         aud         = aud_obj.GetComponent<AudioManager>();
         part        = part_obj.GetComponent<Pl_Particle>();
 

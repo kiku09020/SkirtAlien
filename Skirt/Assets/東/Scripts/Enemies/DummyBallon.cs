@@ -55,7 +55,6 @@ public class DummyBallon : BallonClass
 	private void OnTriggerEnter2D(Collider2D col)
 	{
         if (col.tag == "Player") {
-
             act.Damage_Proc();
             Destroy(gameObject);
         }

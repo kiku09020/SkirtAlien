@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2010847224045257204}
   - component: {fileID: 7638256809617132748}
   - component: {fileID: 3396963622436216030}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Pega
   m_TagString: Enemy
   m_Icon: {fileID: 0}
