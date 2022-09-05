@@ -34,8 +34,9 @@ public partial class Pl_Action
     public void Damage()
     {
         rb.AddForce(Vector2.up * dmgJumpForce);                                 // 少し飛ばす
+
         hp.HP_Damage();                                                         // HP減らす
-        hung.ComboSetter(Pl_Hunger.ComboEnum.reset);                            // 消化コンボ数リセット
+        combo.ComboSetter(ComboManager.CmbEnum.reset);                        // 消化コンボ数リセット
 
         part.InstPart(Pl_Particle.PartNames.damaged);                           // パーティクル生成
         aud.PlaySE(AudLists.SETypeList.pl, (int)AudLists.SEList_Pl.damage);     // 効果音再生
@@ -74,16 +75,16 @@ public partial class Pl_Action
 
         // 消化完了時(最後の消化)
         else {
-            hung.HungInc();                                                         // 満腹度増やす
-            digBtnCnt = 0;                                                          // 消化ボタン回数0にする
-            hung.ComboSetter(Pl_Hunger.ComboEnum.inc);                          // コンボ数増加
+            combo.ComboSetter(ComboManager.CmbEnum.inc);                            // コンボ数増加
+            score.AddScore();                                                       // スコア追加
+            hung.HungInc(combo.GetCmbMag());                                             // 満腹度増やす
 
-            score.AddScore(hung.eatCombo);                                          // スコア追加
             anim.DigDoneAnim();                                                     // アニメーション
             aud.PlaySE(AudLists.SETypeList.pl, (int)AudLists.SEList_Pl.digDone);    // 効果音再生
-            part.InstPart(Pl_Particle.PartNames.eated);
+            part.InstPart(Pl_Particle.PartNames.eated);                             // パーティクル
 
             st.stateNum = Pl_States.States.normal;                                  // 通常状態に戻す
+            digBtnCnt = 0;                                                          // 消化ボタン回数0にする
         }
     }
 

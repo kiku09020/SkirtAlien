@@ -8,8 +8,8 @@ public class Pl_Hunger : MonoBehaviour {
     public           float nowHung;                 // 満腹度の数値
                      float hungMax = 100;           // 最大満腹度
 
-    [SerializeField] float hungValDec_State;        // 一度に減らす量(ふわふわ、急降下中)
-    [SerializeField] float hungValDec_Atk;          // 一度に減らす量(捕食時)
+    [SerializeField] float hungValDecNml;        // 一度に減らす量(ふわふわ、急降下中)
+    [SerializeField] float hungValDecAtk;          // 一度に減らす量(捕食時)
     [SerializeField] float hungIncVal;              // 一度に増やす量
 
     [Header("フラグ")]
@@ -19,15 +19,7 @@ public class Pl_Hunger : MonoBehaviour {
     bool onceFlg;
 
     [Header("その他")]
-    public int eatCombo;                  // 消化した敵の数
     [SerializeField] Color hungColor;
-
-    // 消化数の扱い
-    public enum ComboEnum {
-        inc,        // 増やす
-        dec,        // 減らす
-        reset,      // 0にする
-    }
 
     /* オブジェクト */
     GameObject hungbar_obj;
@@ -106,11 +98,11 @@ public class Pl_Hunger : MonoBehaviour {
     }
 
     //-------------------------------------------------------------------
-    // 減らす(状態)
+    // 減らす(通常状態)
     public void HungDec_State()
     {
         if (nowHung > 0) {
-            nowHung -= hungValDec_State;
+            nowHung -= hungValDecNml;
         }
     }
 
@@ -118,39 +110,24 @@ public class Pl_Hunger : MonoBehaviour {
     public void HungDec_Atk()
     {
         if (nowHung > 0) {
-            nowHung -= hungValDec_Atk;
+            nowHung -= hungValDecAtk;
         }
     }
 
     // 増やす
-    public void HungInc()
+    public void HungInc(int mag)
     {
-        nowHung += hungIncVal;
+        if (mag == 1) {
+            nowHung += hungIncVal;
+        }
+
+        else {
+            nowHung += (hungIncVal * mag) * 0.75f;
+        }
 
         // 最大値よりも大きくなったら、戻す
         if (nowHung > hungMax) {
             nowHung = hungMax;
-        }
-    }
-
-    // 消化した敵の数を増減する
-    public void ComboSetter(ComboEnum setType)
-    {
-        switch (setType) {
-            // 増やす
-            case ComboEnum.inc:
-                eatCombo++;
-                break;
-
-            //減らす
-            case ComboEnum.dec:
-                eatCombo--;
-                break;
-
-            // 0に戻す
-            case ComboEnum.reset:
-                eatCombo = 0;
-                break;
         }
     }
 }

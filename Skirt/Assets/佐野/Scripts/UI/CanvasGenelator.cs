@@ -7,6 +7,8 @@ using DG.Tweening;
 //-------------------------------------------------------------------
 public class CanvasGenelator : MonoBehaviour
 {
+    bool once;
+
     /* オブジェクト */
     // プレハブ
     [SerializeField] GameObject cvsPref_ctrl;
@@ -61,10 +63,42 @@ public class CanvasGenelator : MonoBehaviour
 
     void FixedUpdate()
     {
-
+        Starting();
     }
 
     //-------------------------------------------------------------------
+
+    public void Starting()
+    {
+        if (gm.isStarting) {
+            cvsInst_ctrl.SetActive(false);
+            cvsInst_game.SetActive(false);
+        }
+        else if(!once){
+            cvsInst_ctrl.SetActive(true);
+            cvsInst_game.SetActive(true);
+
+            var ctrlChild = new Transform[cvsInst_ctrl.transform.childCount];
+            var gameChild = new Transform[cvsInst_game.transform.childCount];
+
+            // コントローラーUI
+            for(int i = 0; i < ctrlChild.Length; i++) {
+                ctrlChild[i] = cvsInst_ctrl.transform.GetChild(i);
+                ctrlChild[i].transform.localScale = Vector2.zero;
+                ctrlChild[i].DOScale(1, 0.3f).SetEase(Ease.InOutCubic);
+            }
+
+            // ゲーム画面UI
+            for(int i = 0; i < gameChild.Length; i++) {
+                gameChild[i] = cvsInst_game.transform.GetChild(i);
+                var size = gameChild[i].transform.localScale;
+                gameChild[i].transform.localScale = Vector2.zero;
+                gameChild[i].DOScale(size, 0.5f).SetDelay(0.1f).SetEase(Ease.InOutSine);
+            }
+
+            once = true;
+        }
+    }
 
     // ポーズ時
     public void Pause()

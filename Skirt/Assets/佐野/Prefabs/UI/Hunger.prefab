@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8892204851208301806}
   - component: {fileID: 4202961137826928736}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Hunger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 8727234321641082326}
   - component: {fileID: 9027746853946271028}
   - component: {fileID: 3305999647820189106}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: HungBack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -208,7 +208,7 @@ GameObject:
   - component: {fileID: 2605060096919931365}
   - component: {fileID: 3715056674991316721}
   - component: {fileID: 4912983543820186125}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: HungBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
