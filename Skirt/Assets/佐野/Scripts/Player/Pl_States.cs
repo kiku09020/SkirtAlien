@@ -75,10 +75,9 @@ public class Pl_States : MonoBehaviour
 		if (stateNum != States.goaled && !gm.isGameOver) {
 			StateProc();        // メイン処理
 
-			if (!landFlg) {
 				// 満腹度を少しずつ減らす
 				hung.HungDec_State();
-			}
+			
 
 			// 空腹
 			if (hung.hungFlg) {

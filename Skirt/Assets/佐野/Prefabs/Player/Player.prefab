@@ -244,7 +244,7 @@ MonoBehaviour:
   dmgJumpForce: 300
   eatTime: 60
   digBtnCntMax: 5
-  normalJumpForce: 1000
+  normalJumpForce: 750
   nowJumpForce: 0
   jumpTime: 30
 --- !u!114 &1493154652
@@ -298,14 +298,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nowHung: 0
-  hungValDec_State: 0.075
-  hungValDec_Atk: 2
-  hungIncVal: 20
+  hungValDecNml: 0.075
+  hungValDecAtk: 3
+  hungIncVal: 15
   decFlg: 0
   incFlg: 0
   hungFlg: 0
-  eatCombo: 0
-  hungColor: {r: 1, g: 0, b: 0, a: 1}
+  hungColor: {r: 1, g: 0.36320752, b: 0.36320752, a: 1}
 --- !u!114 &7752226494457446854
 MonoBehaviour:
   m_ObjectHideFlags: 0

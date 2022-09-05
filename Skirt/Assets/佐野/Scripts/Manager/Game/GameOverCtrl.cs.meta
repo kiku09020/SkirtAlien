@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: d7736a0a3dba10d44a7e1ade1db344a9
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - txt_gmov: {fileID: 6330021485819203745, guid: a7c1f25bc2a2c57448ce22ccbb23aee0, type: 3}
+  - cnvs: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

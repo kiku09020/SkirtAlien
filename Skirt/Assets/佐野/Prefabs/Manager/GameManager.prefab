@@ -148,6 +148,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac3290448ecf2b0449ee0121cdd9e911, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cmbCnt: 0
+  cmbLimTime: 360
+  cmbBonusPref: {fileID: 3238262453400000410, guid: b28a28f61abaa0b4489a237704038904, type: 3}
 --- !u!1001 &2201139776813434956
 PrefabInstance:
   m_ObjectHideFlags: 0
