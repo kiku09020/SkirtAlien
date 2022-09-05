@@ -48,6 +48,7 @@ MonoBehaviour:
   as_BGM: {fileID: 7514069431209702922}
   as_SE: {fileID: 4250297793191991345}
   BGM:
+  - {fileID: 8300000, guid: effd5aec45305324b8be5cc795a4d97d, type: 3}
   - {fileID: 8300000, guid: 2984106afde1ef14ba1fb3e81f7eebdd, type: 3}
   - {fileID: 8300000, guid: ebf759b71e6967b43ba4a9d741025a35, type: 3}
   SE_Pl:
@@ -69,11 +70,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 2984106afde1ef14ba1fb3e81f7eebdd, type: 3}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
   m_Volume: 0.25
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
 
     [Header("フラグ")]
     public bool isStarting;         // 開始
+    public bool started;            // 開始時間が終わった瞬間
     public bool isGameOver;         // ゲームオーバー
     public bool isPaused;           // ポーズ中
 
@@ -24,6 +25,7 @@ public class GameManager : MonoBehaviour
 
     /* コンポーネント取得用 */
     CanvasGenelator cvs;
+    AudioManager aud;
 //-------------------------------------------------------------------
 
     void Awake()
@@ -34,6 +36,7 @@ public class GameManager : MonoBehaviour
         /* コンポーネント取得 */
         stick = GameObject.Find("Stick").GetComponent<Joystick>();
         cvs = cvs_obj.GetComponent<CanvasGenelator>();
+        aud = transform.Find("AudioManager").GetComponent<AudioManager>();
 
         /* 初期化 */
         isStarting = true;
@@ -42,7 +45,7 @@ public class GameManager : MonoBehaviour
 
 	void Start()
 	{
-        
+        aud.PlayBGM((int)AudLists.BGMList.stg_intro, false);
     }
 
     //-------------------------------------------------------------------
@@ -57,7 +60,7 @@ public class GameManager : MonoBehaviour
 
         Starting();
 
-        Debug.Log(isStarting);
+        Debug.Log(started);
     }
 
 //-------------------------------------------------------------------
@@ -65,6 +68,8 @@ public class GameManager : MonoBehaviour
     // 開始時の演出
     void Starting()
 	{
+        started = false;
+
 		if(isStarting) {
             time += Time.deltaTime;
 
@@ -72,6 +77,9 @@ public class GameManager : MonoBehaviour
 			if(time > startTime) {
                 time = 0;
                 isStarting = false;     // スタート終了
+                started = true;
+                aud.PlayBGM((int)AudLists.BGMList.stg_normal,true);
+                
             }
 		}
 	}

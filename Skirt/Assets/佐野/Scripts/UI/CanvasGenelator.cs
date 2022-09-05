@@ -24,8 +24,11 @@ public class CanvasGenelator : MonoBehaviour
     GameObject cvsInst_gameOver;    // gameOver
     GameObject cvsInst_goal;        // goal
 
-
     GameObject goalObj;
+
+    // transform
+    Transform[] ctrlChild;
+    Transform[] gameChild;
 
     /* コンポーネント取得用 */
     GameObject gm_obj;
@@ -78,14 +81,14 @@ public class CanvasGenelator : MonoBehaviour
             cvsInst_ctrl.SetActive(true);
             cvsInst_game.SetActive(true);
 
-            var ctrlChild = new Transform[cvsInst_ctrl.transform.childCount];
-            var gameChild = new Transform[cvsInst_game.transform.childCount];
+            ctrlChild = new Transform[cvsInst_ctrl.transform.childCount];
+            gameChild = new Transform[cvsInst_game.transform.childCount];
 
             // コントローラーUI
             for(int i = 0; i < ctrlChild.Length; i++) {
                 ctrlChild[i] = cvsInst_ctrl.transform.GetChild(i);
                 ctrlChild[i].transform.localScale = Vector2.zero;
-                ctrlChild[i].DOScale(1, 0.3f).SetEase(Ease.InOutCubic);
+                ctrlChild[i].DOScale(1, 0.3f).SetEase(Ease.OutSine);
             }
 
             // ゲーム画面UI
@@ -93,7 +96,7 @@ public class CanvasGenelator : MonoBehaviour
                 gameChild[i] = cvsInst_game.transform.GetChild(i);
                 var size = gameChild[i].transform.localScale;
                 gameChild[i].transform.localScale = Vector2.zero;
-                gameChild[i].DOScale(size, 0.5f).SetDelay(0.1f).SetEase(Ease.InOutSine);
+                gameChild[i].DOScale(size, 0.5f).SetDelay(0.1f).SetEase(Ease.OutSine);
             }
 
             once = true;
@@ -134,6 +137,20 @@ public class CanvasGenelator : MonoBehaviour
 	{
         cvsInst_goal = Instantiate(cvsPref_goal);
 
+        for(int i = 0; i < ctrlChild.Length; i++) {
+            ctrlChild[i].DOScale(Vector2.zero, 0.2f).SetEase(Ease.InQuint);
+        }
+
+        for(int i = 0; i < gameChild.Length; i++) {
+            gameChild[i].DOScale(Vector2.zero, 0.2f).SetEase(Ease.InQuint);
+        }
+
+        StartCoroutine("actFalse");
+    }
+
+    IEnumerator actFalse()
+    {
+        yield return new WaitForSeconds(1);
         cvsInst_ctrl.SetActive(false);
         cvsInst_game.SetActive(false);
     }

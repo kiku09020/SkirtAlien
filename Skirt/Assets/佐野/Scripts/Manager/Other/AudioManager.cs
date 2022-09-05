@@ -46,9 +46,20 @@ public class AudioManager : MonoBehaviour
     //-------------------------------------------------------------------
 
     // BGM再生
-    public void PlayBGM(int bgmNum)
+    public void PlayBGM(int bgmNum,bool loop)
 	{
+        if (loop) {
+            as_BGM.loop = true;
+        }
 
+        else {
+            as_BGM.loop = false;
+        }
+
+        AudioClip clip = BGM[bgmNum];
+
+        as_BGM.clip = clip;
+        as_BGM.Play();
 	}
 
     // 効果音再生
@@ -86,6 +97,7 @@ public class AudLists:MonoBehaviour
 {
     // BGM
     public enum BGMList {
+        stg_intro,
         stg_normal,     // 通常
         stg_fast,       // 速い
         stg_orgel,      // オルゴール調

@@ -72,11 +72,13 @@ public class Pl_States : MonoBehaviour
 
 	void FixedUpdate()
 	{
-		if (stateNum != States.goaled && !gm.isGameOver&&!gm.isStarting) {
+		if (stateNum != States.goaled && !gm.isGameOver) {
 			StateProc();        // メイン処理
 
+			if (!landFlg && !gm.isStarting) {
 				// 満腹度を少しずつ減らす
 				hung.HungDec_State();
+            }
 			
 
 			// 空腹
