@@ -8,22 +8,17 @@ public class scoreText : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        var sqec=DOTween.Sequence();
 
+        sqec.Append(transform.DOLocalMoveY(150, 1).SetEase(Ease.OutCirc));
+        sqec.Append(transform.DOScale(0,0.3f).SetEase(Ease.InQuart));
+
+        sqec.Play();
     }
 
     // Update is called once per frame
     void Update()
     {
-
-    }
-
-    public void Play()
-    {
-        var sqec = DOTween.Sequence();
-
-        sqec.Append(transform.DOLocalMoveY(600, 1).SetEase(Ease.OutCubic));
-        sqec.Append(transform.DOScale(0, 0.5f).SetEase(Ease.InOutCubic));
-
-        sqec.Play();
+        
     }
 }
