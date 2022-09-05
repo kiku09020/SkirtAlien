@@ -56,8 +56,9 @@ MonoBehaviour:
   inpHor: 0
   inpVerOld: 0
   inpHorOld: 0
-  startTime: 2.5
+  startTime: 4.6
   isStarting: 0
+  started: 0
   isGameOver: 0
   isPaused: 0
 --- !u!114 &2002095581093782911
@@ -101,7 +102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nowStgName: 
-  stg_length: 550
+  stg_length: 600
   stg_grav: 0
   stgTxt: {fileID: 0}
 --- !u!114 &1419464441
@@ -147,7 +148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cmbCnt: 0
-  cmbLimTime: 240
+  cmbLimTime: 300
 --- !u!1001 &2201139776813434956
 PrefabInstance:
   m_ObjectHideFlags: 0
