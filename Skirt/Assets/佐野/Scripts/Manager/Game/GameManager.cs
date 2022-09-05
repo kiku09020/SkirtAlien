@@ -1,6 +1,4 @@
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 
 /* ★ゲーム全般の処理を行うスクリプトです */
 public class GameManager : MonoBehaviour
@@ -15,11 +13,9 @@ public class GameManager : MonoBehaviour
     [Header("開始演出")]
     [SerializeField] float startTime;       // 開始までの時間
                      float time;
-    [SerializeField] float cameraDist;      // カメラの距離
 
     [Header("フラグ")]
     public bool isStarting;         // 開始
-    public bool isStarted;
     public bool isGameOver;         // ゲームオーバー
     public bool isPaused;           // ポーズ中
 
@@ -60,6 +56,8 @@ public class GameManager : MonoBehaviour
         inpHor = stick.Vertical;
 
         Starting();
+
+        Debug.Log(isStarting);
     }
 
 //-------------------------------------------------------------------
@@ -74,12 +72,7 @@ public class GameManager : MonoBehaviour
 			if(time > startTime) {
                 time = 0;
                 isStarting = false;     // スタート終了
-                isStarted = true;
             }
 		}
-
-        else {
-            isStarted = false;
-        }
 	}
 }

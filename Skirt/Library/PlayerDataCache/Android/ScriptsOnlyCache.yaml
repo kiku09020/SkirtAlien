@@ -1146,7 +1146,7 @@ ScriptsOnlyBuild:
     className: CanvasScaler
   - hash:
       serializedVersion: 2
-      Hash: bf974a365d9577d3f6c36b9a1fd584d3
+      Hash: 529ab2bc806211e9a0935d7e80d657f2
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Pl_Hunger
@@ -1518,7 +1518,7 @@ ScriptsOnlyBuild:
     className: StageManager
   - hash:
       serializedVersion: 2
-      Hash: 435683315074954d9893c3d53bb0c5e8
+      Hash: bc85606a5ce775bda4a279da98b26c04
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameManager
