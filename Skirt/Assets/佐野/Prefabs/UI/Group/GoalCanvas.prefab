@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5672348188862507318}
   - component: {fileID: 7381240942304998227}
   - component: {fileID: 1245982223652941317}
+  - component: {fileID: 8544308679379689192}
   m_Layer: 5
   m_Name: GoalText
   m_TagString: Untagged
@@ -95,6 +96,18 @@ MonoBehaviour:
   m_EffectColor: {r: 1, g: 1, b: 1, a: 1}
   m_EffectDistance: {x: 3, y: 3}
   m_UseGraphicAlpha: 1
+--- !u!114 &8544308679379689192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 803972365025573375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b877ff88b5862544838e7284e534ed7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6029714600613156230
 GameObject:
   m_ObjectHideFlags: 0
