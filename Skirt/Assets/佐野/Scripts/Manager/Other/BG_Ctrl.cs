@@ -54,7 +54,7 @@ public class BG_Ctrl : MonoBehaviour
         transform.position = new Vector2(0, cam.transform.position.y);
 
         // ゲームオーバー時、ゴール時は追尾しない
-        if (!gm.isGameOver && plst.stateNum != Pl_States.States.goaled) {
+        if (!gm.isGameOver && !gm.isGoaled) {
             // 速度
             scrlSpd = stg.stg_length - pl.transform.position.y;
             float y = Mathf.Repeat(-scrlSpd * spd / 100, 1);
@@ -66,6 +66,11 @@ public class BG_Ctrl : MonoBehaviour
         }
     }
 
-//-------------------------------------------------------------------
+    //-------------------------------------------------------------------
 
+    // 終了時にマテリアルのオフセットを戻す
+    void OnApplicationQuit()
+    {
+        rend.sharedMaterial.SetTextureOffset("_MainTex", Vector2.one);
+    }
 }

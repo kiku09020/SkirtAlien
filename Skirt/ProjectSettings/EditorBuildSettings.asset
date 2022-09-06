@@ -24,15 +24,9 @@ EditorBuildSettings:
     path: "Assets/\u6771/Scenes/Stage/StageBoss.unity"
     guid: 7c4823952e40baf4ea90ce17ae082439
   - enabled: 1
-    path: "Assets/\u4F50\u91CE/Scenes/!Debug/DebugStage.unity"
-    guid: a837a72d17d504841a74d3d94e30540e
-  - enabled: 1
-    path: "Assets/\u6771/Scenes/DebugStage_Azuma.unity"
-    guid: ab82cd3a3f6e4e64db5eaf5d6989e6eb
-  - enabled: 1
     path: "Assets/\u4F50\u91CE/Scenes/OutGame/Clear.unity"
     guid: fc076fe2e62934e42badab5e24e4466a
   - enabled: 1
-    path: "Assets/\u4F50\u91CE/Scenes/OutGame/Menu.unity"
-    guid: bb57a95a0cb2aa340a7c75a9efd6ed54
+    path: "Assets/\u4F50\u91CE/Scenes/!Debug/DebugStage.unity"
+    guid: a837a72d17d504841a74d3d94e30540e
   m_configObjects: {}

@@ -1,15 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    /* 値 */
-
-
-    /* フラグ */
-
-
     /* オブジェクト */
     [Header("AudioSource")]
     [SerializeField] AudioSource as_BGM;        // BGM用AudioSource
@@ -21,45 +14,20 @@ public class AudioManager : MonoBehaviour
     [SerializeField] List<AudioClip> SE_enm;    // 敵効果音
     [SerializeField] List<AudioClip> SE_ui;     // ボタンなどのUIの効果音
 
-    /* コンポーネント取得用 */
-
-
-
-//-------------------------------------------------------------------
-
-    void Start()
-    {
-        /* コンポーネント取得 */
-
-
-        /* 初期化 */
-        
-    }
-
-//-------------------------------------------------------------------
-
-    void Update()
-    {
-        
-    }
-
     //-------------------------------------------------------------------
-
     // BGM再生
     public void PlayBGM(int bgmNum,bool loop)
 	{
+        // ループの有無
         if (loop) {
             as_BGM.loop = true;
         }
-
         else {
             as_BGM.loop = false;
         }
 
-        AudioClip clip = BGM[bgmNum];
-
-        as_BGM.clip = clip;
-        as_BGM.Play();
+        as_BGM.clip = BGM[bgmNum];          // クリップ入れる
+        as_BGM.Play();                      // 再生
 	}
 
     // 効果音再生
@@ -68,25 +36,18 @@ public class AudioManager : MonoBehaviour
         AudioClip clip = null;
 
         switch((int)seTypeNum) {
-            // プレイヤー
-            case (int)AudLists.SETypeList.pl:
-                clip = SE_Pl[seNum];
-                break;
+            case (int)AudLists.SETypeList.pl:   // プレイヤー
+                clip = SE_Pl[seNum];    break;
 
-                // 敵
-            case (int)AudLists.SETypeList.enm:
-                clip = SE_enm[seNum];
-                break;
+            case (int)AudLists.SETypeList.enm:  // 敵
+                clip = SE_enm[seNum];   break;
 
-                // UI
-            case (int)AudLists.SETypeList.ui:
-                clip = SE_ui[seNum];
-                break;
+            case (int)AudLists.SETypeList.ui:   // UI
+                clip = SE_ui[seNum];    break;
 		}
 
-        // audioSoucreのclipに音声を設定して再生
-        as_SE.clip = clip;
-        as_SE.Play();
+        as_SE.clip = clip;      // クリップ入れる
+        as_SE.Play();           // 再生
 	}
 }
 

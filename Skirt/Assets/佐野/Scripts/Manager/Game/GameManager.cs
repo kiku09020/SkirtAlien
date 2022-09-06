@@ -11,75 +11,58 @@ public class GameManager : MonoBehaviour
     Joystick stick;                         // スティック
 
     [Header("開始演出")]
-    [SerializeField] float startTime;       // 開始までの時間
-                     float time;
+    [SerializeField] float startTimeLim = 4.6f; // 開始までの時間
+                     float startTimer;
 
     [Header("フラグ")]
     public bool isStarting;         // 開始
     public bool started;            // 開始時間が終わった瞬間
     public bool isGameOver;         // ゲームオーバー
+    public bool isGoaled;           //ゴール
     public bool isPaused;           // ポーズ中
-
-    /* オブジェクト */
-    GameObject cvs_obj;
 
     /* コンポーネント取得用 */
     CanvasGenelator cvs;
     AudioManager aud;
 //-------------------------------------------------------------------
-
     void Awake()
     {
-        /* オブジェクト検索 */
-        cvs_obj = transform.GetChild(0).gameObject;
-
         /* コンポーネント取得 */
         stick = GameObject.Find("Stick").GetComponent<Joystick>();
-        cvs = cvs_obj.GetComponent<CanvasGenelator>();
-        aud = transform.Find("AudioManager").GetComponent<AudioManager>();
+        aud   = transform.Find("AudioManager").GetComponent<AudioManager>();
+        cvs   = transform.Find("UIManager").gameObject.GetComponent<CanvasGenelator>();
 
         /* 初期化 */
         isStarting = true;
-        isPaused = false;
-    }
+        isPaused   = false;
 
-	void Start()
-	{
-        aud.PlayBGM((int)AudLists.BGMList.stg_intro, false);
+        aud.PlayBGM((int)AudLists.BGMList.stg_intro, false);    // イントロ再生
     }
 
     //-------------------------------------------------------------------
-
     void FixedUpdate()
     {
         // 入力値
-        inpVerOld = inpVer; inpHorOld = inpHor;
-
-        inpVer = stick.Horizontal;
-        inpHor = stick.Vertical;
+        inpVerOld = inpVer;         inpHorOld = inpHor;
+        inpVer = stick.Horizontal;  inpHor = stick.Vertical;
 
         Starting();
-
-        Debug.Log(started);
     }
 
 //-------------------------------------------------------------------
-
-    // 開始時の演出
-    void Starting()
-	{
+    void Starting() // 開始時の演出
+    {
         started = false;
 
 		if(isStarting) {
-            time += Time.deltaTime;
+            startTimer += Time.deltaTime;
 
-            // スタート時間
-			if(time > startTime) {
-                time = 0;
-                isStarting = false;     // スタート終了
+            // 時間経過時
+			if(startTimer > startTimeLim) {
+                startTimer = 0;
+                isStarting = false;     // スタート演出終了
                 started = true;
-                aud.PlayBGM((int)AudLists.BGMList.stg_normal,true);
-                
+                aud.PlayBGM((int)AudLists.BGMList.stg_normal,true);     // BGM再生
             }
 		}
 	}

@@ -3,130 +3,121 @@ using UnityEngine;
 /* Pl_State内に呼び出す関数 */
 public partial class Pl_Action
 {
-    // ダメージ
+    // ★ダメージ
     public void Damage_Proc()
     {
-        dmgCnt++;
-
-        transform.localScale = Vector2.one;
-
         // ダメージくらった瞬間
-        if (dmgCnt == 1) {
-            Damage();
+        if (dmgTimer == 0) {
+            InstantDamage();
         }
+
+        dmgTimer += Time.deltaTime;       // タイマー増加
+
+        transform.localScale = Vector2.one;     // 大きさ戻す
 
         // 点滅
-        if (dmgCnt % 2 == 0) {
-            sr.color = Color.clear;
-        }
+        var alpha = Mathf.Cos(2 * Mathf.PI * dmgTimer / flashCycle);
+        sr.color = new Color(1, 1, 1, alpha);
 
-        else {
+
+        // 時間経過後
+        if (dmgTimer > dmgTimeLim) {
+            dmgTimer = 0;
             sr.color = Color.white;
-        }
-
-        // ダメージ処理終了
-        if (dmgCnt > invTime) {
-            dmgCnt = 0;
             st.stateNum = Pl_States.States.normal;
         }
     }
 
-    public void Damage()
+    // ダメージくらった瞬間
+    public void InstantDamage()
     {
+        hp.HP_Damage();                                                         // HP減らす
+        combo.ComboSetter(ComboManager.CmbEnum.reset);                          // 消化コンボ数リセット
         rb.AddForce(Vector2.up * dmgJumpForce);                                 // 少し飛ばす
 
-        hp.HP_Damage();                                                         // HP減らす
-        combo.ComboSetter(ComboManager.CmbEnum.reset);                        // 消化コンボ数リセット
-
-        part.InstPart(Pl_Particle.PartNames.damaged);                           // パーティクル生成
-        aud.PlaySE(AudLists.SETypeList.pl, (int)AudLists.SEList_Pl.damage);     // 効果音再生
+        aud.PlaySE(AudLists.SETypeList.pl, (int)AudLists.SEList_Pl.damage);     // 効果音
+        part.InstPart(Pl_Particle.PartNames.damaged);                           // パーティクル
         Vibration.Vibrate(300);                                                 // スマホ振動
     }
 
-
-    // 捕食
+    //------------------------------------------
+    // ★捕食
     public void Eating()
     {
-        eatCnt++;      // カウンター増加
+        // 捕食した瞬間
+        if (eatTimer == 0) {
+            hung.HungDec_Atk();                                                 // 空腹度減らす
 
-        if (eatCnt == 1) {
-            aud.PlaySE(AudLists.SETypeList.pl, (int)AudLists.SEList_Pl.eat);
-            part.InstPart(Pl_Particle.PartNames.eat);
+            aud.PlaySE(AudLists.SETypeList.pl, (int)AudLists.SEList_Pl.eat);    // 効果音
+            part.InstPart(Pl_Particle.PartNames.eat);                           // パーティクル
         }
 
-        // 時間経過後、通常状態へ戻る
-        if (eatCnt > eatTime) {
-            eatCnt = 0;
+        eatTimer += Time.deltaTime;      // タイマー増加
+
+        // 時間経過後
+        if (eatTimer > eatTimeLim) {
+            eatTimer = 0;
             st.stateNum = Pl_States.States.normal;
         }
     }
 
-    // 消化ボタン処理
+    //------------------------------------------
+    // ★消化ボタン処理
     public void Digest_Btn()
     {
-        // 消化
-        if (digBtnCnt < digBtnCntMax) {
-            digBtnCnt++;                                                            // 消化ボタン回数増加
+        if (digBtnCnt < digBtnCntMax) { // ●消化
+            digBtnCnt++;            // 消化ボタン回数増加
 
-            anim.DigBtnAnim();                                                      // アニメーション
             aud.PlaySE(AudLists.SETypeList.pl, (int)AudLists.SEList_Pl.dig);        // 効果音
-            part.InstPart(Pl_Particle.PartNames.eating);                            // パーティクル生成
+            part.InstPart(Pl_Particle.PartNames.digit);                            // パーティクル
+            anim.DigBtnAnim();                                                      // アニメーション
         }
 
-        // 消化完了時(最後の消化)
-        else {
+        else {      // ●消化完了時
             combo.ComboSetter(ComboManager.CmbEnum.inc);                            // コンボ数増加
             score.AddScore();                                                       // スコア追加
-            hung.HungInc(combo.GetCmbMag());                                             // 満腹度増やす
+            hung.HungInc(combo.GetCmbMag());                                        // 満腹度増加
 
-            anim.DigDoneAnim();                                                     // アニメーション
-            aud.PlaySE(AudLists.SETypeList.pl, (int)AudLists.SEList_Pl.digDone);    // 効果音再生
+            aud.PlaySE(AudLists.SETypeList.pl, (int)AudLists.SEList_Pl.digDone);    // 効果音
             part.InstPart(Pl_Particle.PartNames.eated);                             // パーティクル
 
-            st.stateNum = Pl_States.States.normal;                                  // 通常状態に戻す
             digBtnCnt = 0;                                                          // 消化ボタン回数0にする
+            st.stateNum = Pl_States.States.normal;                                  // 通常状態に戻す
         }
     }
 
-    // ジャンプ
+    //------------------------------------------
+    // ★ジャンプ
     public void Jump()
     {
-        jumpCnt++;
+        // ジャンプした瞬間
+        if (jumpTimer == 0) {
+            if (hung.hungFlg)   { nowJumpForce = nmlJumpForce * 0.75f; }    // 空腹時
+            else                { nowJumpForce = nmlJumpForce; }            // 戻す
 
-        // 一瞬ジャンプ
-        if (jumpCnt == 1) {
-
-            // 空腹時のジャンプ力
-            if (hung.hungFlg) {
-                nowJumpForce = normalJumpForce * 0.75f;
-            }
-
-            // 通常時のジャンプ力
-            else {
-                nowJumpForce = normalJumpForce;
-            }
-
-            // ジャンプ
-            rb.AddForce(Vector2.up * nowJumpForce);
+            rb.AddForce(Vector2.up * nowJumpForce);                         // ジャンプ
 
             aud.PlaySE(AudLists.SETypeList.pl, (int)AudLists.SEList_Pl.jump);       // 効果音再生
             part.InstPart(Pl_Particle.PartNames.jump);                              // パーティクル生成
             sr.color = Color.white;                                                 // 色変更
         }
 
-        // 解除
-        if (jumpCnt > jumpTime) {
-            jumpCnt = 0;
+        jumpTimer += Time.deltaTime;
+
+        // 時間経過後
+        if (jumpTimer > jumpTime) {
+            jumpTimer = 0;
             st.stateNum = Pl_States.States.normal;
         }
     }
 
+    //------------------------------------------
     // 値リセット
     public void ResetValues()
     {
         digBtnCnt = 0;
-        dmgCnt = 0;
-        eatCnt = 0;
-        jumpCnt = 0;
+        dmgTimer  = 0;
+        eatTimer  = 0;
+        jumpTimer = 0;
     }
 }

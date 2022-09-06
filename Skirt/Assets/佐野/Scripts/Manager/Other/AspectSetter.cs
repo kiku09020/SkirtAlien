@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /* ★Androidの解像度を揃えるスクリプトです */
@@ -8,26 +6,16 @@ public class AspectSetter : MonoBehaviour
     [Header("値")]
     [SerializeField] Vector2 trgAspctVec;       // 目的の解像度
 
-    /* オブジェクト */
     [Header("オブジェクト")]
     [SerializeField] Camera cam;                // カメラ
 
     //-------------------------------------------------------------------
-
     void Start()
     {
         AspSet();
     }
 
     //-------------------------------------------------------------------
-
-    void Update()
-    {
-
-    }
-
-    //-------------------------------------------------------------------
-
     void AspSet()
     {
         // アスペクト比
@@ -45,7 +33,6 @@ public class AspectSetter : MonoBehaviour
             camVPR.width = aspctRate;
             camVPR.x = 0.5f - camVPR.width * 0.5f;
         }
-
         else {
             camVPR.height = 1 / aspctRate;
             camVPR.y = 0.5f - camVPR.height * 0.5f;

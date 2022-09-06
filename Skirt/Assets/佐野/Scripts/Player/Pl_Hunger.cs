@@ -2,48 +2,36 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /* ★満腹度に関するスクリプトです */
-//-------------------------------------------------------------------
 public class Pl_Hunger : MonoBehaviour {
     [Header("満腹度")]
-    public           float nowHung;                 // 満腹度の数値
-                     float hungMax = 100;           // 最大満腹度
+    public float nowHung;                   // 満腹度の数値
+           float hungMax = 100;             // 最大満腹度
 
-    [SerializeField] float hungValDecNml;        // 一度に減らす量(ふわふわ、急降下中)
-    [SerializeField] float hungValDecAtk;          // 一度に減らす量(捕食時)
-    [SerializeField] float hungIncVal;              // 一度に増やす量
+    [SerializeField] float hungValDecNml;   // 一度に減らす量(通常時)
+    [SerializeField] float hungValDecAtk;   // 一度に減らす量(捕食時)
+    [SerializeField] float hungIncVal;      // 一度に増やす量
 
     [Header("フラグ")]
-    [SerializeField] bool decFlg;                   // 減ってるとき
-    [SerializeField] bool incFlg;                   // 増えてるとき
-    public bool hungFlg;                            // 空腹時の
-    bool onceFlg;
+    public bool hungFlg;                    // 空腹時の
 
     [Header("その他")]
     [SerializeField] Color hungColor;
-
-    /* オブジェクト */
-    GameObject hungbar_obj;
 
     /* コンポーネント取得用 */
     Image hungImage;
     SpriteRenderer sr;
 
-    Pl_HP hp;
-    Pl_Action act;
     Pl_States st;
 
     //-------------------------------------------------------------------
     void Start()
     {
         /* オブジェクト検索 */
-        hungbar_obj = GameObject.Find("HungBar");
+        GameObject hungbar_obj = GameObject.Find("HungBar");
 
         /* コンポーネント取得 */
         hungImage = hungbar_obj.GetComponent<Image>();
         sr = GetComponent<SpriteRenderer>();
-
-        act = GetComponent<Pl_Action>();
-        hp = GetComponent<Pl_HP>();
         st = GetComponent<Pl_States>();
 
         /* 初期化 */
@@ -81,18 +69,11 @@ public class Pl_Hunger : MonoBehaviour {
     public void HungState()
     {
         if (hungFlg) {
-            // 一度のみ実行
-            if (!onceFlg) {
-                onceFlg = true;
-            }
-
             transform.localScale = Vector2.one;         // 大きさ
             sr.color = hungColor;                       // 色変更
         }
 
         else {
-            onceFlg = false;                            // onceフラグ降ろす
-
             st.stateNum = Pl_States.States.normal;      // 通常状態にする
         }
     }

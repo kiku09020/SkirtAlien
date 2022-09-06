@@ -1,7 +1,7 @@
 using UnityEngine;
 using DG.Tweening;
 
-/* ★〇〇に関するスクリプトです */
+/* ★プレイヤーのアニメーションに関するスクリプトです */
 //-------------------------------------------------------------------
 public class Pl_Anim : MonoBehaviour
 {
@@ -9,9 +9,6 @@ public class Pl_Anim : MonoBehaviour
     bool jump_Once;
     bool atk_Once;
     bool dig_Once;
-
-    /* ゲームオブジェクト */
-    GameObject gm_obj;
 
     /* コンポーネント */
     GameManager gm;
@@ -30,7 +27,7 @@ public class Pl_Anim : MonoBehaviour
     void Start()
     {
         /* オブジェクト検索 */
-        gm_obj = GameObject.Find("GameManager");
+        GameObject gm_obj = GameObject.Find("GameManager");
 
         /* コンポーネント取得 */
         gm = gm_obj.GetComponent<GameManager>();
@@ -126,11 +123,6 @@ public class Pl_Anim : MonoBehaviour
                 anim.SetTrigger("damaged");
                 ResetAnims();
                 break;
-
-            //------------------------------
-            case Pl_States.States.goaled:       // ゴール時
-                ResetAnims();
-                break;
         }
     }
 
@@ -138,12 +130,6 @@ public class Pl_Anim : MonoBehaviour
     public void DigBtnAnim()
     {
         transform.DOShakeRotation(0.25f, new Vector3(0, 0, 30)).SetEase(Ease.InCirc);
-    }
-
-    // 消化完了時のアニメーション
-    public void DigDoneAnim()
-    {
-
     }
 
     void ResetAnims()
