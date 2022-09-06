@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-/* ★〇〇に関するスクリプトです */
-//-------------------------------------------------------------------
+/* ★パーティクルに関するスクリプトです */
 public class Pl_Particle : MonoBehaviour
 {
     /* 値 */
@@ -14,13 +11,10 @@ public class Pl_Particle : MonoBehaviour
         damaged,
         jump,
         eat,
-        eating,
+        digit,
         eated,
         swoop
 	}
-
-    /* フラグ */
-
 
     /* オブジェクト */
     GameObject pl_obj;
@@ -29,34 +23,17 @@ public class Pl_Particle : MonoBehaviour
     [SerializeField] GameObject part_damaged;
     [SerializeField] GameObject part_jump;
     [SerializeField] GameObject part_eat;       // 捕食空振り
-    [SerializeField] GameObject part_eating;    // 捕食中
+    [SerializeField] GameObject part_digit;    // 捕食中
     [SerializeField] GameObject part_eated;     // 捕食完了
     [SerializeField] GameObject part_swoop;
 
 //-------------------------------------------------------------------
     void Start()
     {
-        FindObj();
-        GetComp();        
-
-        /* 初期化 */
-        
-    }
-
-    /* オブジェクト検索 */
-    void FindObj()
-    {
         pl_obj = GameObject.Find("Player");
     }
 
-    /* コンポーネント取得 */
-    void GetComp()
-    {
-
-    }
-
 //-------------------------------------------------------------------
-
     void FixedUpdate()
     {
         // プレイヤーの位置取得
@@ -64,39 +41,33 @@ public class Pl_Particle : MonoBehaviour
     }
 
 //-------------------------------------------------------------------
-    // ダメージ
+    // パーティクルの生成
     public void InstPart(PartNames name)
     {
         GameObject pref = part_damaged, inst;
 
         switch(name){
-            case PartNames.damaged:
-                pref = part_damaged;
-                break;
+            case PartNames.damaged:     // ダメージ
+                pref = part_damaged;    break;
 
-            case PartNames.jump:
-                pref = part_jump;
-                break;
+            case PartNames.jump:        // ジャンプ
+                pref = part_jump;       break;
 
-            case PartNames.eat:
-                pref = part_eat;
-                break;
+            case PartNames.eat:         // 捕食
+                pref = part_eat;        break;
 
-            case PartNames.eating:
-                pref = part_eating;
-                break;
+            case PartNames.digit:      // 消化
+                pref = part_digit;     break;
 
-            case PartNames.eated:
-                pref = part_eated;
-                break;
+            case PartNames.eated:       // 消化完了
+                pref = part_eated;      break;
 
-            case PartNames.swoop:
-                pref = part_swoop;
-                break;
+            case PartNames.swoop:       // 急降下
+                pref = part_swoop;      break;
 		}
 
-        inst = Instantiate(pref, pos, Quaternion.identity);
-        inst.GetComponent<ParticleSystem>().Play();
-        Destroy(inst, destTime);
+        inst = Instantiate(pref, pos, Quaternion.identity);     // 生成
+        inst.GetComponent<ParticleSystem>().Play();             // 再生
+        Destroy(inst, destTime);                                // 削除
     } 
 }

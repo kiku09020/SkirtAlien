@@ -1,10 +1,8 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-/* ★〇〇に関するスクリプトです */
-//-------------------------------------------------------------------
+/* ★キャンバス生成に関するスクリプトです */
 public class CanvasGenelator : MonoBehaviour
 {
     bool once;
@@ -24,31 +22,20 @@ public class CanvasGenelator : MonoBehaviour
     GameObject cvsInst_gameOver;    // gameOver
     GameObject cvsInst_goal;        // goal
 
-    GameObject goalObj;
-
     // transform
     Transform[] ctrlChild;
     Transform[] gameChild;
 
     /* コンポーネント取得用 */
-    GameObject gm_obj;
     GameManager gm;
-    Goal_Ctrl goal;
-
-    CanvasGroup cg_game;
-    CanvasGroup cg_ctrl;
 
     //-------------------------------------------------------------------
-
     void Awake()
     {
-        /* オブジェクト検索 */
-        gm_obj = transform.parent.gameObject;
-        goalObj = GameObject.Find("Goal");
+        GameObject gm_obj = transform.parent.gameObject;
 
         /* コンポーネント取得 */
         gm = gm_obj.GetComponent<GameManager>();
-        goal = goalObj.GetComponent<Goal_Ctrl>();
 
         /* 初期化 */
         cvsInst_ctrl = Instantiate(cvsPref_ctrl);
@@ -56,21 +43,15 @@ public class CanvasGenelator : MonoBehaviour
         cvsInst_pause = Instantiate(cvsPref_pause);
 
         cvsInst_pause.SetActive(false);
-
-        // CanvasGroup
-        cg_game = cvsInst_game.GetComponent<CanvasGroup>();
-        cg_ctrl = cvsInst_ctrl.GetComponent<CanvasGroup>();
     }
 
     //-------------------------------------------------------------------
-
     void FixedUpdate()
     {
         Starting();
     }
 
     //-------------------------------------------------------------------
-
     public void Starting()
     {
         if (gm.isStarting) {

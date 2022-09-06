@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 
 /* ★タイトル関連のスクリプトです */
 public class Title_Ctrl : MonoBehaviour
@@ -9,20 +8,14 @@ public class Title_Ctrl : MonoBehaviour
     [SerializeField] float sceneChangeSec;      // シーンが移動するまでの秒数
 
     /* コンポーネント */
-    GameObject cnvs;
     Animator anim;
 	//-------------------------------------------------------------------
 
 	void Start()
 	{
-        cnvs = GameObject.Find("Canvas");
+        GameObject cnvs = GameObject.Find("Canvas");
         anim = cnvs.GetComponent<Animator>();
 	}
-
-	void Update()
-    {
-
-    }
 
     //-------------------------------------------------------------------
 

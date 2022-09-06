@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameOverCtrl : MonoBehaviour
@@ -9,10 +8,6 @@ public class GameOverCtrl : MonoBehaviour
 
 	/* フラグ */
 	bool isInsted;
-
-	/* オブジェクト */
-	GameObject pl_obj;
-	GameObject ui_obj;
 
 	/* コンポーネント取得用 */
 	GameManager gm;
@@ -26,16 +21,13 @@ public class GameOverCtrl : MonoBehaviour
 	void Start()
 	{
 		/* コンポーネント取得 */
-		ui_obj	= transform.GetChild(0).gameObject;
-		pl_obj	= GameObject.Find("Player");
+		GameObject ui_obj = transform.Find("UIManager").gameObject;
+		GameObject pl_obj = GameObject.Find("Player");
 
 		gm		= GetComponent<GameManager>();
 		cnvs	= ui_obj.GetComponent<CanvasGenelator>();
 		hp		= pl_obj.GetComponent<Pl_HP>();
-		col=pl_obj.GetComponent<Collider2D>();
-
-		/* 初期化 */
-
+		col		= pl_obj.GetComponent<Collider2D>();
 	}
 
 	//-------------------------------------------------------------------

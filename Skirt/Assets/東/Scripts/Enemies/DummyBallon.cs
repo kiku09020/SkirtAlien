@@ -6,41 +6,17 @@ using UnityEngine;
 //-------------------------------------------------------------------
 public class DummyBallon : BallonClass
 {
-    /* 値 */
-
-
-    /* フラグ */
-
-
-    /* オブジェクト */
-    GameObject plObj;
-
     /* コンポーネント取得用 */
-    Pl_Action act;
-    Pl_HP hp;
-
+    Pl_States st;
 
     //-------------------------------------------------------------------
     void Start()
     {
-        FindObj();
-        GetComp();        
+        GameObject plObj = GameObject.Find("Player");
+        st = plObj.GetComponent<Pl_States>();
 
         /* 初期化 */
-        
-    }
 
-    /* オブジェクト検索 */
-    void FindObj()
-    {
-        plObj = GameObject.Find("Player");
-    }
-
-    /* コンポーネント取得 */
-    void GetComp()
-    {
-        hp = plObj.GetComponent<Pl_HP>();
-        act = plObj.GetComponent<Pl_Action>();
     }
 
 //-------------------------------------------------------------------
@@ -55,7 +31,7 @@ public class DummyBallon : BallonClass
 	private void OnTriggerEnter2D(Collider2D col)
 	{
         if (col.tag == "Player") {
-            act.Damage_Proc();
+            st.stateNum = Pl_States.States.damage;
             Destroy(gameObject);
         }
 	}

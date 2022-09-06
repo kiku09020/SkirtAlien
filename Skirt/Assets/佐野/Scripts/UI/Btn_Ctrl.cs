@@ -1,17 +1,8 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 /* ★ボタンに関するスクリプトです */
 public class Btn_Ctrl : MonoBehaviour
 {
-    /* フラグ */
-
-    GameObject actbtn;
-
-    /* オブジェクト */
-    GameObject pl_obj;
-    GameObject gm_obj;
-
     /* コンポーネント取得用 */
     Pl_States       pl_st;
 
@@ -21,12 +12,11 @@ public class Btn_Ctrl : MonoBehaviour
     Pl_Hunger       hung;
 
 //-------------------------------------------------------------------
-
     void Start()
     {
         /* オブジェクト検索 */
-        pl_obj  = GameObject.Find("Player");
-        gm_obj  = GameObject.Find("GameManager");
+        GameObject pl_obj  = GameObject.Find("Player");
+        GameObject gm_obj  = GameObject.Find("GameManager");
 
         /* コンポーネント取得 */
         pl_st   = pl_obj.GetComponent<Pl_States>();
@@ -35,13 +25,10 @@ public class Btn_Ctrl : MonoBehaviour
         sc      = gm_obj.GetComponent<SceneController>();
         cvsGen  = gm_obj.transform.GetChild(0).GetComponent<CanvasGenelator>();
         hung    = pl_obj.GetComponent<Pl_Hunger>();
-
-        /* 初期化 */
     }
 
     //-------------------------------------------------------------------
     /* ポーズ画面内のボタン */
-
     // ポーズボタン
     public void Btn_Pause()
     {
@@ -87,7 +74,6 @@ public class Btn_Ctrl : MonoBehaviour
     }
 
     //-------------------------------------------------------------------
-
     // アクションボタンを、状態によって変色したりする関数
     public void Btn_Action_States()
     {

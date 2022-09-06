@@ -82,7 +82,6 @@ GameObject:
   - component: {fileID: 2296475401055147460}
   - component: {fileID: 2296475401055147466}
   - component: {fileID: 8925284621362899276}
-  - component: {fileID: 7664640652142410176}
   - component: {fileID: 2283851557005410474}
   - component: {fileID: 1493154652}
   - component: {fileID: 5297649651518445171}
@@ -209,18 +208,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2, y: 4}
   m_EdgeRadius: 0
---- !u!114 &7664640652142410176
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2296475401055147467}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f88a31b52367034da525760be882d13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2283851557005410474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,20 +220,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3a9230375d68344f9cb5f79fd3d6a39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normalSpd: 9
+  nmlSpd: 9
   nowSpd: 0
   spdMax: 15
   fallSpdMax: 60
   moveDec: 0.96
+  breakDec: 0.25
   moveRot: 15
   rotDec: 1
-  invTime: 120
+  dmgTimeLim: 2
   dmgJumpForce: 300
-  eatTime: 60
+  flashCycle: 0.6
+  eatTimeLim: 1
   digBtnCntMax: 5
-  normalJumpForce: 750
+  nmlJumpForce: 750
   nowJumpForce: 0
-  jumpTime: 30
+  jumpTime: 0.5
 --- !u!114 &1493154652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -301,8 +290,6 @@ MonoBehaviour:
   hungValDecNml: 0.075
   hungValDecAtk: 3
   hungIncVal: 15
-  decFlg: 0
-  incFlg: 0
   hungFlg: 0
   hungColor: {r: 1, g: 0.36320752, b: 0.36320752, a: 1}
 --- !u!114 &7752226494457446854

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,35 +6,28 @@ public class Pl_HP : MonoBehaviour
 {
     /* 値 */
     [Header("HP関係")]
-    public  float nowHP = 100;                  // 現在のHP
-            float maxHP = 100;                  // 最大HP
+    public  float nowHP;                // 現在のHP
+            float maxHP = 100;          // 最大HP
 
     [Header("表示関係")]
-    [SerializeField] float dispVal; // 表示HPを増減させる量
-                     float dispHP;              // 表示HP
+    [SerializeField] float dispVal;     // 表示HPを増減させる量
+                     float dispHP;      // 表示HP
 
     [Header("回復関係")]
-    [SerializeField] float heal         = 10;   // 回復量
+    [SerializeField] float heal;        // 回復量
     
     [Header("ダメージ関係")]
-    [SerializeField] float dmg          = 20;   // ダメージ
-
-    /* フラグ */
-
-    /* オブジェクト */
-    GameObject hpGauge;
-    GameObject hpGauge_light;
+    [SerializeField] float dmg;         // ダメージ
 
     /* コンポーネント取得用 */
     Image hp_Image;
     Image hp_Image_Light;
 
     //-------------------------------------------------------------------
-
     void Start()
     {
-        hpGauge = GameObject.Find("HPBar");
-        hpGauge_light = GameObject.Find("HPBar_Light");
+        GameObject hpGauge = GameObject.Find("HPBar");
+        GameObject hpGauge_light = GameObject.Find("HPBar_Light");
 
         hp_Image = hpGauge.GetComponent<Image>();
         hp_Image_Light = hpGauge_light.GetComponent<Image>();
@@ -45,7 +36,7 @@ public class Pl_HP : MonoBehaviour
         hp_Image.fillAmount = 1;
         hp_Image_Light.fillAmount = 1;
 
-        nowHP = 100;
+        nowHP = maxHP;
         dispHP = nowHP;
     }
 
@@ -55,7 +46,6 @@ public class Pl_HP : MonoBehaviour
     }
 
     //-------------------------------------------------------------------
-
     // HPセット
     void HP_Set()
     {
@@ -78,6 +68,7 @@ public class Pl_HP : MonoBehaviour
         hp_Image_Light.fillAmount = dispHP / maxHP;      // 薄い色のHPバー
     }
 
+    //-------------------------------------------------------------------
     // 回復
     public void HP_Heal()
     {
@@ -91,12 +82,9 @@ public class Pl_HP : MonoBehaviour
     }
 
     //-------------------------------------------------------------------
-
     // ダメージ
     public void HP_Damage()
     {
         nowHP -= dmg;
     }
-
-    //-------------------------------------------------------------------
 }

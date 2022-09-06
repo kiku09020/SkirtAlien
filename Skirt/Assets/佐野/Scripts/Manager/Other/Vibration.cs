@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-/* ★〇〇に関するスクリプトです */
-//-------------------------------------------------------------------
+/* ★スマホ振動に関するスクリプトです */
 public class Vibration : MonoBehaviour
 {
 #if UNITY_ANDROID && !UNITY_EDITOR
