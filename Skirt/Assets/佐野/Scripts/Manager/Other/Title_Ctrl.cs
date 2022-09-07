@@ -28,8 +28,8 @@ public class Title_Ctrl : MonoBehaviour
     // デバッグステージ
     public void Btn_Dbg()
     {
-        StartCoroutine("SceneChange_Debug");
-	}
+        SceneManager.LoadScene("DebugStage");
+    }
 
     // スタート時のコルーチン
     IEnumerator SceneChange_Start()
@@ -39,12 +39,4 @@ public class Title_Ctrl : MonoBehaviour
         yield return new WaitForSeconds(sceneChangeSec);
         SceneManager.LoadScene("Stage1");
     }
-
-    // デバッグ時のコルーチン
-    IEnumerator SceneChange_Debug()
-	{
-        anim.SetTrigger("isClicked");
-        yield return new WaitForSeconds(sceneChangeSec);
-        SceneManager.LoadScene("DebugStage");
-	}
 }

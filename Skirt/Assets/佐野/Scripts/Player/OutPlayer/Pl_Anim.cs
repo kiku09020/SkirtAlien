@@ -2,7 +2,6 @@ using UnityEngine;
 using DG.Tweening;
 
 /* ★プレイヤーのアニメーションに関するスクリプトです */
-//-------------------------------------------------------------------
 public class Pl_Anim : MonoBehaviour
 {
     /* 値 */
@@ -20,10 +19,8 @@ public class Pl_Anim : MonoBehaviour
     Tween twn_eat;
     Tween twn_dig;
     Tween twn_diged;
-    
 
     //-------------------------------------------------------------------
-
     void Start()
     {
         /* オブジェクト検索 */
@@ -34,14 +31,14 @@ public class Pl_Anim : MonoBehaviour
 
         pl_st = GetComponent<Pl_States>();
         anim = GetComponent<Animator>();
-        /* 初期化 */
     }
 
 //-------------------------------------------------------------------
-
     void FixedUpdate()
     {
         StatesAnim();
+
+
     }
 
 //-------------------------------------------------------------------
@@ -85,18 +82,6 @@ public class Pl_Anim : MonoBehaviour
                 break;
 
             //------------------------------
-            case Pl_States.States.jumping:       // ジャンプ中
-
-                // 一度のみ再生
-                if (!jump_Once) {
-                    jump_Once = true;
-                    anim.SetTrigger("jumping");
-                    ResetAnims();
-                }
-
-                break;
-
-            //------------------------------
             case Pl_States.States.eating:       // 捕食中
 
                 if (!atk_Once) {
@@ -130,6 +115,12 @@ public class Pl_Anim : MonoBehaviour
     public void DigBtnAnim()
     {
         transform.DOShakeRotation(0.25f, new Vector3(0, 0, 30)).SetEase(Ease.InCirc);
+    }
+
+    public void Jump()
+    {
+        anim.SetTrigger("jumping");
+        ResetAnims();
     }
 
     void ResetAnims()

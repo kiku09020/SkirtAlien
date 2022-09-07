@@ -19,7 +19,11 @@ public class GameManager : MonoBehaviour
     public bool started;            // 開始時間が終わった瞬間
     public bool isGameOver;         // ゲームオーバー
     public bool isGoaled;           //ゴール
+
+    // ポーズ
     public bool isPaused;           // ポーズ中
+    [HideInInspector] public bool retry;
+    [HideInInspector] public bool quit;
 
     /* コンポーネント取得用 */
     CanvasGenelator cvs;

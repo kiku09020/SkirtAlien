@@ -13,7 +13,6 @@ public class Pl_States : MonoBehaviour
 		floating,		// ふわふわ
 		swooping,		// 急降下
 		landing,		// 地上
-		jumping,		// ジャンプ中
 		eating,			// アタック
 		digest,			// 消化
 		damage,			// 被ダメージ
@@ -36,32 +35,35 @@ public class Pl_States : MonoBehaviour
 	[Header("サイズ")]
 	[SerializeField] float size_big;        // 拡大時のサイズ
 
-	/* オブジェクト */
-	GameObject gm_obj;
+	[Header("空腹")]
+	[SerializeField] Color hungColor;
 
 	/* コンポーネント取得用 */
 	GameManager		gm;
 	StageManager    stg;
+	Pl_Particle		part;
 
 	Rigidbody2D		rb;
 	SpriteRenderer	sr;
 
-	Pl_Action		pl_act;
+	Pl_Action		act;
 	Pl_Hunger		hung;
 	//-------------------------------------------------------------------
 
 	void Start()
 	{
 		/* オブジェクト検索 */
-		gm_obj	= GameObject.Find("GameManager");
+		GameObject gm_obj  = GameObject.Find("GameManager");
+		GameObject partObj = gm_obj.transform.Find("ParticleManager").gameObject;
 
 		/* コンポーネント取得 */
 		gm		= gm_obj.GetComponent<GameManager>();
-		stg = gm_obj.GetComponent<StageManager>();
+		stg     = gm_obj.GetComponent<StageManager>();
+		part    = partObj.GetComponent<Pl_Particle>();
 
 		rb		= GetComponent<Rigidbody2D>();
 		sr		= GetComponent<SpriteRenderer>();
-		pl_act	= GetComponent<Pl_Action>();
+		act	= GetComponent<Pl_Action>();
 		hung	= GetComponent<Pl_Hunger>();
 
 		/* 初期化 */
@@ -77,16 +79,7 @@ public class Pl_States : MonoBehaviour
 	{
 		if (!gm.isGameOver && !gm.isGoaled) {
 			StateProc();        // メイン処理
-
-			// 満腹度を少しずつ減らす
-			if (!landFlg && !gm.isStarting) {
-				hung.HungDec_State();
-            }
-
-			// 空腹
-			if (hung.hungFlg) {
-				hung.HungState();
-            }
+			Hungry();			// 満腹度処理
 		}
 	}
 
@@ -107,17 +100,14 @@ public class Pl_States : MonoBehaviour
 			case States.landing:	// 地上
 				Landing();		break;
 
-			case States.jumping:	// ジャンプ
-				pl_act.Jump();	break;
-
 			case States.eating:		// 捕食中
-				pl_act.Eating();break;
+				act.Eating();break;
 
 			case States.digest:     // 消化
 				Digest();		break;
 
 			case States.damage:		// 被ダメージ
-				pl_act.Damage_Proc();	break;
+				act.Damage_Proc();	break;
 		}
 	}
 
@@ -139,7 +129,7 @@ public class Pl_States : MonoBehaviour
 			stateNum = States.swooping;
 		}
 
-		pl_act.ResetValues();
+		act.ResetValues();
 	}
 
 	// ★急降下状態
@@ -198,6 +188,22 @@ public class Pl_States : MonoBehaviour
 		rb.drag = drag_dig;						// 空気抵抗を減らす
 	}
 
+	// ★空腹度処理
+	void Hungry()
+    {
+		// 空腹時の処理
+		if (hung.hungFlg) {
+			transform.localScale = Vector2.one;         // 大きさ
+			sr.color = hungColor;                       // 色変更
+			part.InstPart(Pl_Particle.PartNames.hungry, transform.position + Vector3.up*3);
+		}
+
+		// 満腹度減らす
+		else if (!landFlg && !gm.isStarting) {
+			hung.HungDec_State();
+		}
+	}
+
 	//-------------------------------------------------------------------
 
 	// ★ボタン押したときの処理
@@ -210,12 +216,12 @@ public class Pl_States : MonoBehaviour
 
 		// 消化時
 		else if (stateNum == States.digest) {
-			pl_act.Digest_Btn();
+			act.Digest_Btn();
 		}
 
 		// 地上にいたらジャンプする
 		else if (landFlg && stateNum != States.eating) {
-			stateNum = States.jumping;
+			act.Jump();
 		}
 	}
 

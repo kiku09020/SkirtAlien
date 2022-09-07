@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class HeartBallon : BallonClass
 {
-    GameObject audObj;
-    GameObject plObj;
-
     Pl_HP hp;
     AudioManager aud;
+    Pl_Particle part;
 
     void Start()
     {
-        audObj = GameObject.Find("AudioManager");
-        plObj = GameObject.Find("Player");
+        GameObject partObj = GameObject.Find("ParticleManager");
+        GameObject audObj = GameObject.Find("AudioManager");
+        GameObject plObj = GameObject.Find("Player");
 
+        part = partObj.GetComponent<Pl_Particle>();
         aud = audObj.GetComponent<AudioManager>();
         hp = plObj.GetComponent<Pl_HP>();
     }
@@ -30,6 +30,7 @@ public class HeartBallon : BallonClass
         if (col.tag == "Player") {
             hp.HP_Heal();
 
+            part.InstPart(Pl_Particle.PartNames.heal, transform.position);
             aud.PlaySE(AudLists.SETypeList.pl, (int)AudLists.SEList_Pl.heal);       // å¯â âπçƒê∂
 
             Destroy(gameObject);        // çÌèú

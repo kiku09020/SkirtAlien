@@ -69,7 +69,7 @@ public partial class Pl_Action
             digBtnCnt++;            // 消化ボタン回数増加
 
             aud.PlaySE(AudLists.SETypeList.pl, (int)AudLists.SEList_Pl.dig);        // 効果音
-            part.InstPart(Pl_Particle.PartNames.digit, transform.position);                            // パーティクル
+            part.InstPart(Pl_Particle.PartNames.digit, transform.position);         // パーティクル
             anim.DigBtnAnim();                                                      // アニメーション
         }
 
@@ -98,7 +98,8 @@ public partial class Pl_Action
             rb.AddForce(Vector2.up * nowJumpForce);                         // ジャンプ
 
             aud.PlaySE(AudLists.SETypeList.pl, (int)AudLists.SEList_Pl.jump);       // 効果音再生
-            part.InstPart(Pl_Particle.PartNames.jump, transform.position);                              // パーティクル生成
+            part.InstPart(Pl_Particle.PartNames.jump, transform.position);          // パーティクル生成
+            anim.Jump();                                                            // アニメーション
             sr.color = Color.white;                                                 // 色変更
         }
 

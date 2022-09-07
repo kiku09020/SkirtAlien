@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 6117923247182429713}
   - component: {fileID: 5129521877482089765}
   - component: {fileID: 2027327394496259057}
-  - component: {fileID: 3041276728641174744}
   m_Layer: 0
   m_Name: UIManager
   m_TagString: Untagged
@@ -62,19 +61,4 @@ MonoBehaviour:
   cvsPref_pause: {fileID: 1160045672351688827, guid: 1ae6257e9f65cdb40b42849256b6c034, type: 3}
   cvsPref_gameOver: {fileID: 8408683968174828191, guid: ad149883132a555469959155c156443d, type: 3}
   cvsPref_goal: {fileID: 6029714600613156230, guid: d85d4dbc022c0614c9c10159df2249fa, type: 3}
---- !u!114 &3041276728641174744
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1855524044028654651}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3a956d7bb7e4c74289eb8caf263da9f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  addScore: 100
-  div: 0
-  dispTime: 0
-  scorePref: {fileID: 3490567411236916009, guid: c1b215f09ea08904e90fb749449304aa, type: 3}
+  cvsPref_caution: {fileID: 6443630379811193284, guid: 0f088becb8ba88c41a00b80a3c11d057, type: 3}

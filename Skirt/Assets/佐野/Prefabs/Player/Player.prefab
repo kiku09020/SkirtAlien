@@ -258,6 +258,7 @@ MonoBehaviour:
   drag_swp: 0.1
   drag_dig: 0
   size_big: 1.01
+  hungColor: {r: 1, g: 0.2679245, b: 0.2679245, a: 1}
 --- !u!114 &5297649651518445171
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -291,7 +292,6 @@ MonoBehaviour:
   hungValDecAtk: 3
   hungIncVal: 15
   hungFlg: 0
-  hungColor: {r: 1, g: 0.36320752, b: 0.36320752, a: 1}
 --- !u!114 &7752226494457446854
 MonoBehaviour:
   m_ObjectHideFlags: 0

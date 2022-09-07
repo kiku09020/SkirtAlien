@@ -60,7 +60,7 @@ public class GameDebuger : MonoBehaviour
 
 //-------------------------------------------------------------------
 
-    void FixedUpdate()
+    void Update()
     {
         Debug_Key();
         Debug_Log();

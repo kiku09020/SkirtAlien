@@ -14,6 +14,7 @@ public class CanvasGenelator : MonoBehaviour
     [SerializeField] GameObject cvsPref_pause;
     [SerializeField] GameObject cvsPref_gameOver;
     [SerializeField] GameObject cvsPref_goal;
+    [SerializeField] GameObject cvsPref_caution;
 
     // インスタンス
     GameObject cvsInst_ctrl;
@@ -21,6 +22,7 @@ public class CanvasGenelator : MonoBehaviour
     GameObject cvsInst_pause;       // pause
     GameObject cvsInst_gameOver;    // gameOver
     GameObject cvsInst_goal;        // goal
+    GameObject cvsInst_caution;
 
     // transform
     Transform[] ctrlChild;
@@ -41,8 +43,11 @@ public class CanvasGenelator : MonoBehaviour
         cvsInst_ctrl = Instantiate(cvsPref_ctrl);
         cvsInst_game = Instantiate(cvsPref_game);
         cvsInst_pause = Instantiate(cvsPref_pause);
+        cvsInst_caution = Instantiate(cvsPref_caution);
+        cvsInst_caution.transform.SetParent(cvsInst_pause.transform, false);
 
         cvsInst_pause.SetActive(false);
+        cvsInst_caution.SetActive(false);
     }
 
     //-------------------------------------------------------------------
@@ -87,17 +92,36 @@ public class CanvasGenelator : MonoBehaviour
     // ポーズ時
     public void Pause()
 	{
-        cvsInst_ctrl.SetActive(true);
-        cvsInst_pause.SetActive(false);
-        cvsInst_game.SetActive(true);
+        cvsInst_ctrl.SetActive(false);
+        cvsInst_pause.SetActive(true);
+        cvsInst_game.SetActive(false);
     }
 
     // ポーズ解除時
     public void UnPause()
 	{
-        cvsInst_ctrl.SetActive(false);
-        cvsInst_pause.SetActive(true);
-        cvsInst_game.SetActive(false);
+        cvsInst_ctrl.SetActive(true);
+        cvsInst_pause.SetActive(false);
+        cvsInst_game.SetActive(true);
+    }
+
+    // 警告
+    public void Caution()
+    {
+        cvsInst_caution.SetActive(true);
+
+        // アニメーション
+        var sqec = DOTween.Sequence();
+        var caut = cvsInst_caution.transform.Find("Caution").transform;
+        sqec.Append(caut.DOScale(new Vector2(0f, 0f), 0f));
+        sqec.Append(caut.transform.DOScale(new Vector2(1.2f, 1.2f), 0.3f));
+        sqec.Append(caut.DOScale(new Vector2(1f, 1f), 0.1f));
+    }
+
+    // 警告解除時
+    public void UnCaution()
+    {
+        cvsInst_caution.SetActive(false);
     }
 
     // ゲームオーバー時に削除

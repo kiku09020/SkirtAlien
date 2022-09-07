@@ -13,15 +13,9 @@ public class Pl_Hunger : MonoBehaviour {
 
     [Header("フラグ")]
     public bool hungFlg;                    // 空腹時の
-
-    [Header("その他")]
-    [SerializeField] Color hungColor;
-
+ 
     /* コンポーネント取得用 */
     Image hungImage;
-    SpriteRenderer sr;
-
-    Pl_States st;
 
     //-------------------------------------------------------------------
     void Start()
@@ -31,8 +25,6 @@ public class Pl_Hunger : MonoBehaviour {
 
         /* コンポーネント取得 */
         hungImage = hungbar_obj.GetComponent<Image>();
-        sr = GetComponent<SpriteRenderer>();
-        st = GetComponent<Pl_States>();
 
         /* 初期化 */
         nowHung = hungMax;
@@ -61,20 +53,6 @@ public class Pl_Hunger : MonoBehaviour {
         }
         else {
             hungFlg = false;
-        }
-    }
-
-    //-------------------------------------------------------------------
-    // 空腹時の処理
-    public void HungState()
-    {
-        if (hungFlg) {
-            transform.localScale = Vector2.one;         // 大きさ
-            sr.color = hungColor;                       // 色変更
-        }
-
-        else {
-            st.stateNum = Pl_States.States.normal;      // 通常状態にする
         }
     }
 

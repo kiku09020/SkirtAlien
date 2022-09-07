@@ -47,8 +47,7 @@ public class Pl_Btm : MonoBehaviour
             st.landFlg = false;
 
             // 通常状態
-            if( st.stateNum != Pl_States.States.jumping && 
-                st.stateNum != Pl_States.States.damage &&
+            if( st.stateNum != Pl_States.States.damage &&
                 st.stateNum!=Pl_States.States.digest) {
                 st.stateNum = Pl_States.States.normal;
             }
