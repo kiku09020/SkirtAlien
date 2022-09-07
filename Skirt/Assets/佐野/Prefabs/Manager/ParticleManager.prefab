@@ -44,7 +44,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destTime: 3
-  part_damaged: {fileID: 6774526421469918954, guid: d6c542c00bf41e84489ed4b5d04668bf, type: 3}
-  part_jump: {fileID: 6774526421469918954, guid: c5dd6005141d95c4d89b44eb52cf00c5, type: 3}
-  part_eat: {fileID: 4903740372639098091, guid: 67e340c194400a2488b75fc6a22d0197, type: 3}
-  part_swoop: {fileID: 4903740372639098091, guid: 3fe3fc3190b59564e990832fb742ad7d, type: 3}
+  particles:
+  - {fileID: 2869477249256982592, guid: 87f8225396d8b574290c756f26c53584, type: 3}
+  - {fileID: 6774526421469918954, guid: c5dd6005141d95c4d89b44eb52cf00c5, type: 3}
+  - {fileID: 4903740372639098091, guid: 67e340c194400a2488b75fc6a22d0197, type: 3}
+  - {fileID: 150945737444257449, guid: ba3fa0295502989408479d2e7e2b901c, type: 3}
+  - {fileID: 150945737444257449, guid: 40991427e5891664ba03c23b94825c3b, type: 3}
+  - {fileID: 4903740372639098091, guid: 3fe3fc3190b59564e990832fb742ad7d, type: 3}
+  - {fileID: 4012179385941097871, guid: 003619a948b05b4449bae58e924b3b1f, type: 3}
+  - {fileID: 4012179385941097871, guid: 70e58d81f3a397247b4296a8eb951e1a, type: 3}
+  - {fileID: 6774526421469918954, guid: 1d3d8d67b0f7fb64080bc03c45921b41, type: 3}

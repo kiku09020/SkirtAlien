@@ -36,7 +36,7 @@ public partial class Pl_Action
         rb.AddForce(Vector2.up * dmgJumpForce);                                 // 少し飛ばす
 
         aud.PlaySE(AudLists.SETypeList.pl, (int)AudLists.SEList_Pl.damage);     // 効果音
-        part.InstPart(Pl_Particle.PartNames.damaged);                           // パーティクル
+        part.InstPart(Pl_Particle.PartNames.damaged,transform.position);                           // パーティクル
         Vibration.Vibrate(300);                                                 // スマホ振動
     }
 
@@ -49,7 +49,7 @@ public partial class Pl_Action
             hung.HungDec_Atk();                                                 // 空腹度減らす
 
             aud.PlaySE(AudLists.SETypeList.pl, (int)AudLists.SEList_Pl.eat);    // 効果音
-            part.InstPart(Pl_Particle.PartNames.eat);                           // パーティクル
+            part.InstPart(Pl_Particle.PartNames.eat, transform.position);                           // パーティクル
         }
 
         eatTimer += Time.deltaTime;      // タイマー増加
@@ -69,7 +69,7 @@ public partial class Pl_Action
             digBtnCnt++;            // 消化ボタン回数増加
 
             aud.PlaySE(AudLists.SETypeList.pl, (int)AudLists.SEList_Pl.dig);        // 効果音
-            part.InstPart(Pl_Particle.PartNames.digit);                            // パーティクル
+            part.InstPart(Pl_Particle.PartNames.digit, transform.position);                            // パーティクル
             anim.DigBtnAnim();                                                      // アニメーション
         }
 
@@ -79,7 +79,7 @@ public partial class Pl_Action
             hung.HungInc(combo.GetCmbMag());                                        // 満腹度増加
 
             aud.PlaySE(AudLists.SETypeList.pl, (int)AudLists.SEList_Pl.digDone);    // 効果音
-            part.InstPart(Pl_Particle.PartNames.eated);                             // パーティクル
+            part.InstPart(Pl_Particle.PartNames.eated, transform.position);                             // パーティクル
 
             digBtnCnt = 0;                                                          // 消化ボタン回数0にする
             st.stateNum = Pl_States.States.normal;                                  // 通常状態に戻す
@@ -98,7 +98,7 @@ public partial class Pl_Action
             rb.AddForce(Vector2.up * nowJumpForce);                         // ジャンプ
 
             aud.PlaySE(AudLists.SETypeList.pl, (int)AudLists.SEList_Pl.jump);       // 効果音再生
-            part.InstPart(Pl_Particle.PartNames.jump);                              // パーティクル生成
+            part.InstPart(Pl_Particle.PartNames.jump, transform.position);                              // パーティクル生成
             sr.color = Color.white;                                                 // 色変更
         }
 
