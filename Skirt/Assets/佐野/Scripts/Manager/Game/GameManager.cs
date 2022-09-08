@@ -22,8 +22,6 @@ public class GameManager : MonoBehaviour
 
     // ポーズ
     public bool isPaused;           // ポーズ中
-    [HideInInspector] public bool retry;
-    [HideInInspector] public bool quit;
 
     /* コンポーネント取得用 */
     CanvasGenelator cvs;

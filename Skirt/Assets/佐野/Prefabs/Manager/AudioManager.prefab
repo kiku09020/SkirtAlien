@@ -60,9 +60,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 48600237522e2cc4eb21b1e46db744a2, type: 3}
   SE_enm: []
   SE_ui:
-  - {fileID: 8300000, guid: 153ac1073175c354ca7b31c6437f944c, type: 3}
-  - {fileID: 8300000, guid: af1f7a237dddcee4dae2925f224fb8e1, type: 3}
-  - {fileID: 8300000, guid: 71f90435ade18e54e817c72d00116aff, type: 3}
+  - {fileID: 8300000, guid: 1604f5dbbb9305d40aa9b509c28d0b3a, type: 3}
+  - {fileID: 8300000, guid: e7abce92a789fe74bbbf03106f61cc36, type: 3}
+  - {fileID: 8300000, guid: 3d453b9496a26274891f8f98c5fa81cb, type: 3}
 --- !u!82 &7514069431209702922
 AudioSource:
   m_ObjectHideFlags: 0

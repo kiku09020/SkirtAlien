@@ -371,6 +371,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Btn_Retry
       objectReference: {fileID: 0}
+    - target: {fileID: 2336332939933712531, guid: 953699ed154aba0498ca8f3a1ab6bdf7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9011993791353574814, guid: 953699ed154aba0498ca8f3a1ab6bdf7, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -469,6 +473,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3793604493243817545}
     m_Modifications:
+    - target: {fileID: 6135268672150571498, guid: c03f7b353ad791f48ad85ea5ae606d32, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6832321949640629419, guid: c03f7b353ad791f48ad85ea5ae606d32, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

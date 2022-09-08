@@ -230,7 +230,7 @@ MonoBehaviour:
   rotDec: 1
   dmgTimeLim: 2
   dmgJumpForce: 300
-  flashCycle: 0.6
+  flashCycle: 0.3
   eatTimeLim: 1
   digBtnCntMax: 5
   nmlJumpForce: 750

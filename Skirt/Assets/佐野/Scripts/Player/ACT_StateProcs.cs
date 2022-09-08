@@ -7,7 +7,7 @@ public partial class Pl_Action
     public void Damage_Proc()
     {
         // ダメージくらった瞬間
-        if (dmgTimer == 0) {
+        if (dmgTimer == 0.0f) {
             InstantDamage();
         }
 
