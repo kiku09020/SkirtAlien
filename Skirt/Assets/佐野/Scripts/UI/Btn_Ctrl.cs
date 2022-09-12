@@ -6,15 +6,16 @@ public class Btn_Ctrl : MonoBehaviour
 {
     /* コンポーネント取得用 */
     Pl_States       pl_st;
+    Pl_HP           hp;
+    Pl_Hunger       hung;
 
     GameManager     gm;
     AudioManager    aud;
     SceneController sc;
     CanvasGenelator cvsGen;
-    Pl_Hunger       hung;
     Pause           pause;
 
-//-------------------------------------------------------------------
+    //-------------------------------------------------------------------
     void Start()
     {
         /* オブジェクト検索 */
@@ -32,6 +33,7 @@ public class Btn_Ctrl : MonoBehaviour
 
         pl_st   = pl_obj.GetComponent<Pl_States>();
         hung    = pl_obj.GetComponent<Pl_Hunger>();
+        hp      = pl_obj.GetComponent<Pl_HP>();
     }
 
     //-------------------------------------------------------------------
@@ -166,9 +168,17 @@ public class Btn_Ctrl : MonoBehaviour
 	}
 
     //-------------------------------------------------------------------
+    /* Debug */
+
     // 空腹にするボタン
     public void Btn_Hung()
 	{
         hung.nowHung = 0;
 	}
+
+    // ダメージ
+    public void Btn_Dmg()
+    {
+        hp.HP_Damage();
+    }
 }

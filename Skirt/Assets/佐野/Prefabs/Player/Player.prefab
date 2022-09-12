@@ -288,9 +288,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nowHung: 0
-  hungValDecNml: 0.075
+  hungValDecNml: 0.1
   hungValDecAtk: 3
-  hungIncVal: 15
+  hungIncVal: 25
   hungFlg: 0
 --- !u!114 &7752226494457446854
 MonoBehaviour:

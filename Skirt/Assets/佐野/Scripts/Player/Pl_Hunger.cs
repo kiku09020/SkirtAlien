@@ -76,13 +76,21 @@ public class Pl_Hunger : MonoBehaviour {
     // 増やす
     public void HungInc(int mag)
     {
+        float addHung;
+
+        // コンボ倍率が1のとき
         if (mag == 1) {
-            nowHung += hungIncVal;
+            addHung = hungIncVal;
         }
 
+        // それ以降のコンボ倍率
         else {
-            nowHung += (hungIncVal * mag) * 0.75f;
+            float hungMag = 1 + 0.5f * (mag / 2);      // 満腹度倍率
+            addHung = hungIncVal * hungMag;
         }
+
+        nowHung += addHung;            // 増やす
+        Debug.Log(addHung);
 
         // 最大値よりも大きくなったら、戻す
         if (nowHung > hungMax) {

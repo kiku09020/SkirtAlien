@@ -6,8 +6,8 @@ public class StageManager : MonoBehaviour
 {
     /* 値 */
     [Header("ステージ関係")]
-    const int stgCnt = 6;           // ステージの数
-    string[] stgNames = { "ステージ1", "ステージ2", "ステージ3", "ステージボス","デバッグ","デバッグ東" };              // 各ステージ名の配列
+    const int stgCnt = 7;           // ステージの数
+    string[] stgNames = { "タイトル","ステージ1", "ステージ2", "ステージ3", "ステージボス","","デバッグ" };              // 各ステージ名の配列
     public string nowStgName;       // 現在のステージ名
 
     public float stg_length;        // ステージの長さ
@@ -34,7 +34,7 @@ public class StageManager : MonoBehaviour
         sldr  = sldr_obj.GetComponent<Slider>();
 
         /* 初期化 */
-        nowStgName = stgNames[scene.nowSceneIndex - 2];
+        nowStgName = stgNames[scene.nowSceneIndex];
     }
 
     //-------------------------------------------------------------------

@@ -16,9 +16,9 @@ public class SceneController : MonoBehaviour {
         sceneCnt = SceneManager.sceneCount;         // 合計シーン数
 
         // 現在のシーン
-        Scene nowScene = SceneManager.GetActiveScene();   // 現在のシーン
-        nowSceneIndex = nowScene.buildIndex;        // 現在のシーン番号取得
-        nowSceneName = nowScene.name;			    // 現在のシーン名取得
+        Scene nowScene = SceneManager.GetActiveScene();     // 現在のシーン
+        nowSceneIndex  = nowScene.buildIndex;               // 現在のシーン番号取得
+        nowSceneName   = nowScene.name;			            // 現在のシーン名取得
     }
 
     //-------------------------------------------------------------------
