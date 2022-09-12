@@ -38,6 +38,13 @@ public class Pl_States : MonoBehaviour
 	[Header("空腹")]
 	[SerializeField] Color hungColor;
 
+	[Header("捕食関係")]
+	[SerializeField] float ctLim;
+	float ct;
+	bool ctFlg;
+	bool canEat;
+
+
 	/* コンポーネント取得用 */
 	GameManager		gm;
 	StageManager    stg;
@@ -68,6 +75,7 @@ public class Pl_States : MonoBehaviour
 
 		/* 初期化 */
 		stateNum = States.normal;          // 状態
+		canEat = true;
 
 		// 位置をステージの長さに合わせる
 		transform.position = new Vector2(0, stg.stg_length);
@@ -79,7 +87,17 @@ public class Pl_States : MonoBehaviour
 	{
 		if (!gm.isGameOver && !gm.isGoaled) {
 			StateProc();        // メイン処理
-			Hungry();			// 満腹度処理
+			Hungry();           // 満腹度処理
+
+            if (ctFlg) {
+				ct += Time.deltaTime;
+
+                if (ct > ctLim) {
+					canEat = true;
+					ctFlg = false;
+					ct = 0;
+                }
+            }
 		}
 	}
 
@@ -101,7 +119,7 @@ public class Pl_States : MonoBehaviour
 				Landing();		break;
 
 			case States.eating:		// 捕食中
-				act.Eating();break;
+				break;
 
 			case States.digest:     // 消化
 				Digest();		break;
@@ -193,7 +211,9 @@ public class Pl_States : MonoBehaviour
     {
 		// 空腹時の処理
 		if (hung.hungFlg) {
-			transform.localScale = Vector2.one;         // 大きさ
+            if (stateNum != States.eating) {
+				transform.localScale = Vector2.one;         // 大きさ
+            }
 			sr.color = hungColor;                       // 色変更
 			part.InstPart(Pl_Particle.PartNames.hungry, transform.position + Vector3.up*3);
 		}
@@ -206,16 +226,13 @@ public class Pl_States : MonoBehaviour
 
 	//-------------------------------------------------------------------
 
-	// ★ボタン押したときの処理
+	
+
+	// 押した瞬間
 	public void ActBtnProc()
     {
-		// 通常時のみ、捕食状態にする
-		if (stateNum == States.normal) {
-			stateNum = States.eating;
-		}
-
 		// 消化時
-		else if (stateNum == States.digest) {
+		if (stateNum == States.digest) {
 			act.Digest_Btn();
 		}
 
@@ -224,6 +241,30 @@ public class Pl_States : MonoBehaviour
 			act.Jump();
 		}
 	}
+
+	// 押してる最中
+	public void ActBtn_Downing()
+    {
+		// 通常時のみ、捕食状態にする
+		if ((stateNum == States.normal ||
+			stateNum == States.eating) && canEat) {
+			stateNum = States.eating;
+			act.Eating();
+		}
+	}
+
+	// 離した瞬間
+	public void ActBtn_Up()
+    {
+		// 通常状態に遷移
+        if (stateNum == States.eating) {
+			stateNum = States.normal;
+			act.Eatend();
+
+			ctFlg = true;
+			canEat = false;
+		}
+    }
 
 	//-------------------------------------------------------------------
 	

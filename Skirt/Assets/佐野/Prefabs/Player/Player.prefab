@@ -259,6 +259,7 @@ MonoBehaviour:
   drag_dig: 0
   size_big: 1.01
   hungColor: {r: 1, g: 0.2679245, b: 0.2679245, a: 1}
+  ctLim: 0.5
 --- !u!114 &5297649651518445171
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -289,7 +290,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nowHung: 0
   hungValDecNml: 0.1
-  hungValDecAtk: 3
+  hungValDecAtk: 0.3
   hungIncVal: 25
   hungFlg: 0
 --- !u!114 &7752226494457446854

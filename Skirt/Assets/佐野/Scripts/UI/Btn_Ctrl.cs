@@ -8,6 +8,7 @@ public class Btn_Ctrl : MonoBehaviour
     Pl_States       pl_st;
     Pl_HP           hp;
     Pl_Hunger       hung;
+    Pl_Anim         anim;
 
     GameManager     gm;
     AudioManager    aud;
@@ -34,6 +35,7 @@ public class Btn_Ctrl : MonoBehaviour
         pl_st   = pl_obj.GetComponent<Pl_States>();
         hung    = pl_obj.GetComponent<Pl_Hunger>();
         hp      = pl_obj.GetComponent<Pl_HP>();
+        anim    = pl_obj.GetComponent<Pl_Anim>();
     }
 
     //-------------------------------------------------------------------
@@ -161,11 +163,24 @@ public class Btn_Ctrl : MonoBehaviour
         }
     }
 
-    // ●アクションボタン
-    public void Btn_Action()
+    /* アクションボタン */
+    // 押した瞬間
+    public void Btn_Act_Down()
 	{
         pl_st.ActBtnProc();
 	}
+
+    // 押してる最中
+    public void Btn_Act_Downing()
+    {
+        pl_st.ActBtn_Downing();
+    }
+
+    // 離した瞬間
+    public void Btn_Act_Up()
+    {
+        pl_st.ActBtn_Up();
+    }
 
     //-------------------------------------------------------------------
     /* Debug */

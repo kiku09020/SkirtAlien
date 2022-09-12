@@ -5,8 +5,6 @@ using DG.Tweening;
 public class Pl_Anim : MonoBehaviour
 {
     /* 値 */
-    bool jump_Once;
-    bool atk_Once;
     bool dig_Once;
 
     /* コンポーネント */
@@ -16,9 +14,9 @@ public class Pl_Anim : MonoBehaviour
     Animator anim;
 
     /* Tween */
-    Tween twn_eat;
     Tween twn_dig;
     Tween twn_diged;
+    Tween twn_eatStrt;
 
     //-------------------------------------------------------------------
     void Start()
@@ -49,9 +47,6 @@ public class Pl_Anim : MonoBehaviour
             case Pl_States.States.normal:        // 通常時
                 anim.SetTrigger("normal");
                 ResetAnims();
-                jump_Once = false;
-                atk_Once = false;
-                dig_Once = false;
                 break;
 
             //------------------------------
@@ -83,18 +78,13 @@ public class Pl_Anim : MonoBehaviour
 
             //------------------------------
             case Pl_States.States.eating:       // 捕食中
-
-                if (!atk_Once) {
-                    atk_Once = true;
-                    anim.SetTrigger("attacking");
-                    twn_eat = DOTween.Sequence().Append(transform.DOScale(new Vector2(2f, 1.5f), 0.4f).SetEase(Ease.OutCirc))
-                                                .Append(transform.DOScale(new Vector2(1f, 1f), 0.25f).SetEase(Ease.OutCirc));
-                }
+                ResetAnims();
                 break;
 
             //------------------------------
             case Pl_States.States.digest:       // 消化中
                 anim.SetTrigger("digesting");
+                anim.SetBool("eatStart", false);
                 if (!dig_Once) {
                     dig_Once = true;
                     twn_dig = transform.DOScale(new Vector2(1.2f, 1.2f), 0.25f)
@@ -109,6 +99,20 @@ public class Pl_Anim : MonoBehaviour
                 ResetAnims();
                 break;
         }
+    }
+
+    public void EatingStart()
+    {
+        anim.SetBool("eatStart", true);
+        twn_eatStrt = transform.DOScale(new Vector2(1f, 0.5f), 0.4f).SetEase(Ease.OutCirc).SetRelative(true);
+    }
+
+    public void EatingEnd()
+    {
+        anim.SetBool("eatEnd", true);
+        anim.SetBool("eatStart", false);
+        transform.DOScale(Vector2.one, 0.25f).SetEase(Ease.OutCirc);
+        twn_eatStrt.Kill();
     }
 
     // 消化中にボタン押したときのアニメーション
@@ -127,9 +131,10 @@ public class Pl_Anim : MonoBehaviour
     {
         anim.SetBool("walking", false);
         anim.SetBool("landing", false);
+        anim.SetBool("eatEnd", false);
 
+        dig_Once = false;
         twn_dig.Kill();
         twn_diged.Kill();
-        twn_eat.Kill();
     }
 }

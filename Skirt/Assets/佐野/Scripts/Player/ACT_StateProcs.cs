@@ -41,24 +41,23 @@ public partial class Pl_Action
     }
 
     //------------------------------------------
-    // ★捕食
     public void Eating()
     {
-        // 捕食した瞬間
         if (eatTimer == 0) {
-            hung.HungDec_Atk();                                                 // 空腹度減らす
-
             aud.PlaySE(AudLists.SETypeList.pl, (int)AudLists.SEList_Pl.eat);    // 効果音
-            part.InstPart(Pl_Particle.PartNames.eat, transform.position);                           // パーティクル
+            part.InstPart(Pl_Particle.PartNames.eat, transform.position);       // パーティクル
+            anim.EatingStart();
         }
 
-        eatTimer += Time.deltaTime;      // タイマー増加
-
-        // 時間経過後
-        if (eatTimer > eatTimeLim) {
-            eatTimer = 0;
-            st.stateNum = Pl_States.States.normal;
+        else {
+            hung.HungDec_Atk();             // 空腹度減らす
+            eatTimer += Time.deltaTime;
         }
+    }
+
+    public void Eatend()
+    {
+        anim.EatingEnd();
     }
 
     //------------------------------------------
