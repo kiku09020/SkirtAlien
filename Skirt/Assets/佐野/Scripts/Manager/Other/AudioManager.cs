@@ -49,6 +49,22 @@ public class AudioManager : MonoBehaviour
         as_SE.clip = clip;      // クリップ入れる
         as_SE.Play();           // 再生
 	}
+
+    // 音声の一時停止
+    public void PauseAudio(bool stopFlg)
+    {
+        // 停止時
+        if (stopFlg) {
+            as_BGM.Pause();
+            as_SE.Pause();
+        }
+
+        // 停止再開時
+        else {
+            as_BGM.Play();
+            as_SE.Play();
+        }
+    }
 }
 
 // ------------------------------------------------------------------------

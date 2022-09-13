@@ -37,12 +37,13 @@ public class Pl_States : MonoBehaviour
 
 	[Header("空腹")]
 	[SerializeField] Color hungColor;
+	float hungTimer;
 
 	[Header("捕食関係")]
-	[SerializeField] float ctLim;
-	float ct;
-	bool ctFlg;
-	bool canEat;
+	[SerializeField] float ctLim;			// クールタイム
+	float ct;								// クールタイムタイマー
+	bool ctFlg;								// 
+	bool canEat;							// 
 
 
 	/* コンポーネント取得用 */
@@ -118,7 +119,8 @@ public class Pl_States : MonoBehaviour
 			case States.landing:	// 地上
 				Landing();		break;
 
-			case States.eating:		// 捕食中
+			case States.eating:     // 捕食中
+				hung.HungDec_Atk();
 				break;
 
 			case States.digest:     // 消化
@@ -187,8 +189,6 @@ public class Pl_States : MonoBehaviour
 	// ★地上
 	void Landing()
 	{
-		transform.localScale = Vector2.one;		// 大きさ戻す
-
 		// 右移動時
 		if(gm.inpVer > 0) {
 			sr.flipX = true;					// 反転
@@ -215,18 +215,22 @@ public class Pl_States : MonoBehaviour
 				transform.localScale = Vector2.one;         // 大きさ
             }
 			sr.color = hungColor;                       // 色変更
-			part.InstPart(Pl_Particle.PartNames.hungry, transform.position + Vector3.up*3);
+			hungTimer += Time.deltaTime;
+
+			if (hungTimer > 0.5f) {
+				part.InstPart(Pl_Particle.PartNames.hungry, transform.position + Vector3.up * 2.5f,transform.rotation, transform);
+				hungTimer = 0;
+            }
 		}
 
 		// 満腹度減らす
 		else if (!landFlg && !gm.isStarting) {
 			hung.HungDec_State();
+			hungTimer = 0;
 		}
 	}
 
 	//-------------------------------------------------------------------
-
-	
 
 	// 押した瞬間
 	public void ActBtnProc()

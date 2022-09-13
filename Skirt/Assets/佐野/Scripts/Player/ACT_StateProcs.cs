@@ -11,21 +11,22 @@ public partial class Pl_Action
             InstantDamage();
         }
 
-        dmgTimer += Time.deltaTime;       // タイマー増加
+        else {
+            transform.localScale = Vector2.one;     // 大きさ戻す
 
-        transform.localScale = Vector2.one;     // 大きさ戻す
-
-        // 点滅
-        var alpha = Mathf.Cos(2 * Mathf.PI * dmgTimer / flashCycle);
-        sr.color = new Color(1, 1, 1, alpha);
+            // 点滅
+            var alpha = Mathf.Cos(2 * Mathf.PI * dmgTimer / flashCycle);
+            sr.color = new Color(1, 1, 1, alpha);
 
 
-        // 時間経過後
-        if (dmgTimer > dmgTimeLim) {
-            dmgTimer = 0;
-            sr.color = Color.white;
-            st.stateNum = Pl_States.States.normal;
+            // 時間経過後
+            if (dmgTimer > dmgTimeLim) {
+                sr.color = Color.white;
+                st.stateNum = Pl_States.States.normal;
+            }
         }
+
+        dmgTimer += Time.deltaTime;       // タイマー増加
     }
 
     // ダメージくらった瞬間

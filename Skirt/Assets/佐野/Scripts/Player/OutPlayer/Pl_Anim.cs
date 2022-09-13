@@ -84,7 +84,6 @@ public class Pl_Anim : MonoBehaviour
             //------------------------------
             case Pl_States.States.digest:       // 消化中
                 anim.SetTrigger("digesting");
-                anim.SetBool("eatStart", false);
                 if (!dig_Once) {
                     dig_Once = true;
                     twn_dig = transform.DOScale(new Vector2(1.2f, 1.2f), 0.25f)
@@ -97,20 +96,24 @@ public class Pl_Anim : MonoBehaviour
             case Pl_States.States.damage:       // ダメージ時
                 anim.SetTrigger("damaged");
                 ResetAnims();
+
+                if (gm.isGameOver) {
+                    anim.SetTrigger("dead");
+                }
                 break;
         }
     }
 
     public void EatingStart()
     {
-        anim.SetBool("eatStart", true);
+        anim.SetTrigger("eatStart");
+        anim.SetBool("eatEnd", false) ;
         twn_eatStrt = transform.DOScale(new Vector2(1f, 0.5f), 0.4f).SetEase(Ease.OutCirc).SetRelative(true);
     }
 
     public void EatingEnd()
     {
         anim.SetBool("eatEnd", true);
-        anim.SetBool("eatStart", false);
         transform.DOScale(Vector2.one, 0.25f).SetEase(Ease.OutCirc);
         twn_eatStrt.Kill();
     }
@@ -131,7 +134,7 @@ public class Pl_Anim : MonoBehaviour
     {
         anim.SetBool("walking", false);
         anim.SetBool("landing", false);
-        anim.SetBool("eatEnd", false);
+        
 
         dig_Once = false;
         twn_dig.Kill();

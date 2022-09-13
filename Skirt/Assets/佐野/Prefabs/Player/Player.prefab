@@ -227,7 +227,7 @@ MonoBehaviour:
   moveDec: 0.96
   breakDec: 0.25
   moveRot: 15
-  rotDec: 1
+  rotDec: 1.5
   dmgTimeLim: 2
   dmgJumpForce: 300
   flashCycle: 0.3
@@ -290,7 +290,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nowHung: 0
   hungValDecNml: 0.1
-  hungValDecAtk: 0.3
+  hungValDecAtk: 0.05
   hungIncVal: 25
   hungFlg: 0
 --- !u!114 &7752226494457446854

@@ -47,8 +47,9 @@ public class Pl_Btm : MonoBehaviour
             st.landFlg = false;
 
             // 通常状態
-            if( st.stateNum != Pl_States.States.damage &&
-                st.stateNum!=Pl_States.States.digest) {
+            if (st.stateNum != Pl_States.States.damage &&
+                st.stateNum != Pl_States.States.digest &&
+                st.stateNum != Pl_States.States.eating) {
                 st.stateNum = Pl_States.States.normal;
             }
 		}

@@ -19,6 +19,10 @@ public class Vibration : MonoBehaviour
 		if(isAndroid()) {
             vibrator.Call("vibrate", milliseconds);
 		}
+
+        else {
+            Handheld.Vibrate();
+        }
     }
 
     // 端末がAndroidかどうか

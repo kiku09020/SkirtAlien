@@ -31,5 +31,14 @@ public class Pl_Particle : MonoBehaviour
         GameObject inst = Instantiate(pref, genPos, Quaternion.identity);      // 生成
         inst.GetComponent<ParticleSystem>().Play();                 // 再生
         Destroy(inst, destTime);                                    // 削除
-    } 
+    }
+
+    // 親オブジェクト指定
+    public void InstPart(PartNames name, Vector2 genPos,Quaternion qua, Transform parent)
+    {
+        GameObject pref = particles[(int)name];
+        GameObject inst = Instantiate(pref, genPos, qua, parent);      // 生成
+        inst.GetComponent<ParticleSystem>().Play();                 // 再生
+        Destroy(inst, destTime);                                    // 削除
+    }
 }

@@ -5,7 +5,8 @@ using UnityEngine;
 public class Btn_Ctrl : MonoBehaviour
 {
     /* コンポーネント取得用 */
-    Pl_States       pl_st;
+    Pl_States       st;
+    Pl_Action       act;
     Pl_HP           hp;
     Pl_Hunger       hung;
     Pl_Anim         anim;
@@ -32,7 +33,8 @@ public class Btn_Ctrl : MonoBehaviour
         pause   = ui_Obj.GetComponent<Pause>();
         aud     = aud_obj.GetComponent<AudioManager>();
 
-        pl_st   = pl_obj.GetComponent<Pl_States>();
+        st      = pl_obj.GetComponent<Pl_States>();
+        act     = pl_obj.GetComponent<Pl_Action>();
         hung    = pl_obj.GetComponent<Pl_Hunger>();
         hp      = pl_obj.GetComponent<Pl_HP>();
         anim    = pl_obj.GetComponent<Pl_Anim>();
@@ -50,6 +52,7 @@ public class Btn_Ctrl : MonoBehaviour
             cvsGen.UnPause();       // Canvas非表示
 
             aud.PlaySE(AudLists.SETypeList.ui, (int)AudLists.SEList_UI.cancel);     // 効果音
+            aud.PauseAudio(false);
         }
 
         // Pause
@@ -59,6 +62,7 @@ public class Btn_Ctrl : MonoBehaviour
             cvsGen.Pause();         // Canvas表示
 
             aud.PlaySE(AudLists.SETypeList.ui, (int)AudLists.SEList_UI.decision);   // 効果音
+            aud.PauseAudio(true);
         }
     }
 
@@ -151,7 +155,7 @@ public class Btn_Ctrl : MonoBehaviour
     // アクションボタンを、状態によって変色したりする関数
     public void Btn_Action_States()
     {
-        switch (pl_st.stateNum) {
+        switch (st.stateNum) {
             // 地上
             case Pl_States.States.landing:
 
@@ -167,19 +171,19 @@ public class Btn_Ctrl : MonoBehaviour
     // 押した瞬間
     public void Btn_Act_Down()
 	{
-        pl_st.ActBtnProc();
+        st.ActBtnProc();
 	}
 
     // 押してる最中
     public void Btn_Act_Downing()
     {
-        pl_st.ActBtn_Downing();
+        st.ActBtn_Downing();
     }
 
     // 離した瞬間
     public void Btn_Act_Up()
     {
-        pl_st.ActBtn_Up();
+        st.ActBtn_Up();
     }
 
     //-------------------------------------------------------------------
@@ -194,6 +198,6 @@ public class Btn_Ctrl : MonoBehaviour
     // ダメージ
     public void Btn_Dmg()
     {
-        hp.HP_Damage();
+        act.Damage_Proc();
     }
 }

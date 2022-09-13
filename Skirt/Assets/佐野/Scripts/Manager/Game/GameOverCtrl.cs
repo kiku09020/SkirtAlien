@@ -15,6 +15,7 @@ public class GameOverCtrl : MonoBehaviour
 
 	Pl_HP hp;
 	Collider2D col;
+	Rigidbody2D rb;
 
 	//-------------------------------------------------------------------
 
@@ -28,6 +29,7 @@ public class GameOverCtrl : MonoBehaviour
 		cnvs	= ui_obj.GetComponent<CanvasGenelator>();
 		hp		= pl_obj.GetComponent<Pl_HP>();
 		col		= pl_obj.GetComponent<Collider2D>();
+		rb		= pl_obj.GetComponent<Rigidbody2D>();
 	}
 
 	//-------------------------------------------------------------------
@@ -48,6 +50,7 @@ public class GameOverCtrl : MonoBehaviour
 
 		if (gm.isGameOver) {
 			col.enabled = false;        // プレイヤーのcol無効化
+			rb.gravityScale = -0.5f;
 
 			if(!isInsted) {
 				StartCoroutine("GmOv");
