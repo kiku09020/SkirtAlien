@@ -4,10 +4,12 @@ using UnityEngine;
 public class Goal_Ctrl : MonoBehaviour
 {
     /* コンポーネント取得用 */
-    GameManager gm;
-    AudioManager aud;
+    GameManager     gm;
+    AudioManager    aud;
     CanvasGenelator cvsGen;
-    Pl_Particle part;
+    Pl_Particle     part;
+    ScoreManager    score;
+
     //-------------------------------------------------------------------
     void Start()
     {
@@ -18,6 +20,7 @@ public class Goal_Ctrl : MonoBehaviour
 
         /* コンポーネント取得 */
         gm      = gm_obj.GetComponent<GameManager>();
+        score   = gm_obj.GetComponent<ScoreManager>();
         aud     = aud_obj.GetComponent<AudioManager>();
         part    = prt_obj.GetComponent<Pl_Particle>();
         cvsGen  = um_obj.GetComponent<CanvasGenelator>();
@@ -38,6 +41,8 @@ public class Goal_Ctrl : MonoBehaviour
             Vector3 hitpos = col.ClosestPoint(transform.position);      // プレイヤーが触れた位置をパーティクルの生成位置にする
             part.InstPart(Pl_Particle.PartNames.goal, hitpos);          // パーティクル生成
             aud.PauseAudio(true);                                       // 音声停止
+
+            score.SaveScore();
         }
 	}
 }

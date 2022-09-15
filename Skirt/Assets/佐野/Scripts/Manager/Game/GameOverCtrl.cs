@@ -10,9 +10,12 @@ public class GameOverCtrl : MonoBehaviour
 	bool isInsted;
 
 	/* コンポーネント取得用 */
+	GameObject pl_obj;
+
 	GameManager gm;
 	CanvasGenelator cnvs;
 	AudioManager aud;
+	Pl_Particle part;
 
 	Pl_HP hp;
 	Collider2D col;
@@ -25,11 +28,13 @@ public class GameOverCtrl : MonoBehaviour
 		/* コンポーネント取得 */
 		GameObject ui_obj	= transform.Find("UIManager").gameObject;
 		GameObject aud_obj	= transform.Find("AudioManager").gameObject;
-		GameObject pl_obj	= GameObject.Find("Player");
+		GameObject partObj = transform.Find("ParticleManager").gameObject;
+		pl_obj	= GameObject.Find("Player");
 
 		gm		= GetComponent<GameManager>();
 		cnvs	= ui_obj.GetComponent<CanvasGenelator>();
 		aud		= aud_obj.GetComponent<AudioManager>();
+		part	= partObj.GetComponent<Pl_Particle>();
 		hp		= pl_obj.GetComponent<Pl_HP>();
 		col		= pl_obj.GetComponent<Collider2D>();
 		rb		= pl_obj.GetComponent<Rigidbody2D>();
@@ -52,11 +57,10 @@ public class GameOverCtrl : MonoBehaviour
 		}
 
 		if (gm.isGameOver) {
-			col.enabled = false;        // プレイヤーのcol無効化
-			rb.gravityScale = -0.5f;
+			col.enabled = false;								// プレイヤーのcol無効化
 
 			if(!isInsted) {
-				StartCoroutine("GmOv");
+				StartCoroutine(GmOv());
 			}
 		}
 	}
@@ -65,11 +69,18 @@ public class GameOverCtrl : MonoBehaviour
 	IEnumerator GmOv()
 	{
 		Time.timeScale = 0.5f;          // スローにする
-		cnvs.GmOv_Del();
+		aud.PauseAudio(true);			// 音声停止
+		cnvs.GmOv_Del();                // キャンバス
+
 
 		yield return new WaitForSeconds(gmovTime);
 
 		if(!isInsted) {
+			part.InstPart(Pl_Particle.PartNames.dead, pl_obj.transform.position + Vector3.up * 50, false);
+			rb.gravityScale = -0.5f;                            // 浮かせる
+			pl_obj.transform.rotation = Quaternion.identity;    // 角度戻す
+			pl_obj.transform.localScale = Vector2.one;          // サイズ戻す
+
 			aud.PlayBGM(AudLists.BGMList.gameOver, false);
 			Time.timeScale = 1;         // 時間戻す
 			cnvs.GmOv_Inst();			// キャンバス生成

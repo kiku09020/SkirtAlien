@@ -16,6 +16,7 @@ public class Btn_Ctrl : MonoBehaviour
     SceneController sc;
     CanvasGenelator cvsGen;
     Pause           pause;
+    ScoreManager    score;
 
     //-------------------------------------------------------------------
     void Start()
@@ -29,6 +30,7 @@ public class Btn_Ctrl : MonoBehaviour
         /* コンポーネント取得 */
         gm      = gm_obj.GetComponent<GameManager>();
         sc      = gm_obj.GetComponent<SceneController>();
+        score   = gm_obj.GetComponent<ScoreManager>();
         cvsGen  = ui_Obj.GetComponent<CanvasGenelator>();
         pause   = ui_Obj.GetComponent<Pause>();
         aud     = aud_obj.GetComponent<AudioManager>();
@@ -122,6 +124,7 @@ public class Btn_Ctrl : MonoBehaviour
         yield return new WaitForSecondsRealtime(0.2f);
 
         Time.timeScale = 1;
+        score.LoadScore();          // ステージ開始時のスコアにする
         sc.SceneReload();
     }
 
@@ -131,6 +134,7 @@ public class Btn_Ctrl : MonoBehaviour
         yield return new WaitForSecondsRealtime(0.2f);
 
         Time.timeScale = 1;
+        score.ResetScore();         // スコアリセットする
         sc.SceneLoading("Title");
     }
 

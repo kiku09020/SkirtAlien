@@ -17,7 +17,8 @@ public class Pl_Particle : MonoBehaviour
         swoop,
         hungry,
         heal,
-        goal
+        goal,
+        dead
 	}
 
     /* コンポーネント取得用 */
@@ -40,5 +41,17 @@ public class Pl_Particle : MonoBehaviour
         GameObject inst = Instantiate(pref, genPos, qua, parent);      // 生成
         inst.GetComponent<ParticleSystem>().Play();                 // 再生
         Destroy(inst, destTime);                                    // 削除
+    }
+
+    // 削除フラグ
+    public void InstPart(PartNames name, Vector2 genPos,bool delFlg)
+    {
+        GameObject pref = particles[(int)name];
+        GameObject inst = Instantiate(pref, genPos, Quaternion.identity);      // 生成
+        inst.GetComponent<ParticleSystem>().Play();                 // 再生
+
+        if (delFlg) {
+            Destroy(inst, destTime);                                    // 削除
+        }
     }
 }

@@ -225,14 +225,14 @@ MonoBehaviour:
   spdMax: 15
   fallSpdMax: 60
   moveDec: 0.96
-  breakDec: 0.25
+  breakDec: 0.5
   moveRot: 15
   rotDec: 1.5
   dmgTimeLim: 2
   dmgJumpForce: 300
   flashCycle: 0.3
   eatTimeLim: 1
-  digBtnCntMax: 5
+  digBtnCntMax: 4
   nmlJumpForce: 750
   nowJumpForce: 0
   jumpTime: 0.5
@@ -274,7 +274,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nowHP: 100
   dispVal: 0.3
-  heal: 10
+  heal: 25
   dmg: 20
 --- !u!114 &3942020655683820548
 MonoBehaviour:

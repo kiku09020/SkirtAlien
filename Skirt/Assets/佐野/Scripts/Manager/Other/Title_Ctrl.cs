@@ -31,6 +31,8 @@ public class Title_Ctrl : MonoBehaviour
 
             tapTimer += Time.deltaTime;
         }
+
+        QuitGame();
     }
 
     //-------------------------------------------------------------------
@@ -47,12 +49,6 @@ public class Title_Ctrl : MonoBehaviour
         isTapping = false;
     }
 
-    // デバッグステージ
-    public void Btn_Dbg()
-    {
-        SceneManager.LoadScene("DebugStage");
-    }
-
     // スタート時のコルーチン
     IEnumerator SceneChange_Start()
 	{
@@ -60,5 +56,20 @@ public class Title_Ctrl : MonoBehaviour
 
         yield return new WaitForSeconds(sceneChangeSec);
         SceneManager.LoadScene("Stage1");
+    }
+
+    //-------------------------------------------
+    // デバッグステージ
+    public void Btn_Dbg()
+    {
+        SceneManager.LoadScene("DebugStage");
+    }
+
+    // バックボタン押したとき
+    void QuitGame()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape)) {                 // App
+            Application.Quit();
+        }
     }
 }

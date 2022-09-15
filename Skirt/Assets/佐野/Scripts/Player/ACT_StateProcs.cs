@@ -16,7 +16,7 @@ public partial class Pl_Action
 
             // 点滅
             var alpha = Mathf.Cos(2 * Mathf.PI * dmgTimer / flashCycle);
-            sr.color = new Color(1, 1, 1, alpha);
+            sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, alpha);
 
 
             // 時間経過後

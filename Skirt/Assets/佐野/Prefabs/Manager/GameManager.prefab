@@ -74,7 +74,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7736a0a3dba10d44a7e1ade1db344a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gmovTime: 1.5
+  gmovTime: 1
 --- !u!114 &5756471999357389469
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cmbCnt: 0
-  cmbLimTime: 300
+  cmbLimTime: 5
 --- !u!1001 &2201139776813434956
 PrefabInstance:
   m_ObjectHideFlags: 0

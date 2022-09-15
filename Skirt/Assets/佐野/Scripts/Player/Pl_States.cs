@@ -189,6 +189,8 @@ public class Pl_States : MonoBehaviour
 	// ★地上
 	void Landing()
 	{
+		transform.localScale = Vector2.one;
+
 		// 右移動時
 		if(gm.inpVer > 0) {
 			sr.flipX = true;					// 反転
@@ -214,7 +216,10 @@ public class Pl_States : MonoBehaviour
             if (stateNum != States.eating) {
 				transform.localScale = Vector2.one;         // 大きさ
             }
-			sr.color = hungColor;                       // 色変更
+
+            if (stateNum != States.damage) {
+				sr.color = hungColor;                       // 色変更
+            }
 			hungTimer += Time.deltaTime;
 
 			if (hungTimer > 0.5f) {

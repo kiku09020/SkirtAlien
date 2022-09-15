@@ -14,7 +14,7 @@ public class ComboManager : MonoBehaviour
     int  cmbMag;                        // コンボ倍率
 
     bool cmbFlg;                        // コンボ可能か
-    int  cmbTimer;                      // 消化してからのタイマー
+    float  cmbTimer;                      // 消化してからのタイマー
     [SerializeField] float cmbLimTime;  // コンボまでの制限時間
 
     // 消化数の扱い
@@ -69,7 +69,7 @@ public class ComboManager : MonoBehaviour
     void ComboTimer()
 	{
 		if(cmbFlg) {
-            cmbTimer++;     // コンボタイマー増やす
+            cmbTimer += Time.deltaTime;
             cmbTimerImg.fillAmount = 1 - (cmbTimer / cmbLimTime);       // コンボタイマーのImage
 		}
 
