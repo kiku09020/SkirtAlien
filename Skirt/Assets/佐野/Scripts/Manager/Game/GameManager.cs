@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
         isStarting = true;
         isPaused   = false;
 
-        aud.PlayBGM((int)AudLists.BGMList.stg_intro, false);    // イントロ再生
+        aud.PlayBGM(AudLists.BGMList.stg_intro, false);    // イントロ再生
     }
 
     //-------------------------------------------------------------------
@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour
                 startTimer = 0;
                 isStarting = false;     // スタート演出終了
                 started = true;
-                aud.PlayBGM((int)AudLists.BGMList.stg_normal,true);     // BGM再生
+                aud.PlayBGM(AudLists.BGMList.stg_normal,true);     // BGM再生
             }
 		}
 	}

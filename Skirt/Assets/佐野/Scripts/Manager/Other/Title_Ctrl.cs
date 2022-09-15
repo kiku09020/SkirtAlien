@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 public class Title_Ctrl : MonoBehaviour
 {
     [SerializeField] float sceneChangeSec;      // シーンが移動するまでの秒数
+    [SerializeField] float tapTimeLim;          // 長押しタイマーの制限時間
+    float tapTimer;                             // 長押しタイマー
+    bool isTapping;
 
     /* コンポーネント */
     Animator anim;
@@ -17,12 +20,31 @@ public class Title_Ctrl : MonoBehaviour
         anim = cnvs.GetComponent<Animator>();
 	}
 
+    void FixedUpdate()
+    {
+        if (isTapping) {
+            if (tapTimer > tapTimeLim) {
+                tapTimer = 0;
+                isTapping = false;
+                StartCoroutine("SceneChange_Start");
+            }
+
+            tapTimer += Time.deltaTime;
+        }
+    }
+
     //-------------------------------------------------------------------
 
-    // スタートボタン
-    public void Btn_Start()
+    // 長押し開始
+    public void TapStart()
     {
-        StartCoroutine("SceneChange_Start");
+        isTapping = true;
+    }
+
+    // 長押し終了
+    public void TapEnd()
+    {
+        isTapping = false;
     }
 
     // デバッグステージ

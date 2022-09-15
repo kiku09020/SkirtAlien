@@ -80,7 +80,7 @@ public class GameDebuger : MonoBehaviour
     void Debug_Key()
 	{
         // Rでリロード
-        if(Input.GetKeyDown(KeyCode.R)) {
+        if (Input.GetKeyDown(KeyCode.R) || Input.GetKeyDown(KeyCode.Escape)) {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 

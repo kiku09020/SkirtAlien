@@ -16,7 +16,7 @@ public class AudioManager : MonoBehaviour
 
     //-------------------------------------------------------------------
     // BGM再生
-    public void PlayBGM(int bgmNum,bool loop)
+    public void PlayBGM(AudLists.BGMList bgmNum, bool loop)
 	{
         // ループの有無
         if (loop) {
@@ -26,7 +26,7 @@ public class AudioManager : MonoBehaviour
             as_BGM.loop = false;
         }
 
-        as_BGM.clip = BGM[bgmNum];          // クリップ入れる
+        as_BGM.clip = BGM[(int)bgmNum];          // クリップ入れる
         as_BGM.Play();                      // 再生
 	}
 
@@ -50,6 +50,7 @@ public class AudioManager : MonoBehaviour
         as_SE.Play();           // 再生
 	}
 
+    //-------------------------------------------------------------------
     // 音声の一時停止
     public void PauseAudio(bool stopFlg)
     {
@@ -68,15 +69,13 @@ public class AudioManager : MonoBehaviour
 }
 
 // ------------------------------------------------------------------------
-
 // 音声の列挙体クラス
 public class AudLists:MonoBehaviour 
 {
     // BGM
     public enum BGMList {
-        stg_intro,
+        stg_intro,      // イントロ
         stg_normal,     // 通常
-        stg_fast,       // 速い
         stg_orgel,      // オルゴール調
         gameOver,       // ゲームオーバー
         clear,          // クリア
