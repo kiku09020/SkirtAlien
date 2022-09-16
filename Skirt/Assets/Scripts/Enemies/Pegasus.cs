@@ -9,11 +9,15 @@ public class Pegasus : MonoBehaviour
 
     Vector2 posInit;                        // 初期位置
 
+    GameObject plObj;
+
     Rigidbody2D rb;
 
     //-------------------------------------------------------------------
     void Start()
     {
+        plObj = GameObject.FindGameObjectWithTag("Player");
+
         rb = GetComponent<Rigidbody2D>();
 
         posInit = transform.position;       // 初期位置を保存
@@ -22,7 +26,8 @@ public class Pegasus : MonoBehaviour
     void FixedUpdate()
     {
         // 現在位置取得
-        Vector2 posNow = transform.position;
+        var posNow = transform.position;
+        var plPos = plObj.transform.position;
 
         // 現在位置が上の頂点より下にいる時、上に移動
         if (posNow.y < posInit.y + moveDist) {
@@ -32,6 +37,14 @@ public class Pegasus : MonoBehaviour
         // 現在位置が下の頂点よりも上にいる時、下に移動
         else if (posNow.y > posInit.y - moveDist) {
             rb.AddForce(Vector2.down * moveSpeed);
+        }
+
+        if (posNow.x < plPos.x) {
+            transform.localScale = new Vector2(-1, 1);
+        }
+
+        else {
+            transform.localScale = Vector2.one;
         }
     }
 }

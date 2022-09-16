@@ -15,7 +15,6 @@ public class PlayerAnim : MonoBehaviour
 
     /* Tween */
     Tween twn_dig;
-    Tween twn_diged;
     Tween twn_eatStrt;
 
     //-------------------------------------------------------------------
@@ -35,12 +34,9 @@ public class PlayerAnim : MonoBehaviour
     void FixedUpdate()
     {
         StatesAnim();
-
-
     }
 
 //-------------------------------------------------------------------
-
     void StatesAnim()
     {
         switch (pl_st.stateNum) {
@@ -78,7 +74,6 @@ public class PlayerAnim : MonoBehaviour
 
             //------------------------------
             case Pl_States.States.eating:       // 捕食中
-                ResetAnims();
                 break;
 
             //------------------------------
@@ -106,14 +101,12 @@ public class PlayerAnim : MonoBehaviour
 
     public void EatingStart()
     {
-        anim.SetTrigger("eatStart");
-        anim.SetBool("eatEnd", false) ;
+        anim.SetBool("eatStart",true);
         twn_eatStrt = transform.DOScale(new Vector2(1f, 0.5f), 0.4f).SetEase(Ease.OutCirc).SetRelative(true);
     }
 
     public void EatingEnd()
     {
-        anim.SetBool("eatEnd", true);
         transform.DOScale(Vector2.one, 0.25f).SetEase(Ease.OutCirc);
         twn_eatStrt.Kill();
     }
@@ -132,12 +125,11 @@ public class PlayerAnim : MonoBehaviour
 
     void ResetAnims()
     {
+        anim.SetBool("eatStart", false);
         anim.SetBool("walking", false);
         anim.SetBool("landing", false);
-        
 
         dig_Once = false;
         twn_dig.Kill();
-        twn_diged.Kill();
     }
 }

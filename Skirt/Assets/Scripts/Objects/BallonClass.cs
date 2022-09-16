@@ -18,7 +18,7 @@ public class BallonClass : MonoBehaviour
     //-------------------------------------------------------------------
     void Awake()
     {
-        plObj = GameObject.Find("Player");
+        plObj = GameObject.FindGameObjectWithTag("Player");
     }
 
     void Update()

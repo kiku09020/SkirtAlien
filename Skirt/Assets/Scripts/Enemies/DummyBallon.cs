@@ -11,7 +11,7 @@ public class DummyBallon : BallonClass
     //-------------------------------------------------------------------
     void Start()
     {
-        GameObject plObj = GameObject.Find("Player");
+        GameObject plObj = GameObject.FindGameObjectWithTag("Player");
         st = plObj.GetComponent<Pl_States>();
     }
 
