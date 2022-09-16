@@ -7,51 +7,20 @@ using UnityEngine;
 public class BallonClass : MonoBehaviour
 {
     /* 値 */
-    [SerializeField] float spd = 0.1f;       // 速度
-    [SerializeField] float plPosDist = 50;       // プレイヤーとの距離
+    public float movespeed = 0.01f;       // 速度
 
-    Vector2 plPos;
-    Vector2 blPos;
-
-    GameObject plObj;
-
-    //-------------------------------------------------------------------
-    void Awake()
+//-------------------------------------------------------------------
+    // 上まで行ったら消す
+    void OnBecameInvisible()
     {
-        plObj = GameObject.Find("Player");
+        Destroy(this.gameObject);
     }
 
-    void Update()
-    {
-        plPos = plObj.transform.position;
-        blPos = transform.position;
-    }
+	//-------------------------------------------------------------------
 
-    // 上昇
-    public void Up()
+	public void Up()
 	{
-        var dist = Vector2.Distance(plPos, blPos);      // 距離
-
-        // プレイヤーが近くにいるときのみ上昇
-        if (dist < plPosDist) {
-            transform.Translate(0, spd, 0);
-        }
-
-        // プレイヤーより上に行ってたら削除
-        else if (plPos.y < blPos.y) {
-            Destroy(gameObject);
-        }
-    }
-
-    // プレイヤーの位置に合わせて、方向を合わせる
-    public void Direction()
-    {
-        if (plPos.x < blPos.x) {
-            transform.localScale = Vector2.one;
-        }
-
-        else {
-            transform.localScale = new Vector2(-1, 1);
-        }
+        // 上昇
+        transform.Translate(0, movespeed, 0);
     }
 }

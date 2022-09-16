@@ -6,26 +6,36 @@ using UnityEngine;
 public class Cow : MonoBehaviour
 {
     /* 値 */
-    [SerializeField] float spd;     // 速度
+    [SerializeField] float spd = 0.1f;
+
+    /* フラグ */
+
+
+    /* オブジェクト */
+    GameObject cam_obj;
 
     /* コンポーネント取得用 */
     PlayerCamera cam;
 
+
 //-------------------------------------------------------------------
+
     void Start()
     {
+        cam_obj = GameObject.Find("PlayerCamera");
         /* コンポーネント取得 */
-        GameObject cam_obj = GameObject.Find("PlayerCamera");
         cam = cam_obj.GetComponent<PlayerCamera>();
+
+        /* 初期化 */
+        
     }
 
 //-------------------------------------------------------------------
+
     void FixedUpdate()
     {
-        // 移動
-        transform.Translate(new Vector2(spd, 0));       
+        transform.Translate(new Vector2(spd, 0));
 
-        // 右端に行ったら左端から出てくる
         if (transform.position.x > cam.scrnWidthWld){
             transform.position = new Vector2(-cam.scrnWidthWld, transform.position.y);
 		}
