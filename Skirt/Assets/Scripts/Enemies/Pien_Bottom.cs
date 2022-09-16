@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Pien_Bottom : MonoBehaviour
 {
-    public bool isGroundHit;        // ínè„Ç…Ç¢ÇÈÇ©
+    public bool isLanding;        // ínè„Ç…Ç¢ÇÈÇ©
 
     //íÖínÇµÇΩÇ©
     void OnTriggerEnter2D ( Collider2D col ) {
         if( col.gameObject.tag == "Floor"){
-            isGroundHit = true;
+            isLanding = true;
         }
     }
 
@@ -17,7 +17,7 @@ public class Pien_Bottom : MonoBehaviour
     void OnTriggerExit2D( Collider2D col )
     {
         if (col.gameObject.tag == "Floor"){
-            isGroundHit = false;
+            isLanding = false;
         }
     }
 }
