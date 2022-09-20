@@ -4,28 +4,30 @@ using UnityEngine;
 
 public class Pegasus : MonoBehaviour
 {
+    [SerializeField] float moveSpeed;       // 動く速度
+    [SerializeField] float moveDist;        // 動く距離
+
+    Vector2 posInit;                        // 初期位置
+
+    GameObject plObj;
+
     Rigidbody2D rb;
-    Vector2 posInit;        // 初期位置
-    Vector2 posNow;         // 現在の位置
 
-    [SerializeField] float moveSpeed = 5f;      // 動く速度
-    [SerializeField] float moveDist = 5;    // 動く距離
-
-    float time;
-
+    //-------------------------------------------------------------------
     void Start()
     {
+        plObj = GameObject.FindGameObjectWithTag("Player");
+
         rb = GetComponent<Rigidbody2D>();
 
-        // 初期位置を保存
-        posInit = transform.position;
+        posInit = transform.position;       // 初期位置を保存
     }
-
 
     void FixedUpdate()
     {
         // 現在位置取得
-        posNow = transform.position;
+        var posNow = transform.position;
+        var plPos = plObj.transform.position;
 
         // 現在位置が上の頂点より下にいる時、上に移動
         if (posNow.y < posInit.y + moveDist) {
@@ -35,6 +37,14 @@ public class Pegasus : MonoBehaviour
         // 現在位置が下の頂点よりも上にいる時、下に移動
         else if (posNow.y > posInit.y - moveDist) {
             rb.AddForce(Vector2.down * moveSpeed);
+        }
+
+        if (posNow.x < plPos.x) {
+            transform.localScale = new Vector2(-1, 1);
+        }
+
+        else {
+            transform.localScale = Vector2.one;
         }
     }
 }

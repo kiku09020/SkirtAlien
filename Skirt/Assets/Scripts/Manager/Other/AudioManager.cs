@@ -7,12 +7,14 @@ public class AudioManager : MonoBehaviour
     [Header("AudioSource")]
     [SerializeField] AudioSource as_BGM;        // BGM用AudioSource
     [SerializeField] AudioSource as_SE;         // SE用AudioSource
+    [SerializeField] AudioSource as_SE_UI;      // UI用
 
-    [Header("AudioClip")]
+    [Header("AudioClip")] 
     [SerializeField] List<AudioClip> BGM;       // BGM
     [SerializeField] List<AudioClip> SE_Pl;     // プレイヤー効果音
     [SerializeField] List<AudioClip> SE_enm;    // 敵効果音
     [SerializeField] List<AudioClip> SE_ui;     // ボタンなどのUIの効果音
+    [SerializeField] List<AudioClip> SE_Score;
 
     //-------------------------------------------------------------------
     // BGM再生
@@ -37,17 +39,23 @@ public class AudioManager : MonoBehaviour
 
         switch((int)seTypeNum) {
             case (int)AudLists.SETypeList.pl:   // プレイヤー
-                clip = SE_Pl[seNum];    break;
-
-            case (int)AudLists.SETypeList.enm:  // 敵
-                clip = SE_enm[seNum];   break;
+                clip = SE_Pl[seNum];    
+                as_SE.clip = clip;
+                as_SE.Play();
+                break;
 
             case (int)AudLists.SETypeList.ui:   // UI
-                clip = SE_ui[seNum];    break;
-		}
+                clip = SE_ui[seNum];    
+                as_SE_UI.clip = clip;
+                as_SE_UI.Play();
+                break;
 
-        as_SE.clip = clip;      // クリップ入れる
-        as_SE.Play();           // 再生
+            case (int)AudLists.SETypeList.score:
+                clip = SE_Score[seNum];
+                as_SE_UI.PlayOneShot(clip);
+                break;
+        }
+
 	}
 
     //-------------------------------------------------------------------
@@ -87,6 +95,7 @@ public class AudLists:MonoBehaviour
         pl,
         enm,
         ui,
+        score,
 	}
 
     // プレイヤー

@@ -65,17 +65,22 @@ public class GameOverCtrl : MonoBehaviour
 		}
 	}
 
+	bool once;
 	// ゲームオーバー後
 	IEnumerator GmOv()
 	{
-		Time.timeScale = 0.5f;          // スローにする
-		aud.PauseAudio(true);			// 音声停止
-		cnvs.GmOv_Del();                // キャンバス
 
+		if (!once) {
+			Time.timeScale = 0.5f;          // スローにする
+			aud.PauseAudio(true);           // 音声停止
+			aud.PlaySE(AudLists.SETypeList.pl, (int)AudLists.SEList_Pl.damage);
+			cnvs.GmOv_Del();                // キャンバス
+			once = true;
+		}
 
 		yield return new WaitForSeconds(gmovTime);
 
-		if(!isInsted) {
+		if (!isInsted) {
 			part.InstPart(ParticleManager.PartNames.dead, pl_obj.transform.position + Vector3.up * 50, false);
 			rb.gravityScale = -0.5f;                            // 浮かせる
 			pl_obj.transform.rotation = Quaternion.identity;    // 角度戻す
@@ -83,7 +88,7 @@ public class GameOverCtrl : MonoBehaviour
 
 			aud.PlayBGM(AudLists.BGMList.gameOver, false);
 			Time.timeScale = 1;         // 時間戻す
-			cnvs.GmOv_Inst();			// キャンバス生成
+			cnvs.GmOv_Inst();           // キャンバス生成
 			isInsted = true;            // フラグ立てる
 		}
 	}

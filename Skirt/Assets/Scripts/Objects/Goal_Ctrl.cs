@@ -41,6 +41,7 @@ public class Goal_Ctrl : MonoBehaviour
             Vector3 hitpos = col.ClosestPoint(transform.position);      // プレイヤーが触れた位置をパーティクルの生成位置にする
             part.InstPart(ParticleManager.PartNames.goal, hitpos);          // パーティクル生成
             aud.PauseAudio(true);                                       // 音声停止
+            aud.PlayBGM(AudLists.BGMList.clear, false);
 
             score.SaveScore();
         }

@@ -26,8 +26,7 @@ public partial class Pl_Action : MonoBehaviour
     [SerializeField] float flashCycle;      // 点滅時のサイクル
     float dmgTimer;
 
-    [Header("捕食")]        //--------------------
-    [SerializeField] float eatTimeLim;      // 捕食時間
+    /* 捕食 */              //--------------------
     float eatTimer;
 
     [Header("消化")]        //--------------------

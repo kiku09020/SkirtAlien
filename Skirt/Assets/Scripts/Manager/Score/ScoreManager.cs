@@ -19,8 +19,6 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] float dispTime;            // スコアの表示時間
 
     /* オブジェクト */
-    GameObject dispSumScoreObj;                 // スコアオブジェクト
-
     [SerializeField] GameObject scorePref;      // スコアプレハブ
     GameObject scoreInst;                       // スコアのインスタンス
     GameObject canvas;                          // スコアを生成するキャンバス
@@ -32,28 +30,21 @@ public class ScoreManager : MonoBehaviour
     Text scorePrefText;                         // スコアテキスト
 
     ComboManager combo;
+    AudioManager aud;
 
 //-------------------------------------------------------------------
     void Start()
     {
-        FindObj();
-        GetComp();
-    }
+        GameObject dispSumScoreObj = GameObject.Find("Score");
+        GameObject audObj = GameObject.Find("AudioManager");
+        plObj = GameObject.Find("Player");
+        canvas = GameObject.Find("GameUICanvas(Clone)");
 
-    /* オブジェクト検索 */
-    void FindObj()
-    {
-        dispSumScoreObj = GameObject.Find("Score");
-        plObj           = GameObject.Find("Player");
-        canvas          = GameObject.Find("GameUICanvas(Clone)");
-    }
-
-    /* コンポーネント取得 */
-    void GetComp()
-    {
         dispSumScoreText = dispSumScoreObj.GetComponent<Text>();
-        scorePrefText    = scorePref.GetComponent<Text>();
+        scorePrefText = scorePref.GetComponent<Text>();
         combo = GetComponent<ComboManager>();
+
+        aud = audObj.GetComponent<AudioManager>();
     }
 
 //-------------------------------------------------------------------
@@ -85,6 +76,10 @@ public class ScoreManager : MonoBehaviour
         // 表示スコア徐々に加算
         if(dispSumScore < nowSumScore) {
             dispSumScore += addDispSumScore;
+
+            if (dispSumScore % 10 == 0) {
+                aud.PlaySE(AudLists.SETypeList.score, 0);
+            }
         }
 
         dispSumScoreText.text = "SCORE:" + dispSumScore.ToString();

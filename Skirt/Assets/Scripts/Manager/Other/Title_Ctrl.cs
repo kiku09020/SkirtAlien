@@ -47,6 +47,7 @@ public class Title_Ctrl : MonoBehaviour
     public void TapEnd()
     {
         isTapping = false;
+        tapTimer = 0;
     }
 
     // スタート時のコルーチン
