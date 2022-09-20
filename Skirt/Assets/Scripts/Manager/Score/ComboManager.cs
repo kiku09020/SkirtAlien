@@ -30,29 +30,21 @@ public class ComboManager : MonoBehaviour
     /* コンポーネント取得用 */
     Text        cmbText;
     Image       cmbTimerImg;
+    AudioManager aud;
 
     //-------------------------------------------------------------------
     void Start()
     {
-        FindObj();
-        GetComp();
+        cmbTextObj = GameObject.Find("Combo");
+        cmbTimerImgObj = cmbTextObj.transform.Find("Image").gameObject;
+        GameObject audObj = GameObject.Find("AudioManager");
+
+        cmbText = cmbTextObj.GetComponent<Text>();
+        cmbTimerImg = cmbTimerImgObj.GetComponent<Image>();
+        aud = audObj.GetComponent<AudioManager>();
 
         /* 初期化 */
         ResetCombo();
-    }
-
-    /* オブジェクト検索 */
-    void FindObj()
-    {
-        cmbTextObj = GameObject.Find("Combo");
-        cmbTimerImgObj = cmbTextObj.transform.Find("Image").gameObject;
-    }
-
-    /* コンポーネント取得 */
-    void GetComp()
-    {
-        cmbText = cmbTextObj.GetComponent<Text>();
-        cmbTimerImg = cmbTimerImgObj.GetComponent<Image>();
     }
 
 //-------------------------------------------------------------------
@@ -76,8 +68,9 @@ public class ComboManager : MonoBehaviour
         // コンボ制限時間過ぎたとき、コンボ数リセット
         if (cmbTimer > cmbLimTime) {
             ResetCombo();
+            aud.PlaySE(AudLists.SETypeList.score, 5);
         }
-	}
+    }
 
     // コンボ加算
     void AddCombo()
@@ -128,6 +121,9 @@ public class ComboManager : MonoBehaviour
             cmbStepNum++;                       // 段階数増やす
             cmbTargCnt += (cmbStepNum * 2);     // 目標コンボ数 = 目標コンボ数 + コンボ段階数 * 2
             cmbMag *= 2;                        // コンボ倍率2倍に
+
+            aud.PlaySE(AudLists.SETypeList.score, cmbStepNum);
+            print(cmbStepNum);
         }
 
         // 追加するスコア*コンボ倍率
@@ -146,6 +142,7 @@ public class ComboManager : MonoBehaviour
             // リセット
             case CmbEnum.reset:
                 ResetCombo();
+                aud.PlaySE(AudLists.SETypeList.score, 5);
                 break;
         }
     }
