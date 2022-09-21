@@ -87,6 +87,7 @@ public class AudLists:MonoBehaviour
         stg_orgel,      // オルゴール調
         gameOver,       // ゲームオーバー
         clear,          // クリア
+        result
 	}
     // ------------------------------------------
 

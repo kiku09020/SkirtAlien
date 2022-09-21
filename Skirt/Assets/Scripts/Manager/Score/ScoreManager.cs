@@ -123,4 +123,10 @@ public class ScoreManager : MonoBehaviour
         dispSumScore = 0;
         savedScore = 0;
     }
+
+    // スコア取得
+    public int GetScore()
+	{
+        return nowSumScore;
+	}
 }
