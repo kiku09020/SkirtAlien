@@ -118,6 +118,7 @@ public class AudLists:MonoBehaviour
     public enum SEList_UI {
         push,       // 押したとき
         cancel,     // キャンセル
-        decision    // 決定
+        decision,    // 決定
+        caution     // 警告
     }
 }

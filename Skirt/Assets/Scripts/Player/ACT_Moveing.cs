@@ -18,7 +18,7 @@ public partial class Pl_Action
     void SpdSetter()
     {
         if (hung.hungFlg) {     // 空腹時
-            nowSpd = nmlSpd / 2;
+            nowSpd = nmlSpd * 0.75f;
         }
 
         else if (st.stateNum == Pl_States.States.digest) {      // 消化時

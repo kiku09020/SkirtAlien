@@ -88,8 +88,8 @@ public class Btn_Ctrl : MonoBehaviour
     public void Btn_Quit(bool isPause)
     {
         if (isPause) {
-            pause.quit = true;
             cvsGen.Caution();           // 警告表示
+            pause.quit = true;
             pause.SetText();            // テキスト設定
         }
 

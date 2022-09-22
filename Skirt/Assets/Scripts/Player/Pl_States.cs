@@ -255,8 +255,9 @@ public class Pl_States : MonoBehaviour
 	public void ActBtn_Downing()
     {
 		// 通常時のみ、捕食状態にする
-		if ((stateNum == States.normal ||
-			stateNum == States.eating) && canEat) {
+		if ((stateNum != States.damage  &&
+			 stateNum != States.landing &&
+			 stateNum != States.digest) && canEat) {
 			stateNum = States.eating;
 			act.Eating();
 		}

@@ -12,6 +12,8 @@ public class Pl_HP : MonoBehaviour
     [Header("表示関係")]
     [SerializeField] float dispVal;     // 表示HPを増減させる量
                      float dispHP;      // 表示HP
+    [SerializeField] float cautHP;      // 警告するHPの量
+    bool cautFlg;                       // 警告したかどうか
 
     [Header("回復関係")]
     [SerializeField] float heal;        // 回復量
@@ -23,11 +25,19 @@ public class Pl_HP : MonoBehaviour
     Image hp_Image;
     Image hp_Image_Light;
 
+    AudioManager aud;
+    ParticleManager part;
+
     //-------------------------------------------------------------------
     void Start()
     {
         GameObject hpGauge = GameObject.Find("HPBar");
         GameObject hpGauge_light = GameObject.Find("HPBar_Light");
+        GameObject audObj = GameObject.Find("AudioManager");
+        GameObject partObj = GameObject.Find("ParticleManager");
+
+        aud = audObj.GetComponent<AudioManager>();
+        part = partObj.GetComponent<ParticleManager>();
 
         hp_Image = hpGauge.GetComponent<Image>();
         hp_Image_Light = hpGauge_light.GetComponent<Image>();
@@ -66,6 +76,18 @@ public class Pl_HP : MonoBehaviour
         // 表示
         hp_Image.fillAmount = nowHP / maxHP;             // 手前のHPバー
         hp_Image_Light.fillAmount = dispHP / maxHP;      // 薄い色のHPバー
+
+        // 警告
+        if (nowHP < cautHP) {
+            if (!cautFlg) {
+                aud.PlaySE(AudLists.SETypeList.ui, (int)AudLists.SEList_UI.caution);
+                cautFlg = true;
+            }
+        }
+
+        else {
+            cautFlg = false;
+        }
     }
 
     //-------------------------------------------------------------------
@@ -79,6 +101,9 @@ public class Pl_HP : MonoBehaviour
         if (nowHP > maxHP) {
             nowHP = maxHP;
         }
+
+        aud.PlaySE(AudLists.SETypeList.pl, (int)AudLists.SEList_Pl.heal);       // 効果音再生
+        part.InstPart(ParticleManager.PartNames.heal, transform.position);      // パーティクル
     }
 
     //-------------------------------------------------------------------
@@ -86,5 +111,8 @@ public class Pl_HP : MonoBehaviour
     public void HP_Damage()
     {
         nowHP -= dmg;
+
+        aud.PlaySE(AudLists.SETypeList.pl, (int)AudLists.SEList_Pl.damage);     // 効果音
+        part.InstPart(ParticleManager.PartNames.damaged, transform.position);   // パーティクル
     }
 }

@@ -68,6 +68,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 1604f5dbbb9305d40aa9b509c28d0b3a, type: 3}
   - {fileID: 8300000, guid: e7abce92a789fe74bbbf03106f61cc36, type: 3}
   - {fileID: 8300000, guid: 3d453b9496a26274891f8f98c5fa81cb, type: 3}
+  - {fileID: 8300000, guid: ea235f1dff2e88b418c6b51989e39dd4, type: 3}
   SE_Score:
   - {fileID: 8300000, guid: 1c23840a3f2a6184f8c137eb822e2652, type: 3}
   - {fileID: 8300000, guid: b9bb6e89d875ef147b3c0708cdadd413, type: 3}

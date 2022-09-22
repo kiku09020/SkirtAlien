@@ -36,8 +36,6 @@ public partial class Pl_Action
         combo.ComboSetter(ComboManager.CmbEnum.reset);                          // 消化コンボ数リセット
         rb.AddForce(Vector2.up * dmgJumpForce);                                 // 少し飛ばす
 
-        aud.PlaySE(AudLists.SETypeList.pl, (int)AudLists.SEList_Pl.damage);     // 効果音
-        part.InstPart(ParticleManager.PartNames.damaged,transform.position);                           // パーティクル
         Vibration.Vibrate(300);                                                 // スマホ振動
     }
 

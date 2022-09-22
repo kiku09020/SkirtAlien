@@ -44,7 +44,6 @@ public class CanvasGenelator : MonoBehaviour
         cvsInst_game = Instantiate(cvsPref_game);
         cvsInst_pause = Instantiate(cvsPref_pause);
         cvsInst_caution = Instantiate(cvsPref_caution);
-        cvsInst_caution.transform.SetParent(cvsInst_pause.transform, false);
 
         cvsInst_pause.SetActive(false);
         cvsInst_caution.SetActive(false);
