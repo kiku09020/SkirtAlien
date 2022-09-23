@@ -292,6 +292,7 @@ MonoBehaviour:
   hungValDecNml: 0.1
   hungValDecAtk: 0.1
   hungIncVal: 25
+  cautHung: 25
   hungFlg: 0
 --- !u!114 &7752226494457446854
 MonoBehaviour:

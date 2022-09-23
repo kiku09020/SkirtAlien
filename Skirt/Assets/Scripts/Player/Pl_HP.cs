@@ -12,6 +12,7 @@ public class Pl_HP : MonoBehaviour
     [Header("表示関係")]
     [SerializeField] float dispVal;     // 表示HPを増減させる量
                      float dispHP;      // 表示HP
+                     float flashTimer;  // 点滅用タイマー
     [SerializeField] float cautHP;      // 警告するHPの量
     bool cautFlg;                       // 警告したかどうか
 
@@ -77,16 +78,26 @@ public class Pl_HP : MonoBehaviour
         hp_Image.fillAmount = nowHP / maxHP;             // 手前のHPバー
         hp_Image_Light.fillAmount = dispHP / maxHP;      // 薄い色のHPバー
 
+        var imgClr = hp_Image.color;
         // 警告
         if (nowHP < cautHP) {
             if (!cautFlg) {
                 aud.PlaySE(AudLists.SETypeList.ui, (int)AudLists.SEList_UI.caution);
                 cautFlg = true;
             }
+
+            // 点滅
+            var alpha = Mathf.Cos(2 * Mathf.PI * (flashTimer / 0.3f));
+            hp_Image.color = new Color(imgClr.r, imgClr.g, imgClr.b, alpha);
+
+            flashTimer += Time.deltaTime;
         }
 
         else {
             cautFlg = false;
+            flashTimer = 0;
+
+            hp_Image.color = new Color(imgClr.r, imgClr.g, imgClr.b, 1);
         }
     }
 

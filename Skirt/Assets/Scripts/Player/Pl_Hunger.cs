@@ -11,6 +11,11 @@ public class Pl_Hunger : MonoBehaviour {
     [SerializeField] float hungValDecAtk;   // 一度に減らす量(捕食時)
     [SerializeField] float hungIncVal;      // 一度に増やす量
 
+    [Header("表示")]
+    [SerializeField] float cautHung;        // 警告する満腹度
+    float flashTimer;
+
+
     [Header("フラグ")]
     public bool hungFlg;                    // 空腹時の
  
@@ -53,6 +58,19 @@ public class Pl_Hunger : MonoBehaviour {
         }
         else {
             hungFlg = false;
+        }
+
+        var imgClr = hungImage.color;
+        if (nowHung <= cautHung) {
+            var alpha = Mathf.Cos(2 * Mathf.PI * (flashTimer / 0.3f));
+            hungImage.color = new Color(imgClr.r, imgClr.g, imgClr.b, alpha);
+
+            flashTimer += Time.deltaTime;
+        }
+
+        else {
+            flashTimer = 0;
+            hungImage.color = new Color(imgClr.r, imgClr.g, imgClr.b, 1);
         }
     }
 
