@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pegasus : MonoBehaviour
+public class Pegasus : Enemy
 {
     [SerializeField] float moveSpeed;       // 動く速度
     [SerializeField] float moveDist;        // 動く距離
@@ -29,6 +29,13 @@ public class Pegasus : MonoBehaviour
         var posNow = transform.position;
         var plPos = plObj.transform.position;
 
+        Move(posNow);
+        Flip(posNow, plPos);
+    }
+    
+    // 移動
+    void Move(Vector2 posNow)
+	{
         // 現在位置が上の頂点より下にいる時、上に移動
         if (posNow.y < posInit.y + moveDist) {
             rb.AddForce(Vector2.up * moveSpeed);
@@ -38,7 +45,12 @@ public class Pegasus : MonoBehaviour
         else if (posNow.y > posInit.y - moveDist) {
             rb.AddForce(Vector2.down * moveSpeed);
         }
+    }
 
+    // 反転
+    void Flip(Vector2 posNow,Vector2 plPos)
+	{
+        // 反転
         if (posNow.x < plPos.x) {
             transform.localScale = new Vector2(-1, 1);
         }

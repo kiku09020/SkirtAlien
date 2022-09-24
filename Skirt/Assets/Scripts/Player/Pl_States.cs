@@ -52,6 +52,7 @@ public class Pl_States : MonoBehaviour
 	ParticleManager		part;
 
 	Rigidbody2D		rb;
+	Collider2D		col;
 	SpriteRenderer	sr;
 
 	Pl_Action		act;
@@ -70,6 +71,7 @@ public class Pl_States : MonoBehaviour
 		part    = partObj.GetComponent<ParticleManager>();
 
 		rb		= GetComponent<Rigidbody2D>();
+		col = GetComponent<Collider2D>();
 		sr		= GetComponent<SpriteRenderer>();
 		act	= GetComponent<Pl_Action>();
 		hung	= GetComponent<Pl_Hunger>();
@@ -205,7 +207,8 @@ public class Pl_States : MonoBehaviour
 	// ★消化時の処理
 	void Digest()
     {
-		rb.drag = drag_dig;						// 空気抵抗を減らす
+		rb.drag = drag_dig;                     // 空気抵抗を減らす
+		sr.color = Color.white;
 	}
 
 	// ★空腹度処理
@@ -255,8 +258,7 @@ public class Pl_States : MonoBehaviour
 	public void ActBtn_Downing()
     {
 		// 通常時のみ、捕食状態にする
-		if ((stateNum != States.damage  &&
-			 stateNum != States.landing &&
+		if ((stateNum != States.landing &&
 			 stateNum != States.digest) && canEat) {
 			stateNum = States.eating;
 			act.Eating();
@@ -276,13 +278,13 @@ public class Pl_States : MonoBehaviour
 		}
     }
 
-	//-------------------------------------------------------------------
-	
-	void OnCollisionStay2D(Collision2D col)
-	{
-		// 敵に触れたら、ダメージ状態にする
-		if (col.gameObject.tag == "Enemy") {
+    //-------------------------------------------------------------------
+
+    void OnCollisionStay2D(Collision2D col)
+    {
+        if (col.gameObject.tag == "Enemy")
+        {
 			stateNum = States.damage;
-		}
-	}
+        }
+    }
 }

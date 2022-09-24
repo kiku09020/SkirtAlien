@@ -13,15 +13,10 @@ public class DataManager : MonoBehaviour
 
 
 //-------------------------------------------------------------------
-    void Awake()
+    void Start()
     {
         // パス指定
         filePath = Application.dataPath + "/" + fileName;
-
-        Save(data);
-
-        // ロード
-        Load(filePath);
     }
 
 //-------------------------------------------------------------------
@@ -36,9 +31,9 @@ public class DataManager : MonoBehaviour
 	}
     
     // ロード
-    public GameData Load(string path)
+    public GameData Load()
 	{
-        StreamReader rd = new StreamReader(path);       // ファイル開く
+        StreamReader rd = new StreamReader(filePath);       // ファイル開く
         string json = rd.ReadToEnd();                   // ファイル内容読み込み
         rd.Close();                                     // ファイル閉じる
 

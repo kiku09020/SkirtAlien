@@ -13,11 +13,14 @@ public class Clear_Ctrl : MonoBehaviour
     AudioManager aud;
     ScoreManager sm;
 
+    DataManager dm;
+    GameData data;
+
     Text scoreText;
     Text highScoreText;
 
 //-------------------------------------------------------------------
-    void Start()
+    void Awake()
     {
         /* オブジェクト取得 */
         GameObject audObj = transform.Find("AudioManager").gameObject;
@@ -26,10 +29,15 @@ public class Clear_Ctrl : MonoBehaviour
 
         /* コンポーネント取得 */
         aud = audObj.GetComponent<AudioManager>();
+        dm = GetComponent<DataManager>();
+
         scoreText = scoreTextObj.GetComponent<Text>();
         highScoreText = highScoreTextObj.GetComponent<Text>();
 
         sm = new ScoreManager();
+
+        data = dm.data;
+
         score = sm.GetScore();
         scoreText.text += score.ToString();
         HighScoreSetter();
@@ -49,12 +57,15 @@ public class Clear_Ctrl : MonoBehaviour
     // ハイスコア更新
     void HighScoreSetter()
 	{
-        GameData data = new GameData();
-
         // 入れ替え
 		if (data.highScore <= score) {
             data.highScore = score;
 		}
+
+        // そうじゃなかったらハイスコア読み込み
+        else {
+            dm.Load();
+        }
 
         // 表示
         highScoreText.text += data.highScore.ToString();

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pien : MonoBehaviour
+public class Pien : Enemy
 {
     [Header("’l")]
     [SerializeField] float speed;           // ˆÚ“®‘¬“x

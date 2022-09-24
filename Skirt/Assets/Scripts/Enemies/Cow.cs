@@ -3,34 +3,59 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /* ★牛のスクリプトです */
-public class Cow : MonoBehaviour
+public class Cow : Enemy
 {
     /* 値 */
-    [SerializeField] float spd;     // 速度
+    [SerializeField] float maxSpd;      // 速度
+    [SerializeField] float moveForce;   // 動力
+    [SerializeField] float decForce;    // 減速度
+    [SerializeField] float turnPosX;    // 振り返る位置
+    bool isTurned;                      // 振り返ってるか
+    int dir = 1;                        // 移動方向
 
     /* コンポーネント取得用 */
-    PlayerCamera cam;
+    Rigidbody2D rb;
 
 //-------------------------------------------------------------------
     void Start()
     {
         /* コンポーネント取得 */
-        GameObject cam_obj = GameObject.Find("PlayerCamera");
-        cam = cam_obj.GetComponent<PlayerCamera>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
-//-------------------------------------------------------------------
+    //-------------------------------------------------------------------
     void FixedUpdate()
     {
-        // 移動
-        transform.Translate(new Vector2(spd, 0));       
-
-        // 右端に行ったら左端から出てくる
-        if (transform.position.x > cam.scrnWidthWld){
-            transform.position = new Vector2(-cam.scrnWidthWld, transform.position.y);
-		}
+        Move();
     }
 
-//-------------------------------------------------------------------
+    //-------------------------------------------------------------------
 
+    void Move()
+    {
+        var nowPos = transform.position;
+        var nowSpd = rb.velocity;
+
+        // 右折り返し
+        if (nowPos.x > turnPosX && !isTurned) {
+            isTurned = true;
+            dir = -1;
+            rb.velocity = nowSpd * decForce;
+        }
+
+        // 左折り返し
+        else if (nowPos.x < -turnPosX && isTurned) {
+            isTurned = false;
+            dir = 1;
+            rb.velocity = nowSpd * decForce;
+		}
+
+        // 方向に合わせて移動
+		if (nowSpd.x < maxSpd) {
+            rb.AddForce(Vector2.right * moveForce * dir);
+		}
+
+        // 反転
+        transform.localScale = new Vector2(dir, 1);
+    }
 }
