@@ -20,6 +20,9 @@ public partial class Pl_Action {
     {
         anim.EatingEnd();
         eatTimer = 0;
+
+        ctFlg = true;
+        canEat = false;
     }
 
     //------------------------------------------
@@ -46,6 +49,7 @@ public partial class Pl_Action {
         else {      
             combo.ComboSetter(ComboManager.CmbEnum.inc);                            // コンボ数増加
             score.AddScore();                                                       // スコア追加
+            exp.IncExp();
 
             aud.PlaySE(AudLists.SETypeList.pl, (int)AudLists.SEList_Pl.digDone);    // 効果音
             part.InstPart(ParticleManager.PartNames.eated, transform.position);     // パーティクル
@@ -53,6 +57,20 @@ public partial class Pl_Action {
 
             digBtnCnt = 0;                                                          // 消化ボタン回数0にする
             st.nowState = Pl_States.States.normal;                                  // 通常状態に戻す
+        }
+    }
+
+    void EatCoolTimer()
+    {
+
+        if (ctFlg) {
+            ct += Time.deltaTime;
+
+            if (ct > ctLim) {
+                canEat = true;
+                ctFlg = false;
+                ct = 0;
+            }
         }
     }
 }

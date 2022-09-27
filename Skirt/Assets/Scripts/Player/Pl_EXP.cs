@@ -48,20 +48,38 @@ public class Pl_EXP : MonoBehaviour
         DispExp();
     }
 
-//-------------------------------------------------------------------
+    //-------------------------------------------------------------------
     // 経験値表示
     void DispExp()
     {
-        if (nowDispExp != nowExp) {
-            // 増やすとき
-            if (nowDispExp < nowExp) {
-                nowDispExp += dispExpVal;
-            }
+        // 増やすとき
+        if (nowDispExp < nowExp) {
+            nowDispExp += dispExpVal;
 
-            // 減らすとき
-            else if (nowDispExp > nowExp) {
-                nowDispExp -= dispExpVal;
+            // 揃える
+            if (nowDispExp > nowExp) {
+                nowDispExp = nowExp;
             }
+        }
+
+        // 減らすとき
+        else if (nowDispExp > nowExp) {
+            nowDispExp -= dispExpVal;
+
+            // 揃える
+            if (nowDispExp < nowExp) {
+                nowDispExp = nowExp;
+            }
+        }
+
+        // 最大経験値よりも大きいとき
+        if (nowDispExp > maxExp) {
+            nowDispExp = maxExp;
+        }
+
+        // 0以下のとき
+        else if (nowDispExp < 0) {
+            nowDispExp = 0;
         }
 
         barImg.fillAmount = nowDispExp / maxExp;

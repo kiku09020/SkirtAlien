@@ -64,15 +64,18 @@ public class Pl_HP : MonoBehaviour
         // 表示HPが今のHPよりも大きかったら、表示HP減らす
         if (nowHP < dispHP) {
             dispHP -= dispVal;
+
+            if (nowHP > dispHP) {
+                dispHP = nowHP;
+            }
         }
 
         else if (nowHP > dispHP) {
-            dispHP += dispVal;      
-        }
+            dispHP += dispVal;
 
-        // 表示HP = 今のHPだったら揃える
-        else if (dispHP == nowHP) {
-            dispHP = nowHP;
+            if (nowHP < dispHP) {
+                dispHP = nowHP;
+            }
         }
 
         // 表示

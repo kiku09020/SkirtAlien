@@ -27,11 +27,17 @@ public partial class Pl_Action : MonoBehaviour
     float dmgTimer;
 
     /* 捕食 */              //--------------------
-    float eatTimer;
+    [Header("捕食")]
+    [SerializeField] float ctLim;           // クールタイム
+    float ct;                               // クールタイムタイマー
+    bool ctFlg;                             // クールタイム中のフラグ
+    public bool canEat;					    // 捕食可能かどうかのフラグ
+
+    float eatTimer;                         
 
     [Header("消化")]        //--------------------
     [SerializeField] int   digBtnCntMax;    // 消化するまでに押す回数
-    float digBtnCnt;                          // ボタンが押された回数
+    float digBtnCnt;                        // ボタンが押された回数
 
     [Header("ジャンプ")]    //--------------------
     [SerializeField] float jumpForce;    // 通常時のジャンプ力
@@ -48,7 +54,8 @@ public partial class Pl_Action : MonoBehaviour
 
     Pl_States       st;
     Pl_HP           hp;
-    PlayerCamera       cam;        // カメラ
+    Pl_EXP          exp;
+    PlayerCamera    cam;        // カメラ
     PlayerAnim anim;
     ParticleManager part;
 
@@ -72,10 +79,12 @@ public partial class Pl_Action : MonoBehaviour
         sr          = GetComponent<SpriteRenderer>();
         st          = GetComponent<Pl_States>();
         hp          = GetComponent<Pl_HP>();
+        exp         = GetComponent<Pl_EXP>();
         anim        = GetComponent<PlayerAnim>();
 
         /* 初期化 */
         nowSpd = nmlSpd;
+        canEat = true;
     }
 
     //-------------------------------------------------------------------
@@ -89,12 +98,14 @@ public partial class Pl_Action : MonoBehaviour
             Move();         // 移動
             Rotate();       // 回転
             OutScr();       // はみ出し
+            EatCoolTimer();
         }
 
         // ゲームオーバー時に不透明にする
         else if(gm.isGameOver) {
             sr.color = Color.white;
 		}
+
     }
 
     //-------------------------------------------------------------------

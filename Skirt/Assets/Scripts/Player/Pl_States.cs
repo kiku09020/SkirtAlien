@@ -18,12 +18,6 @@ public class Pl_States : MonoBehaviour
 	public bool lndFlg;		// 地上にいるか
 	public bool dmgFlg;		// 無敵時間中かどうか
 
-	[Header("捕食関係")]
-	[SerializeField] float ctLim;			// クールタイム
-	float ct;								// クールタイムタイマー
-	bool ctFlg;								// 
-	bool canEat;							// 
-
 	/* コンポーネント取得用 */
 	GameManager		gm;
 	StageManager    stg;
@@ -50,7 +44,7 @@ public class Pl_States : MonoBehaviour
 
 		/* 初期化 */
 		nowState = States.normal;          // 状態
-		canEat = true;
+
 
 		// 位置をステージの長さに合わせる
 		transform.position = new Vector2(0, stg.stg_length);
@@ -62,16 +56,6 @@ public class Pl_States : MonoBehaviour
 	{
 		if (!gm.isGameOver && !gm.isGoaled) {
 			StateProc();        // メイン処理
-
-            if (ctFlg) {
-				ct += Time.deltaTime;
-
-                if (ct > ctLim) {
-					canEat = true;
-					ctFlg = false;
-					ct = 0;
-                }
-            }
 		}
 	}
 
@@ -140,7 +124,7 @@ public class Pl_States : MonoBehaviour
 	public void ActBtn_Downing()
     {
 		// 捕食状態にする
-		if ((nowState != States.digest) && !lndFlg && canEat) {
+		if ((nowState != States.digest) && !lndFlg && act.canEat) {
 			 nowState = States.eating;
 		}
 	}
@@ -152,9 +136,6 @@ public class Pl_States : MonoBehaviour
         if (nowState == States.eating) {
 			nowState = States.normal;
 			act.Eatend();
-
-			ctFlg = true;
-			canEat = false;
 		}
     }
 

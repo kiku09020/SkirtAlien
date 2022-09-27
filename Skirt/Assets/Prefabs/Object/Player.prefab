@@ -231,8 +231,10 @@ MonoBehaviour:
   dmgTimeLim: 2
   dmgJumpForce: 300
   flashCycle: 0.3
+  ctLim: 0.3
+  canEat: 0
   digBtnCntMax: 4
-  jumpForce: 600
+  jumpForce: 800
 --- !u!114 &1493154652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -248,7 +250,6 @@ MonoBehaviour:
   nowState: 0
   lndFlg: 0
   dmgFlg: 0
-  ctLim: 0.3
 --- !u!114 &5297649651518445171
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -282,7 +283,7 @@ MonoBehaviour:
   maxExp: 100
   incExp: 15
   decExp: 20
-  dispExpVal: 2
+  dispExpVal: 0.3
 --- !u!114 &7752226494457446854
 MonoBehaviour:
   m_ObjectHideFlags: 0
