@@ -13,8 +13,8 @@ public partial class Pl_Action
         }
 
         // 落下速度制限
-        if (vel.y < -fallSpdMax) {  
-            rb.velocity = new Vector2(vel.x, -fallSpdMax);
+        if (vel.y < -fallSpdMax) {
+            rb.AddForce(Vector2.up * 15);
         }
 
         Breaking();     // ブレーキ(慣性無視)
@@ -23,11 +23,7 @@ public partial class Pl_Action
     // 速度調整
     void SpdSetter()
     {
-        if (hung.hungFlg) {     // 空腹時
-            nowSpd = nmlSpd * 0.75f;
-        }
-
-        else if (st.nowState == Pl_States.States.digest) {      // 消化時
+        if (st.nowState == Pl_States.States.digest) {      // 消化時
             nowSpd = nmlSpd / 6;
         }
 
@@ -89,14 +85,7 @@ public partial class Pl_Action
     // ★ジャンプ
     public void Jump()
     {
-        if (hung.hungFlg) { // 空腹時
-            nowJumpForce = nmlJumpForce * 0.75f;
-        }
-        else {              // 通常時
-            nowJumpForce = nmlJumpForce;
-        }
-
-        rb.AddForce(Vector2.up * nowJumpForce);                         // ジャンプ
+        rb.AddForce(Vector2.up * jumpForce);                         // ジャンプ
 
         aud.PlaySE(AudLists.SETypeList.pl, (int)AudLists.SEList_Pl.jump);       // 効果音再生
         part.InstPart(ParticleManager.PartNames.jump, transform.position);      // パーティクル生成

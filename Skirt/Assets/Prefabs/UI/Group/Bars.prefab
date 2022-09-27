@@ -122,15 +122,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3224264969932199937, guid: d3444229f26ca174b9362ce275639740, type: 3}
       propertyPath: m_Name
-      value: Hunger
-      objectReference: {fileID: 0}
-    - target: {fileID: 6525560237106457166, guid: d3444229f26ca174b9362ce275639740, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 6525560237106457166, guid: d3444229f26ca174b9362ce275639740, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 50
+      value: EXP
       objectReference: {fileID: 0}
     - target: {fileID: 8892204851208301806, guid: d3444229f26ca174b9362ce275639740, type: 3}
       propertyPath: m_Pivot.x

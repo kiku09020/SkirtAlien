@@ -18,31 +18,20 @@ public class Pl_States : MonoBehaviour
 	public bool lndFlg;		// 地上にいるか
 	public bool dmgFlg;		// 無敵時間中かどうか
 
-	[Header("空気抵抗")]
-	[SerializeField] float drag_nml;        // 通常時
-	[SerializeField] float drag_dig;        // 捕食時
-
-	[Header("空腹")]
-	[SerializeField] Color hungColor;
-	float hungTimer;
-
 	[Header("捕食関係")]
 	[SerializeField] float ctLim;			// クールタイム
 	float ct;								// クールタイムタイマー
 	bool ctFlg;								// 
 	bool canEat;							// 
 
-
 	/* コンポーネント取得用 */
 	GameManager		gm;
 	StageManager    stg;
-	ParticleManager	part;
 
-	Rigidbody2D		rb;
+	Rigidbody2D rb;
 	SpriteRenderer	sr;
 
 	Pl_Action		act;
-	Pl_Hunger		hung;
 	//-------------------------------------------------------------------
 
 	void Start()
@@ -54,12 +43,10 @@ public class Pl_States : MonoBehaviour
 		/* コンポーネント取得 */
 		gm		= gm_obj.GetComponent<GameManager>();
 		stg     = gm_obj.GetComponent<StageManager>();
-		part    = partObj.GetComponent<ParticleManager>();
 
-		rb		= GetComponent<Rigidbody2D>();
 		sr		= GetComponent<SpriteRenderer>();
+		rb = GetComponent<Rigidbody2D>();
 		act	= GetComponent<Pl_Action>();
-		hung	= GetComponent<Pl_Hunger>();
 
 		/* 初期化 */
 		nowState = States.normal;          // 状態
@@ -75,7 +62,6 @@ public class Pl_States : MonoBehaviour
 	{
 		if (!gm.isGameOver && !gm.isGoaled) {
 			StateProc();        // メイン処理
-			Hungry();           // 満腹度処理
 
             if (ctFlg) {
 				ct += Time.deltaTime;
@@ -98,11 +84,10 @@ public class Pl_States : MonoBehaviour
 				Normal();		break;
 
 			case States.eating:     // 捕食中
-				act.Eating();
-				break;
+				act.Eating();	break;
 
 			case States.digest:     // 消化
-				Digest();		break;
+				act.Digest();		break;
 		}
 
         if (dmgFlg) {
@@ -119,9 +104,7 @@ public class Pl_States : MonoBehaviour
 	// ★通常状態
 	public void Normal()
 	{
-		transform.localScale = Vector2.one;		// 大きさを戻す
-		sr.color = Color.white;					// 色を不透明に
-		rb.drag = drag_nml;						// 空気抵抗を元に戻す
+		rb.drag = 0.5f;
 	}
 
 	// ★地上
@@ -135,39 +118,6 @@ public class Pl_States : MonoBehaviour
 		// 左移動時、停止時
 		else {
 			sr.flipX = false;					// 反転を元に戻す
-		}
-	}
-
-	// ★消化時の処理
-	void Digest()
-    {
-		rb.drag = drag_dig;                     // 空気抵抗を減らす
-		sr.color = Color.white;
-	}
-
-	// ★空腹度処理
-	void Hungry()
-    {
-		// 空腹時の処理
-		if (hung.hungFlg) {
-			if (nowState != States.eating) {
-				transform.localScale = Vector2.one;         // 大きさ
-			}
-			
-			sr.color = hungColor;                       // 色変更
-			
-			hungTimer += Time.deltaTime;
-
-			if (hungTimer > 0.5f) {
-				part.InstPart(ParticleManager.PartNames.hungry, transform.position + Vector3.up * 2.5f,transform.rotation, transform);
-				hungTimer = 0;
-            }
-		}
-
-		// 満腹度減らす
-		else if (!lndFlg && !gm.isStarting) {
-			hung.HungDec_State();
-			hungTimer = 0;
 		}
 	}
 
@@ -209,12 +159,11 @@ public class Pl_States : MonoBehaviour
     }
 
     //-------------------------------------------------------------------
-
+	// 敵に触れたらダメージ
     void OnCollisionStay2D(Collision2D col)
     {
-        if (col.gameObject.tag == "Enemy")
-        {
+		if (col.gameObject.tag == "Enemy") {
 			dmgFlg = true;
-        }
+		}
     }
 }

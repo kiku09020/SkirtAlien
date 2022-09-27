@@ -5,7 +5,7 @@ using UnityEngine;
 public class DataManager : MonoBehaviour
 {
     /* 値 */
-    public GameData data = new GameData();
+    public GameData data;
     string filePath;
     string fileName = "GameData.json";
 
@@ -18,6 +18,10 @@ public class DataManager : MonoBehaviour
         // パス指定
         filePath = Application.dataPath + "/" + fileName;
 
+        if (!File.Exists(filePath)) {
+            Save(data);
+        }
+
         data = Load();
     }
 
@@ -28,7 +32,6 @@ public class DataManager : MonoBehaviour
         string json = JsonUtility.ToJson(data);                     // json形式に変換
         StreamWriter wr = new StreamWriter(filePath, false);        // ファイル開く
         wr.WriteLine(json);                                         // 書き込み
-        wr.Flush();                                                 // バッファ削除
         wr.Close();                                                 // ファイル閉じる
 	}
     

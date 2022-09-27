@@ -32,16 +32,16 @@ public class Pl_HP : MonoBehaviour
     //-------------------------------------------------------------------
     void Start()
     {
-        GameObject hpGauge = GameObject.Find("HPBar");
-        GameObject hpGauge_light = GameObject.Find("HPBar_Light");
-        GameObject audObj = GameObject.Find("AudioManager");
-        GameObject partObj = GameObject.Find("ParticleManager");
+        GameObject hpGauge          = GameObject.Find("HPBar");
+        GameObject hpGauge_light    = GameObject.Find("HPBar_Light");
+        GameObject audObj           = GameObject.Find("AudioManager");
+        GameObject partObj          = GameObject.Find("ParticleManager");
 
-        aud = audObj.GetComponent<AudioManager>();
-        part = partObj.GetComponent<ParticleManager>();
+        aud             = audObj.GetComponent<AudioManager>();
+        part            = partObj.GetComponent<ParticleManager>();
 
-        hp_Image = hpGauge.GetComponent<Image>();
-        hp_Image_Light = hpGauge_light.GetComponent<Image>();
+        hp_Image        = hpGauge.GetComponent<Image>();
+        hp_Image_Light  = hpGauge_light.GetComponent<Image>();
 
         // 初期化
         hp_Image.fillAmount = 1;
@@ -53,13 +53,13 @@ public class Pl_HP : MonoBehaviour
 
 	void FixedUpdate()
 	{
-        HP_Set();
+        DispHP();
         DispHPCaut();
     }
 
     //-------------------------------------------------------------------
     // HPセット
-    void HP_Set()
+    void DispHP()
     {
         // 表示HPが今のHPよりも大きかったら、表示HP減らす
         if (nowHP < dispHP) {

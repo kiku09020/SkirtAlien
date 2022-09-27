@@ -46,11 +46,16 @@ public class PlayerAnim : MonoBehaviour
                 break;
 
             //------------------------------
+            case Pl_States.States.eating:
+                anim.SetBool("damaged", false);
+                break;
+
             case Pl_States.States.digest:       // 消化中
 
                 anim.SetTrigger("digesting");
                 anim.SetBool("eatStart", false);
                 anim.SetBool("landing", false);
+                anim.SetBool("damaged", false);
 
                 if (!dig_Once) {
                     dig_Once = true;
@@ -61,33 +66,29 @@ public class PlayerAnim : MonoBehaviour
                 break;
         }
 
-
-        // ダメージ時のアニメーションを優先して再生する
         if (st.dmgFlg) {
-            Damage();               // ダメージ
+            if (st.nowState == Pl_States.States.normal) {
+                anim.SetBool("damaged", true);
+            }
         }
 
         else {
             anim.SetBool("damaged", false);
-
-            if (st.lndFlg && st.nowState != Pl_States.States.digest) {
-                Laning();               // 地上
-            }
         }
 
-    }
+        if (st.lndFlg && st.nowState == Pl_States.States.normal) {
+            Laning();               // 地上
+        }
 
-    //-------------------------------------------------------------------
-    // ダメージ
-    void Damage()
-    {
-        anim.SetBool("damaged", true);
 
+        // ゲームオーバー
         if (gm.isGameOver) {
+            ResetAnims();
             anim.SetTrigger("dead");
         }
     }
 
+    //-------------------------------------------------------------------
     // 地上
     void Laning()
     {
@@ -140,7 +141,6 @@ public class PlayerAnim : MonoBehaviour
         anim.SetBool("eatStart", false);
         anim.SetBool("walking", false);
         anim.SetBool("landing", false);
-        anim.ResetTrigger("digesting");
 
         dig_Once = false;
         twn_dig.Kill();

@@ -1,12 +1,10 @@
 fileFormatVersion: 2
-guid: d7267244b27d975438f26a83cc1402f3
-labels:
-- Player
+guid: 6ad6061a1625b514f9f477117a78b8e3
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences: []
-  executionOrder: 90
+  executionOrder: 0
   icon: {instanceID: 0}
   userData: 
   assetBundleName: 

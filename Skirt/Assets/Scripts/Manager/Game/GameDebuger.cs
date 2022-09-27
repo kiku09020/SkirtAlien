@@ -69,7 +69,7 @@ public class GameDebuger : MonoBehaviour
         // 無限
         if (isInfinity) {
             if(pl_obj.transform.position.y < 50) {
-                pl_obj.transform.Translate(pl_obj.transform.position.x, 1500, 0);
+                pl_obj.transform.Translate(pl_obj.transform.position.x, 500, 0);
             }
         }
     }

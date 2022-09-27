@@ -34,8 +34,7 @@ public partial class Pl_Action : MonoBehaviour
     float digBtnCnt;                          // ボタンが押された回数
 
     [Header("ジャンプ")]    //--------------------
-    [SerializeField] float nmlJumpForce;    // 通常時のジャンプ力
-    [SerializeField] float nowJumpForce;    // 現在のジャンプ力
+    [SerializeField] float jumpForce;    // 通常時のジャンプ力
 
     //-------------------------------------------------------------------
     /* コンポーネント取得用 */
@@ -49,7 +48,6 @@ public partial class Pl_Action : MonoBehaviour
 
     Pl_States       st;
     Pl_HP           hp;
-    Pl_Hunger       hung;
     PlayerCamera       cam;        // カメラ
     PlayerAnim anim;
     ParticleManager part;
@@ -74,12 +72,10 @@ public partial class Pl_Action : MonoBehaviour
         sr          = GetComponent<SpriteRenderer>();
         st          = GetComponent<Pl_States>();
         hp          = GetComponent<Pl_HP>();
-        hung        = GetComponent<Pl_Hunger>();
         anim        = GetComponent<PlayerAnim>();
 
         /* 初期化 */
         nowSpd = nmlSpd;
-        nowJumpForce = nmlJumpForce;
     }
 
     //-------------------------------------------------------------------
