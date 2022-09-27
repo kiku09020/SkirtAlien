@@ -8,9 +8,15 @@ public partial class Pl_Action
         SpdSetter();    // 速度調節
 
         // 移動
-        rb.AddForce(Vector2.right * gm.inpVer * nowSpd);
-        
-        SpdLimit();     // 速度制限
+        if (Mathf.Abs(vel.x) < spdMax) {
+            rb.AddForce(Vector2.right * gm.inpVer * nowSpd);
+        }
+
+        // 落下速度制限
+        if (vel.y < -fallSpdMax) {  
+            rb.velocity = new Vector2(vel.x, -fallSpdMax);
+        }
+
         Breaking();     // ブレーキ(慣性無視)
     }
 
@@ -21,28 +27,12 @@ public partial class Pl_Action
             nowSpd = nmlSpd * 0.75f;
         }
 
-        else if (st.stateNum == Pl_States.States.digest) {      // 消化時
+        else if (st.nowState == Pl_States.States.digest) {      // 消化時
             nowSpd = nmlSpd / 6;
         }
 
         else {      // 通常時
             nowSpd = nmlSpd; // 速度戻す
-        }
-    }
-
-    // 速度制限
-    void SpdLimit()
-    {
-        if (vel.x > spdMax) {       // 右
-            rb.velocity = new Vector2(spdMax, vel.y);
-        }
-
-        else if (vel.x < -spdMax) { // 左
-            rb.velocity = new Vector2(-spdMax, vel.y);
-        }
-
-        if (vel.y < -fallSpdMax) {  // 下
-            rb.velocity = new Vector2(vel.x, -fallSpdMax);
         }
     }
 
@@ -69,7 +59,7 @@ public partial class Pl_Action
     void Rotate()
     {
         // 地上にいる場合、回転しない
-        if (st.stateNum == Pl_States.States.landing) {
+        if (st.lndFlg) {
             transform.rotation = Quaternion.identity;
         }
 
@@ -88,13 +78,29 @@ public partial class Pl_Action
     void OutScr()
     {
         if (pos.x > scrEdge) {        // 右端→左端
-            pos.x = -scrEdge;
-            transform.position = new Vector2(pos.x, pos.y);
+            transform.position = new Vector2(-scrEdge, pos.y);
         }
 
         else if (pos.x < -scrEdge) {  // 左端→右端
-            pos.x = scrEdge;
-            transform.position = new Vector2(pos.x, pos.y);
+            transform.position = new Vector2(scrEdge, pos.y);
         }
+    }
+
+    // ★ジャンプ
+    public void Jump()
+    {
+        if (hung.hungFlg) { // 空腹時
+            nowJumpForce = nmlJumpForce * 0.75f;
+        }
+        else {              // 通常時
+            nowJumpForce = nmlJumpForce;
+        }
+
+        rb.AddForce(Vector2.up * nowJumpForce);                         // ジャンプ
+
+        aud.PlaySE(AudLists.SETypeList.pl, (int)AudLists.SEList_Pl.jump);       // 効果音再生
+        part.InstPart(ParticleManager.PartNames.jump, transform.position);      // パーティクル生成
+        anim.Jump();                                                            // アニメーション
+        sr.color = Color.white;                                                 // 色変更
     }
 }

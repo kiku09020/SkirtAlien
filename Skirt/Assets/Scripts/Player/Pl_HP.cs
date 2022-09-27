@@ -54,6 +54,7 @@ public class Pl_HP : MonoBehaviour
 	void FixedUpdate()
 	{
         HP_Set();
+        DispHPCaut();
     }
 
     //-------------------------------------------------------------------
@@ -77,11 +78,17 @@ public class Pl_HP : MonoBehaviour
         // 表示
         hp_Image.fillAmount = nowHP / maxHP;             // 手前のHPバー
         hp_Image_Light.fillAmount = dispHP / maxHP;      // 薄い色のHPバー
+    }
 
+    // 表示HPの警告
+    void DispHPCaut()
+    {
         var imgClr = hp_Image.color;
         // 警告
-        if (nowHP < cautHP) {
-            if (!cautFlg) {
+        if (nowHP < cautHP)
+        {
+            if (!cautFlg)
+            {
                 aud.PlaySE(AudLists.SETypeList.ui, (int)AudLists.SEList_UI.caution);
                 cautFlg = true;
             }
@@ -93,7 +100,8 @@ public class Pl_HP : MonoBehaviour
             flashTimer += Time.deltaTime;
         }
 
-        else {
+        else
+        {
             cautFlg = false;
             flashTimer = 0;
 

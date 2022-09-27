@@ -10,17 +10,16 @@ public class Clear_Ctrl : MonoBehaviour
     int score;      // 最終的なスコア
 
     /* コンポーネント取得用 */
-    AudioManager aud;
-    ScoreManager sm;
-
-    DataManager dm;
-    GameData data;
+    AudioManager    aud;
+    ScoreManager    sm;
+    DataManager     dm;
+    GameData        data;
 
     Text scoreText;
     Text highScoreText;
 
 //-------------------------------------------------------------------
-    void Awake()
+    void Start()
     {
         /* オブジェクト取得 */
         GameObject audObj = transform.Find("AudioManager").gameObject;
@@ -29,45 +28,31 @@ public class Clear_Ctrl : MonoBehaviour
 
         /* コンポーネント取得 */
         aud = audObj.GetComponent<AudioManager>();
-        dm = GetComponent<DataManager>();
+        dm  = GetComponent<DataManager>();
+        sm  = new ScoreManager();
 
-        scoreText = scoreTextObj.GetComponent<Text>();
+        scoreText     = scoreTextObj.GetComponent<Text>();
         highScoreText = highScoreTextObj.GetComponent<Text>();
 
-        sm = new ScoreManager();
-
-        data = dm.data;
-
-        score = sm.GetScore();
-        scoreText.text += score.ToString();
-        HighScoreSetter();
-
         /* 初期化 */
-        aud.PlayBGM(AudLists.BGMList.result, true);
+        DispScore();                                    // ハイスコアテキスト
+        aud.PlayBGM(AudLists.BGMList.result, true);     // BGM再生
     }
 
 //-------------------------------------------------------------------
-    void FixedUpdate()
-    {
-        
-    }
-
-//-------------------------------------------------------------------
-
     // ハイスコア更新
-    void HighScoreSetter()
+    void DispScore()
 	{
+        data  = dm.data;
+        score = sm.GetScore();                  // スコア取得
+
         // 入れ替え
-		if (data.highScore <= score) {
+        if (data.highScore <= score) {
             data.highScore = score;
 		}
 
-        // そうじゃなかったらハイスコア読み込み
-        else {
-            dm.Load();
-        }
-
         // 表示
-        highScoreText.text += data.highScore.ToString();
+        scoreText.text     += score.ToString();             // スコアテキスト
+        highScoreText.text += data.highScore.ToString();    
 	}
 }

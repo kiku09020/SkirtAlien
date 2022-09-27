@@ -7,9 +7,7 @@ public class Btn_Ctrl : MonoBehaviour
     /* コンポーネント取得用 */
     Pl_States       st;
     Pl_Action       act;
-    Pl_HP           hp;
     Pl_Hunger       hung;
-    PlayerAnim         anim;
 
     GameManager     gm;
     AudioManager    aud;
@@ -38,8 +36,6 @@ public class Btn_Ctrl : MonoBehaviour
         st      = pl_obj.GetComponent<Pl_States>();
         act     = pl_obj.GetComponent<Pl_Action>();
         hung    = pl_obj.GetComponent<Pl_Hunger>();
-        hp      = pl_obj.GetComponent<Pl_HP>();
-        anim    = pl_obj.GetComponent<PlayerAnim>();
     }
 
     //-------------------------------------------------------------------
@@ -159,11 +155,7 @@ public class Btn_Ctrl : MonoBehaviour
     // アクションボタンを、状態によって変色したりする関数
     public void Btn_Action_States()
     {
-        switch (st.stateNum) {
-            // 地上
-            case Pl_States.States.landing:
-
-                break;
+        switch (st.nowState) {
             // 消化
             case Pl_States.States.digest:
 
@@ -202,6 +194,6 @@ public class Btn_Ctrl : MonoBehaviour
     // ダメージ
     public void Btn_Dmg()
     {
-        act.Damage_Proc();
+        act.Damage();
     }
 }

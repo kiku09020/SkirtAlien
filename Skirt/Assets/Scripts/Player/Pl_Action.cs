@@ -36,8 +36,6 @@ public partial class Pl_Action : MonoBehaviour
     [Header("ジャンプ")]    //--------------------
     [SerializeField] float nmlJumpForce;    // 通常時のジャンプ力
     [SerializeField] float nowJumpForce;    // 現在のジャンプ力
-    [SerializeField] float jumpTime;        // ジャンプ時間
-    float     jumpTimer;
 
     //-------------------------------------------------------------------
     /* コンポーネント取得用 */

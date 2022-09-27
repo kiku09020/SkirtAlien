@@ -234,7 +234,6 @@ MonoBehaviour:
   digBtnCntMax: 4
   nmlJumpForce: 750
   nowJumpForce: 0
-  jumpTime: 0.5
 --- !u!114 &1493154652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -247,18 +246,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80b099b00ab8e0c44b99157f9970bc00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stateNum: 0
-  landFlg: 0
+  nowState: 0
+  lndFlg: 0
   dmgFlg: 0
-  inpY_up_jdge: 0.7
-  inpY_dn_jdge: -0.7
-  drag_flt: 0.75
   drag_nml: 0.5
-  drag_swp: 0.1
   drag_dig: 0
-  size_big: 1.01
   hungColor: {r: 1, g: 0.2679245, b: 0.2679245, a: 1}
-  ctLim: 0.5
+  ctLim: 0.3
 --- !u!114 &5297649651518445171
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -29,8 +29,8 @@ public class DummyBallon : BallonClass
 	{
         // プレイヤーと触れたとき
         if (col.tag == "Player") {
-            st.stateNum = Pl_States.States.damage;      // ダメージ状態にする
-            Destroy(gameObject);                        // 消える
+            st.dmgFlg = true;       // ダメージ状態にする
+            Destroy(gameObject);    // 消える
         }
 	}
 

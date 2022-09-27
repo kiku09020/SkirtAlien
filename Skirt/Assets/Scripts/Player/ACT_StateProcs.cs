@@ -4,10 +4,10 @@ using UnityEngine;
 public partial class Pl_Action
 {
     // ★ダメージ
-    public void Damage_Proc()
+    public void Damage()
     {
         // ダメージくらった瞬間
-        if (dmgTimer == 0.0f) {
+        if (dmgTimer == 0) {
             InstantDamage();
         }
 
@@ -17,26 +17,26 @@ public partial class Pl_Action
             // 点滅
             var alpha = Mathf.Cos(2 * Mathf.PI * dmgTimer / flashCycle);
             sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, alpha);
-
-
-            // 時間経過後
-            if (dmgTimer > dmgTimeLim) {
-                sr.color = Color.white;
-                st.stateNum = Pl_States.States.normal;
-            }
         }
 
         dmgTimer += Time.deltaTime;       // タイマー増加
+
+        // 時間経過後
+        if (dmgTimer > dmgTimeLim) {
+            sr.color = Color.white;
+            st.dmgFlg = false;
+            dmgTimer = 0;
+        }
     }
 
     // ダメージくらった瞬間
     public void InstantDamage()
     {
-        hp.HP_Damage();                                                         // HP減らす
-        combo.ComboSetter(ComboManager.CmbEnum.reset);                          // 消化コンボ数リセット
-        rb.AddForce(Vector2.up * dmgJumpForce);                                 // 少し飛ばす
+        hp.HP_Damage();                                     // HP減らす
+        combo.ComboSetter(ComboManager.CmbEnum.reset);      // 消化コンボ数リセット
+        rb.AddForce(Vector2.up * dmgJumpForce);             // 少し飛ばす
 
-        Vibration.Vibrate(300);                                                 // スマホ振動
+        Vibration.Vibrate(300);                             // スマホ振動
     }
 
     //------------------------------------------
@@ -44,19 +44,17 @@ public partial class Pl_Action
     {
         if (eatTimer == 0) {
             aud.PlaySE(AudLists.SETypeList.pl, (int)AudLists.SEList_Pl.eat);    // 効果音
-            part.InstPart(ParticleManager.PartNames.eat, transform.position);       // パーティクル
+            part.InstPart(ParticleManager.PartNames.eat, transform.position);   // パーティクル
             anim.EatingStart();
         }
 
-        else {
-            hung.HungDec_Atk();             // 空腹度減らす
-            eatTimer += Time.deltaTime;
-        }
+        eatTimer += Time.deltaTime;
     }
 
     public void Eatend()
     {
         anim.EatingEnd();
+        eatTimer = 0;
     }
 
     //------------------------------------------
@@ -67,7 +65,7 @@ public partial class Pl_Action
             digBtnCnt++;            // 消化ボタン回数増加
 
             aud.PlaySE(AudLists.SETypeList.pl, (int)AudLists.SEList_Pl.dig);        // 効果音
-            part.InstPart(ParticleManager.PartNames.digit, transform.position);         // パーティクル
+            part.InstPart(ParticleManager.PartNames.digit, transform.position);     // パーティクル
             anim.DigBtnAnim();                                                      // アニメーション
         }
 
@@ -77,46 +75,11 @@ public partial class Pl_Action
             hung.HungInc(combo.GetCmbMag());                                        // 満腹度増加
 
             aud.PlaySE(AudLists.SETypeList.pl, (int)AudLists.SEList_Pl.digDone);    // 効果音
-            part.InstPart(ParticleManager.PartNames.eated, transform.position);                             // パーティクル
+            part.InstPart(ParticleManager.PartNames.eated, transform.position);     // パーティクル
+            Eatend();
 
             digBtnCnt = 0;                                                          // 消化ボタン回数0にする
-            st.stateNum = Pl_States.States.normal;                                  // 通常状態に戻す
+            st.nowState = Pl_States.States.normal;                                  // 通常状態に戻す
         }
-    }
-
-    //------------------------------------------
-    // ★ジャンプ
-    public void Jump()
-    {
-        // ジャンプした瞬間
-        if (jumpTimer == 0) {
-            if (hung.hungFlg)   { nowJumpForce = nmlJumpForce * 0.75f; }    // 空腹時
-            else                { nowJumpForce = nmlJumpForce; }            // 戻す
-
-            rb.AddForce(Vector2.up * nowJumpForce);                         // ジャンプ
-
-            aud.PlaySE(AudLists.SETypeList.pl, (int)AudLists.SEList_Pl.jump);       // 効果音再生
-            part.InstPart(ParticleManager.PartNames.jump, transform.position);          // パーティクル生成
-            anim.Jump();                                                            // アニメーション
-            sr.color = Color.white;                                                 // 色変更
-        }
-
-        jumpTimer += Time.deltaTime;
-
-        // 時間経過後
-        if (jumpTimer > jumpTime) {
-            jumpTimer = 0;
-            st.stateNum = Pl_States.States.normal;
-        }
-    }
-
-    //------------------------------------------
-    // 値リセット
-    public void ResetValues()
-    {
-        digBtnCnt = 0;
-        dmgTimer  = 0;
-        eatTimer  = 0;
-        jumpTimer = 0;
     }
 }

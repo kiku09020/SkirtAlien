@@ -5,35 +5,22 @@ using UnityEngine;
 public class Pl_States : MonoBehaviour
 {
 	[Header("状態")]
-	public  States stateNum;		// キャラの状態(0:通常 1:ふわふわ 2:急降下 )
+	public  States nowState;		// 現在の状態
 
-	// キャラ状態の列挙
+	// 状態
 	public enum States {
 		normal,			// 通常
-		floating,		// ふわふわ
-		swooping,		// 急降下
-		landing,		// 地上
-		eating,			// アタック
+		eating,			// 捕食
 		digest,			// 消化
-		damage,			// 被ダメージ
 	}
 
 	[Header("フラグ")]
-	public bool landFlg;					// 地上にいるか
-	public bool dmgFlg;						// 無敵時間中かどうか
-
-	[Header("入力判定")]
-	[SerializeField] float inpY_up_jdge;    // 上入力時の判定
-	[SerializeField] float inpY_dn_jdge;    // 下入力時の判定
+	public bool lndFlg;		// 地上にいるか
+	public bool dmgFlg;		// 無敵時間中かどうか
 
 	[Header("空気抵抗")]
-	[SerializeField] float drag_flt;		// ふわふわ時
 	[SerializeField] float drag_nml;        // 通常時
-	[SerializeField] float drag_swp;        // 急降下時
 	[SerializeField] float drag_dig;        // 捕食時
-
-	[Header("サイズ")]
-	[SerializeField] float size_big;        // 拡大時のサイズ
 
 	[Header("空腹")]
 	[SerializeField] Color hungColor;
@@ -49,10 +36,9 @@ public class Pl_States : MonoBehaviour
 	/* コンポーネント取得用 */
 	GameManager		gm;
 	StageManager    stg;
-	ParticleManager		part;
+	ParticleManager	part;
 
 	Rigidbody2D		rb;
-	Collider2D		col;
 	SpriteRenderer	sr;
 
 	Pl_Action		act;
@@ -71,13 +57,12 @@ public class Pl_States : MonoBehaviour
 		part    = partObj.GetComponent<ParticleManager>();
 
 		rb		= GetComponent<Rigidbody2D>();
-		col = GetComponent<Collider2D>();
 		sr		= GetComponent<SpriteRenderer>();
 		act	= GetComponent<Pl_Action>();
 		hung	= GetComponent<Pl_Hunger>();
 
 		/* 初期化 */
-		stateNum = States.normal;          // 状態
+		nowState = States.normal;          // 状態
 		canEat = true;
 
 		// 位置をステージの長さに合わせる
@@ -108,29 +93,25 @@ public class Pl_States : MonoBehaviour
 	// 各状態時に行う処理
 	void StateProc()
 	{
-		switch (stateNum) {
+		switch (nowState) {
 			case States.normal:		// 通常
 				Normal();		break;
 
-			case States.floating:	// ふわふわ
-				Floating();		break;
-
-			case States.swooping:	// 急降下
-				Swooping();		break;
-
-			case States.landing:	// 地上
-				Landing();		break;
-
 			case States.eating:     // 捕食中
-				hung.HungDec_Atk();
+				act.Eating();
 				break;
 
 			case States.digest:     // 消化
 				Digest();		break;
-
-			case States.damage:		// 被ダメージ
-				act.Damage_Proc();	break;
 		}
+
+        if (dmgFlg) {
+			act.Damage();
+        }
+
+        if (lndFlg) {
+			Landing();
+        }
 	}
 
 	//-------------------------------------------------------------------
@@ -141,58 +122,11 @@ public class Pl_States : MonoBehaviour
 		transform.localScale = Vector2.one;		// 大きさを戻す
 		sr.color = Color.white;					// 色を不透明に
 		rb.drag = drag_nml;						// 空気抵抗を元に戻す
-
-		// 判定値(上)よりも大きくなったら、ふわふわ
-		if (gm.inpHor > inpY_up_jdge) {
-			stateNum = States.floating;
-		}
-		// 判定値(下)よりも小さくなったら、急降下
-		else if (gm.inpHor < inpY_dn_jdge) {
-			stateNum = States.swooping;
-		}
-
-		act.ResetValues();
-	}
-
-	// ★急降下状態
-	public void Swooping()
-	{
-		// 縦に伸ばす
-		transform.localScale = new Vector2(1, 1 + Mathf.Abs(gm.inpHor) * size_big);
-
-		// 空気抵抗を減らす
-        if (!hung.hungFlg) {
-			rb.drag = drag_swp;
-		}
-
-		// ノーマル状態に遷移
-		if(gm.inpHor > inpY_dn_jdge && gm.inpHor < inpY_up_jdge) {
-			stateNum = States.normal;
-		}
-	}
-
-	// ★ふわふわ状態
-	public void Floating()
-	{
-		// 横に伸ばす
-		transform.localScale = new Vector2(1 + Mathf.Abs(gm.inpHor) * size_big, 1);
-
-		// 空気抵抗を増やす
-		if (!hung.hungFlg) {
-			rb.drag = drag_flt;
-		}
-
-		// ノーマル状態に遷移
-		if (gm.inpHor > inpY_dn_jdge && gm.inpHor < inpY_up_jdge) {
-			stateNum = States.normal;
-		}
 	}
 
 	// ★地上
 	void Landing()
 	{
-		transform.localScale = Vector2.one;
-
 		// 右移動時
 		if(gm.inpVer > 0) {
 			sr.flipX = true;					// 反転
@@ -216,13 +150,12 @@ public class Pl_States : MonoBehaviour
     {
 		// 空腹時の処理
 		if (hung.hungFlg) {
-            if (stateNum != States.eating) {
+			if (nowState != States.eating) {
 				transform.localScale = Vector2.one;         // 大きさ
-            }
-
-            if (stateNum != States.damage) {
-				sr.color = hungColor;                       // 色変更
-            }
+			}
+			
+			sr.color = hungColor;                       // 色変更
+			
 			hungTimer += Time.deltaTime;
 
 			if (hungTimer > 0.5f) {
@@ -232,36 +165,33 @@ public class Pl_States : MonoBehaviour
 		}
 
 		// 満腹度減らす
-		else if (!landFlg && !gm.isStarting) {
+		else if (!lndFlg && !gm.isStarting) {
 			hung.HungDec_State();
 			hungTimer = 0;
 		}
 	}
 
 	//-------------------------------------------------------------------
-
 	// 押した瞬間
 	public void ActBtnProc()
     {
 		// 消化時
-		if (stateNum == States.digest) {
+		if (nowState == States.digest) {
 			act.Digest_Btn();
 		}
 
 		// 地上にいたらジャンプする
-		else if (landFlg && stateNum != States.eating) {
+		else if (nowState == States.normal && lndFlg) {
 			act.Jump();
 		}
 	}
 
-	// 押してる最中
+	// 長押し
 	public void ActBtn_Downing()
     {
-		// 通常時のみ、捕食状態にする
-		if ((stateNum != States.landing &&
-			 stateNum != States.digest) && canEat) {
-			stateNum = States.eating;
-			act.Eating();
+		// 捕食状態にする
+		if ((nowState != States.digest) && !lndFlg && canEat) {
+			 nowState = States.eating;
 		}
 	}
 
@@ -269,8 +199,8 @@ public class Pl_States : MonoBehaviour
 	public void ActBtn_Up()
     {
 		// 通常状態に遷移
-        if (stateNum == States.eating) {
-			stateNum = States.normal;
+        if (nowState == States.eating) {
+			nowState = States.normal;
 			act.Eatend();
 
 			ctFlg = true;
@@ -284,7 +214,7 @@ public class Pl_States : MonoBehaviour
     {
         if (col.gameObject.tag == "Enemy")
         {
-			stateNum = States.damage;
+			dmgFlg = true;
         }
     }
 }

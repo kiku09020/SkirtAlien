@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pegasus : Enemy
-{
+public class Pegasus : MonoBehaviour {
     [SerializeField] float moveSpeed;       // “®‚­‘¬“x
     [SerializeField] float moveDist;        // “®‚­‹——£
 

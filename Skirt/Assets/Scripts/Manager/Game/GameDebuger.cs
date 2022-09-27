@@ -93,7 +93,7 @@ public class GameDebuger : MonoBehaviour
     // ログ
     void Debug_Log()
 	{
-        Debug.Log("<b><color=yellow>" + st.stateNum + "</color></b>");
+        Debug.Log("<b><color=yellow>" + st.nowState + "</color></b>");
     }
 
     // 画面上に表示するテキスト

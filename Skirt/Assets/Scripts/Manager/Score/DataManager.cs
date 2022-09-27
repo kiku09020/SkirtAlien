@@ -13,10 +13,12 @@ public class DataManager : MonoBehaviour
 
 
 //-------------------------------------------------------------------
-    void Start()
+    void Awake()
     {
         // パス指定
         filePath = Application.dataPath + "/" + fileName;
+
+        data = Load();
     }
 
 //-------------------------------------------------------------------
