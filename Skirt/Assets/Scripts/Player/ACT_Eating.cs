@@ -29,7 +29,7 @@ public partial class Pl_Action {
     // 消化中
     public void Digest()
     {
-        rb.drag = 0;
+        rb.drag = 0.25f;
         sr.color = Color.white;
     }
 
@@ -49,7 +49,7 @@ public partial class Pl_Action {
         else {      
             combo.ComboSetter(ComboManager.CmbEnum.inc);                            // コンボ数増加
             score.AddScore();                                                       // スコア追加
-            exp.IncExp();
+            exp.IncExp(combo.GetCmbMag());
 
             aud.PlaySE(AudLists.SETypeList.pl, (int)AudLists.SEList_Pl.digDone);    // 効果音
             part.InstPart(ParticleManager.PartNames.eated, transform.position);     // パーティクル

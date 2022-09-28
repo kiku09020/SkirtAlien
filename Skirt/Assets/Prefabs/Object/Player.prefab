@@ -279,8 +279,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ad6061a1625b514f9f477117a78b8e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxLevel: 3
-  maxExp: 100
+  maxLv: 3
+  lvExp: 50
   incExp: 15
   decExp: 20
   dispExpVal: 0.3
