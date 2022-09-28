@@ -11,7 +11,7 @@ public class PlayerAnim : MonoBehaviour
     GameManager gm;
 
     Pl_States st;
-    Animator anim;
+    Animator  anim;
 
     /* Tween */
     Tween twn_dig;
@@ -107,10 +107,10 @@ public class PlayerAnim : MonoBehaviour
 
     //-------------------------------------------------------------------
     // 捕食した瞬間
-    public void EatingStart()
+    public void EatingStart(Vector2 eatingSize)
     {
         anim.SetBool("eatStart",true);
-        twn_eatStrt = transform.DOScale(new Vector2(1f, 0.5f), 0.4f).SetEase(Ease.OutCirc).SetRelative(true);
+        twn_eatStrt = transform.DOScale(eatingSize, 0.4f).SetEase(Ease.OutCirc).SetRelative(true);
     }
 
     // 捕食終了した瞬間

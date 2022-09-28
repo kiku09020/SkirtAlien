@@ -32,7 +32,6 @@ public class Pl_States : MonoBehaviour
 	{
 		/* オブジェクト検索 */
 		GameObject gm_obj  = GameObject.Find("GameManager");
-		GameObject partObj = gm_obj.transform.Find("ParticleManager").gameObject;
 
 		/* コンポーネント取得 */
 		gm		= gm_obj.GetComponent<GameManager>();
@@ -44,7 +43,6 @@ public class Pl_States : MonoBehaviour
 
 		/* 初期化 */
 		nowState = States.normal;          // 状態
-
 
 		// 位置をステージの長さに合わせる
 		transform.position = new Vector2(0, stg.stg_length);
@@ -135,7 +133,7 @@ public class Pl_States : MonoBehaviour
 		// 通常状態に遷移
         if (nowState == States.eating) {
 			nowState = States.normal;
-			act.Eatend();
+			act.EatEnd();
 		}
     }
 

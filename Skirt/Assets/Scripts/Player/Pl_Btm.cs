@@ -25,7 +25,7 @@ public class Pl_Btm : MonoBehaviour
         if (col.tag == "Enemy" ){
             // 攻撃したら、敵を消す
             if(st.nowState == Pl_States.States.eating){
-                st.nowState = Pl_States.States.digest;      // 消化状態にする
+                act.AddEatCnt();
                 
                 Destroy(col.gameObject);
             }

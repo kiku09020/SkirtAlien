@@ -73,11 +73,11 @@ public class ComboManager : MonoBehaviour
     }
 
     // コンボ加算
-    void AddCombo()
+    void AddCombo(int eatCnt)
     {
         // 2回目以降
         if (cmbFlg) {
-            cmbCnt++;
+            cmbCnt += eatCnt;
             cmbTimer = 0;
         }
 
@@ -131,12 +131,12 @@ public class ComboManager : MonoBehaviour
     }
 
     // コンボ数を増減する
-    public void ComboSetter(CmbEnum setType)
+    public void ComboSetter(CmbEnum setType,int eatCnt)
     {
         switch (setType) {
             // 増やす
             case CmbEnum.inc:
-                AddCombo();
+                AddCombo(eatCnt);
                 break;
 
             // リセット

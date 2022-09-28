@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 /* プレイヤーの捕食や移動などの行動に関するスクリプトです */
 public partial class Pl_Action : MonoBehaviour
@@ -33,6 +34,12 @@ public partial class Pl_Action : MonoBehaviour
     bool ctFlg;                             // クールタイム中のフラグ
     public bool canEat;					    // 捕食可能かどうかのフラグ
 
+    GameObject canvas;
+    int eatingCnt;                          // 今捕食してる敵の数
+    [SerializeField] GameObject eatCntObj;  // 捕食数のテキスト
+    Text eatCntTxt;
+    GameObject instTxt;
+
     float eatTimer;                         
 
     [Header("消化")]        //--------------------
@@ -56,7 +63,7 @@ public partial class Pl_Action : MonoBehaviour
     Pl_HP           hp;
     Pl_EXP          exp;
     PlayerCamera    cam;        // カメラ
-    PlayerAnim anim;
+    PlayerAnim      anim;
     ParticleManager part;
 
     //-------------------------------------------------------------------
@@ -66,6 +73,9 @@ public partial class Pl_Action : MonoBehaviour
         GameObject part_obj    = gm_obj.transform.Find("ParticleManager").gameObject;
         GameObject aud_obj     = gm_obj.transform.Find("AudioManager").gameObject;
         GameObject cam_obj     = GameObject.Find("PlayerCamera");
+
+        canvas = GameObject.Find("GameUICanvas(Clone)");
+        eatCntTxt = eatCntObj.GetComponent<Text>();
 
         /* コンポーネント取得 */
         gm          = gm_obj.GetComponent<GameManager>();

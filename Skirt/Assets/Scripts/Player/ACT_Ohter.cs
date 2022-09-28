@@ -31,7 +31,7 @@ public partial class Pl_Action
     {
         hp.HP_Damage();                                     // HP減らす
         exp.DecExp();
-        combo.ComboSetter(ComboManager.CmbEnum.reset);      // 消化コンボ数リセット
+        combo.ComboSetter(ComboManager.CmbEnum.reset, 0);      // 消化コンボ数リセット
         rb.AddForce(Vector2.up * dmgJumpForce);             // 少し飛ばす
 
         Vibration.Vibrate(300);                             // スマホ振動

@@ -34,6 +34,8 @@ public class Pl_EXP : MonoBehaviour
     Image barImg;   // バーの画像
     Text  lvTxt;    // レベルのテキスト
 
+    AudioManager aud;
+
     //-------------------------------------------------------------------
     void Start()
     {
@@ -42,9 +44,13 @@ public class Pl_EXP : MonoBehaviour
         GameObject barobj = expObj.transform.Find("EXPBar").gameObject;
         GameObject txtObj = expObj.transform.Find("LvTxt").gameObject;
 
+        GameObject audObj = GameObject.Find("AudioManager");
+
         /* コンポーネント取得 */
         barImg = barobj.GetComponent<Image>();
         lvTxt = txtObj.GetComponent<Text>();
+
+        aud = audObj.GetComponent<AudioManager>();
 
         /* 初期化 */
         nowLv = 1;
@@ -112,6 +118,8 @@ public class Pl_EXP : MonoBehaviour
                 nowLv++;
                 ChangeLimitExp(ChangeType.lvUp);
                 nowDispExp = 0;             // 現在の表示経験値を0にする
+
+                aud.PlaySE(AudLists.SETypeList.ui, (int)AudLists.SEList_UI.lvUp);
             }
 
             // Lv3かつ経験値最大
@@ -132,6 +140,8 @@ public class Pl_EXP : MonoBehaviour
                 nowLv--;
                 ChangeLimitExp(ChangeType.lvDn);
                 nowExp = maxExp;        // レベル下がった時の最大値に指定する
+
+                aud.PlaySE(AudLists.SETypeList.ui, (int)AudLists.SEList_UI.lvDn);
             }
             else {
                 nowExp = minExp;
@@ -155,5 +165,26 @@ public class Pl_EXP : MonoBehaviour
                 minExp = prevMinExp;
                 break;
         }
+    }
+
+    // レベルごとの横幅 を渡す
+    public Vector2 GetLvSize()
+    {
+        float x = nowLv * 0.75f + 0.25f;        // x成分
+        float y = nowLv * 0.50f;                // y成分
+
+        return new Vector2(x, y);
+    }
+
+    // レベルごとの空気抵抗 を渡す
+    public float GetDrag()
+    {
+        return nowLv * 0.3f + 0.5f;
+    }
+
+    // 一度に捕食できる敵の数 を渡す
+    public int GetCanEatCnt()
+    {
+        return 1 + (nowLv - 1) * 2;
     }
 }

@@ -20,9 +20,7 @@ public class ScoreManager : MonoBehaviour
 
     /* オブジェクト */
     [SerializeField] GameObject scorePref;      // スコアプレハブ
-    GameObject scoreInst;                       // スコアのインスタンス
     GameObject canvas;                          // スコアを生成するキャンバス
-
     GameObject plObj;
 
     /* コンポーネント取得用 */    
@@ -64,7 +62,7 @@ public class ScoreManager : MonoBehaviour
         Vector3 pos = Camera.main.WorldToScreenPoint(plObj.transform.position);
 
         // インスタンス化
-        scoreInst = Instantiate(scorePref, pos, Quaternion.identity,canvas.transform);
+        GameObject scoreInst = Instantiate(scorePref, pos, Quaternion.identity,canvas.transform);
 
         // 削除
         Destroy(scoreInst, dispTime);
@@ -86,9 +84,9 @@ public class ScoreManager : MonoBehaviour
 	}
 
     // スコア加算(引数：コンボ数)
-    public void AddScore()
+    public void AddScore(int EatCnt)
     {
-        int score = addScore;
+        int score = addScore * EatCnt;
 
         score = combo.Combo(score);
 
