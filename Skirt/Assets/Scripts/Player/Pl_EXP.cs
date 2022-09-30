@@ -35,6 +35,7 @@ public class Pl_EXP : MonoBehaviour
     Text  lvTxt;    // レベルのテキスト
 
     AudioManager aud;
+    PlayerAnim anim;
 
     //-------------------------------------------------------------------
     void Start()
@@ -44,6 +45,7 @@ public class Pl_EXP : MonoBehaviour
         GameObject barobj = expObj.transform.Find("EXPBar").gameObject;
         GameObject txtObj = expObj.transform.Find("LvTxt").gameObject;
 
+        GameObject plObj = GameObject.Find("Player");
         GameObject audObj = GameObject.Find("AudioManager");
 
         /* コンポーネント取得 */
@@ -51,6 +53,7 @@ public class Pl_EXP : MonoBehaviour
         lvTxt = txtObj.GetComponent<Text>();
 
         aud = audObj.GetComponent<AudioManager>();
+        anim = plObj.GetComponent<PlayerAnim>();
 
         /* 初期化 */
         nowLv = 1;
@@ -78,18 +81,28 @@ public class Pl_EXP : MonoBehaviour
 
         // 増やすとき
         if (nowDispExp < targDispExp) {
-            dispExpVal = (targDispExp - nowDispExp) / 10;
-            nowDispExp += dispExpVal;
+            dispExpVal = (targDispExp - nowDispExp) / 20;       // 一度に増やす量
+            nowDispExp += dispExpVal;                           // 増やす
+
+            // レベル最大で最大値より大きい場合、揃える
+            if (nowDispExp > maxExp && nowLv == maxLv) {
+                nowDispExp = maxDispExp;
+            }
         }
 
         // 減らすとき
         else if (nowDispExp > targDispExp) {
-            dispExpVal = (nowDispExp - targDispExp ) / 10;
+            dispExpVal = (nowDispExp - targDispExp ) / 20;
             nowDispExp -= dispExpVal;
+
+            // 0より大きくなったらそろえる
+            if (nowDispExp < minExp && nowLv == 1) {
+                nowDispExp = minExp;
+            }
         }
 
-        barImg.fillAmount = nowDispExp / maxDispExp;
-        lvTxt.text = "Lv." + nowLv.ToString();
+        barImg.fillAmount = nowDispExp / maxDispExp;        // 経験値バー表示
+        lvTxt.text = "Lv." + nowLv.ToString();              // レベル表示
     }
 
     //-------------------------------------------------------------------
@@ -116,8 +129,10 @@ public class Pl_EXP : MonoBehaviour
         if (nowExp > maxExp) {
             if (nowLv < maxLv) {
                 nowLv++;
+                anim.LvUp(GetLvSize());
+                StartCoroutine(LvUp());
                 ChangeLimitExp(ChangeType.lvUp);
-                nowDispExp = 0;             // 現在の表示経験値を0にする
+                nowDispExp = 0;
 
                 aud.PlaySE(AudLists.SETypeList.ui, (int)AudLists.SEList_UI.lvUp);
             }
@@ -125,7 +140,7 @@ public class Pl_EXP : MonoBehaviour
             // Lv3かつ経験値最大
             else {
                 nowExp = maxExp;
-                print("level is max");
+                nowDispExp = maxDispExp;
             }
         }
     }
@@ -148,14 +163,23 @@ public class Pl_EXP : MonoBehaviour
             }
         }
     }
+    //-------------------------------------------------------------------
+    IEnumerator LvUp()
+    {
+        Time.timeScale = 0;
+        yield return new WaitForSecondsRealtime(1f);
+        Time.timeScale = 1;
+    }
 
+
+    //-------------------------------------------------------------------
     // 経験値の最小値・最大値の変更
     void ChangeLimitExp(ChangeType type)
     {
         switch (type) {
             case ChangeType.lvUp:
                 prevMinExp = minExp;
-                minExp = maxExp;                      // 最小値経験値変更
+                minExp = maxExp;                                // 最小値経験値変更
                 maxExp = lvExp * Mathf.Pow(nowLv, 2) + lvExp;   // 最大経験値変更
                 maxDispExp = maxExp - nowExp;
                 break;
@@ -167,6 +191,7 @@ public class Pl_EXP : MonoBehaviour
         }
     }
 
+    //-------------------------------------------------------------------
     // レベルごとの横幅 を渡す
     public Vector2 GetLvSize()
     {

@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public partial class Pl_Action {
 
@@ -7,9 +6,9 @@ public partial class Pl_Action {
     public void Eating()
     {
         if (eatTimer == 0) {
-            aud.PlaySE(AudLists.SETypeList.pl, (int)AudLists.SEList_Pl.eat);    // 効果音
-            part.InstPart(ParticleManager.PartNames.eat, transform.position);   // パーティクル
+            aud.PlaySE(AudLists.SETypeList.pl, (int)AudLists.SEList_Pl.eatStrt);    // 効果音
             anim.EatingStart(exp.GetLvSize());
+            eatCntObj.SetActive(true);
         }
 
         // 最大数に達したら、自動的に消化状態に遷移
@@ -17,7 +16,13 @@ public partial class Pl_Action {
             st.nowState = Pl_States.States.digest;
         }
 
-        rb.drag = exp.GetDrag();
+        // テキスト表示
+        if (eatingCnt > 0 && exp.nowLv > 1) {
+            eatCntTxt.text = eatingCnt.ToString() + " / " + exp.GetCanEatCnt().ToString();
+            eatCntObj.transform.position = Camera.main.WorldToScreenPoint(pos + Vector2.down * 2);
+        }
+
+        rb.drag = exp.GetDrag();            // 空気抵抗
         eatTimer += Time.deltaTime;
     }
 
@@ -49,6 +54,8 @@ public partial class Pl_Action {
     {
         rb.drag = 0.25f;
         sr.color = Color.white;
+
+        eatCntObj.SetActive(false);
     }
 
     // 消化ボタン処理
@@ -100,5 +107,8 @@ public partial class Pl_Action {
         ctFlg = true;
         canEat = false;
         eatingCnt = 0;
+
+        eatCntTxt.text = "";
+        eatCntObj.SetActive(false);
     }
 }

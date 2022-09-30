@@ -55,7 +55,7 @@ public partial class Pl_Action
     void Rotate()
     {
         // 地上にいる場合、回転しない
-        if (st.lndFlg) {
+        if (st.lndFlg && st.nowState == Pl_States.States.normal) {
             transform.rotation = Quaternion.identity;
         }
 

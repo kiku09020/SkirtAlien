@@ -12,7 +12,6 @@ public class AudioManager : MonoBehaviour
     [Header("AudioClip")] 
     [SerializeField] List<AudioClip> BGM;       // BGM
     [SerializeField] List<AudioClip> SE_Pl;     // プレイヤー効果音
-    [SerializeField] List<AudioClip> SE_enm;    // 敵効果音
     [SerializeField] List<AudioClip> SE_ui;     // ボタンなどのUIの効果音
     [SerializeField] List<AudioClip> SE_Score;
 
@@ -40,14 +39,12 @@ public class AudioManager : MonoBehaviour
         switch((int)seTypeNum) {
             case (int)AudLists.SETypeList.pl:   // プレイヤー
                 clip = SE_Pl[seNum];    
-                as_SE.clip = clip;
-                as_SE.Play();
+                as_SE.PlayOneShot(clip);
                 break;
 
             case (int)AudLists.SETypeList.ui:   // UI
                 clip = SE_ui[seNum];    
-                as_SE_UI.clip = clip;
-                as_SE_UI.Play();
+                as_SE_UI.PlayOneShot(clip);
                 break;
 
             case (int)AudLists.SETypeList.score:
@@ -55,7 +52,6 @@ public class AudioManager : MonoBehaviour
                 as_SE_UI.PlayOneShot(clip);
                 break;
         }
-
 	}
 
     //-------------------------------------------------------------------
@@ -94,7 +90,6 @@ public class AudLists:MonoBehaviour
     // SEの種類
     public enum SETypeList {
         pl,
-        enm,
         ui,
         score,
 	}
@@ -104,15 +99,11 @@ public class AudLists:MonoBehaviour
         damage,
         dig,
         digDone,
-        eat,
+        eatStrt,
+        eatEnmy,
         heal,
         jump,
     }
-
-    // 敵
-    public enum SEList_Enm {
-
-	}
 
     // UI
     public enum SEList_UI {

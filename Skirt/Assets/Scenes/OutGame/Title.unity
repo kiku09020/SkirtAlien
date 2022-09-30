@@ -697,7 +697,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneChangeSec: 1
-  tapTimeLim: 0.05
+  tapTimeLim: 0.001
 --- !u!4 &772905534
 Transform:
   m_ObjectHideFlags: 0

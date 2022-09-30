@@ -22,7 +22,7 @@ public partial class Pl_Action : MonoBehaviour
     [SerializeField] float rotDec;          // キーを離したときの回転速度
 
     [Header("ダメージ")]    //--------------------
-    [SerializeField] int   dmgTimeLim;      // 無敵時間
+    [SerializeField] float dmgTimeLim;      // 無敵時間
     [SerializeField] float dmgJumpForce;    // ダメージ時のジャンプ力
     [SerializeField] float flashCycle;      // 点滅時のサイクル
     float dmgTimer;
@@ -34,11 +34,9 @@ public partial class Pl_Action : MonoBehaviour
     bool ctFlg;                             // クールタイム中のフラグ
     public bool canEat;					    // 捕食可能かどうかのフラグ
 
-    GameObject canvas;
     int eatingCnt;                          // 今捕食してる敵の数
-    [SerializeField] GameObject eatCntObj;  // 捕食数のテキスト
+    GameObject eatCntObj;
     Text eatCntTxt;
-    GameObject instTxt;
 
     float eatTimer;                         
 
@@ -74,8 +72,11 @@ public partial class Pl_Action : MonoBehaviour
         GameObject aud_obj     = gm_obj.transform.Find("AudioManager").gameObject;
         GameObject cam_obj     = GameObject.Find("PlayerCamera");
 
-        canvas = GameObject.Find("GameUICanvas(Clone)");
+        GameObject  canvas = GameObject.Find("GameUICanvas(Clone)");
+                    eatCntObj = canvas.transform.Find("EatCntTxt").gameObject;
         eatCntTxt = eatCntObj.GetComponent<Text>();
+
+        eatCntObj.SetActive(false);
 
         /* コンポーネント取得 */
         gm          = gm_obj.GetComponent<GameManager>();

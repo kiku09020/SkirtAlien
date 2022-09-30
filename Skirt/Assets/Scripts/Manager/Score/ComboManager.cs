@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-/* ★〇〇に関するスクリプトです */
 //-------------------------------------------------------------------
 public class ComboManager : MonoBehaviour
 {
@@ -13,8 +12,8 @@ public class ComboManager : MonoBehaviour
     int  cmbStepNum;                    // コンボ倍率の段階数
     int  cmbMag;                        // コンボ倍率
 
-    bool cmbFlg;                        // コンボ可能か
-    float  cmbTimer;                      // 消化してからのタイマー
+    bool  cmbFlg;                       // コンボ可能か
+    float cmbTimer;                     // 消化してからのタイマー
     [SerializeField] float cmbLimTime;  // コンボまでの制限時間
 
     // 消化数の扱い
@@ -35,13 +34,13 @@ public class ComboManager : MonoBehaviour
     //-------------------------------------------------------------------
     void Start()
     {
-        cmbTextObj = GameObject.Find("Combo");
-        cmbTimerImgObj = cmbTextObj.transform.Find("Image").gameObject;
-        GameObject audObj = GameObject.Find("AudioManager");
+        cmbTextObj          = GameObject.Find("Combo");
+        cmbTimerImgObj      = cmbTextObj.transform.Find("Image").gameObject;
+        GameObject audObj   = GameObject.Find("AudioManager");
 
-        cmbText = cmbTextObj.GetComponent<Text>();
+        cmbText     = cmbTextObj.GetComponent<Text>();
         cmbTimerImg = cmbTimerImgObj.GetComponent<Image>();
-        aud = audObj.GetComponent<AudioManager>();
+        aud         = audObj.GetComponent<AudioManager>();
 
         /* 初期化 */
         ResetCombo();
@@ -75,9 +74,10 @@ public class ComboManager : MonoBehaviour
     // コンボ加算
     void AddCombo(int eatCnt)
     {
+        cmbCnt += eatCnt;
+
         // 2回目以降
         if (cmbFlg) {
-            cmbCnt += eatCnt;
             cmbTimer = 0;
         }
 

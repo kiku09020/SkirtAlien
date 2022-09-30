@@ -120,10 +120,26 @@ public class PlayerAnim : MonoBehaviour
         twn_eatStrt.Kill();
     }
 
+    // 食われた敵のアニメーション
+    public void EatenEnmy(GameObject enemyObj,float destTime)
+    {
+        enemyObj.transform.DOMove(transform.position, destTime).SetEase(Ease.InCubic);
+        enemyObj.transform.DOScale(Vector2.zero, destTime).SetEase(Ease.InCubic);
+    }
+
     // 消化中にボタン押したときのアニメーション
     public void DigBtnAnim()
     {
         transform.DOShakeRotation(0.25f, new Vector3(0, 0, 30)).SetEase(Ease.InCirc);
+    }
+
+    public void LvUp(Vector2 size)
+    {
+        DOTween.KillAll();
+        var seq = DOTween.Sequence();
+
+        seq.Append(transform.DOScale(size, 0.4f).SetEase(Ease.OutCirc))
+           .Append(transform.DOScale(1, 0.2f).SetEase(Ease.OutCirc));
     }
 
     //-------------------------------------------------------------------
