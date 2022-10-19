@@ -34,8 +34,13 @@ public class Pl_EXP : MonoBehaviour
     Image barImg;   // バーの画像
     Text  lvTxt;    // レベルのテキスト
 
+    GameObject canvas;
+    [SerializeField] GameObject lvUpTxt;        // レベルアップテキスト
+
+
     AudioManager aud;
     PlayerAnim anim;
+    Pl_Action act;
 
     //-------------------------------------------------------------------
     void Start()
@@ -48,12 +53,15 @@ public class Pl_EXP : MonoBehaviour
         GameObject plObj = GameObject.Find("Player");
         GameObject audObj = GameObject.Find("AudioManager");
 
+        canvas = GameObject.Find("GameUICanvas(Clone)");
+
         /* コンポーネント取得 */
         barImg = barobj.GetComponent<Image>();
         lvTxt = txtObj.GetComponent<Text>();
 
         aud = audObj.GetComponent<AudioManager>();
         anim = plObj.GetComponent<PlayerAnim>();
+        act = GetComponent<Pl_Action>();
 
         /* 初期化 */
         nowLv = 1;
@@ -128,8 +136,6 @@ public class Pl_EXP : MonoBehaviour
         // 最大経験値を超えたとき(レベルアップ)
         if (nowExp > maxExp) {
             if (nowLv < maxLv) {
-                nowLv++;
-                anim.LvUp(GetLvSize());
                 StartCoroutine(LvUp());
                 ChangeLimitExp(ChangeType.lvUp);
                 nowDispExp = 0;
@@ -166,9 +172,16 @@ public class Pl_EXP : MonoBehaviour
     //-------------------------------------------------------------------
     IEnumerator LvUp()
     {
+        nowLv++;
+        anim.LvUp(GetLvSize());
+
+        Vector3 pos = Camera.main.WorldToScreenPoint(act.Pos);
+        GameObject inst= Instantiate(lvUpTxt, pos, Quaternion.identity,canvas.transform);
+
         Time.timeScale = 0;
         yield return new WaitForSecondsRealtime(1f);
         Time.timeScale = 1;
+        Destroy(inst,3);
     }
 
 

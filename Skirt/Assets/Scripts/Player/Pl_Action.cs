@@ -47,6 +47,10 @@ public partial class Pl_Action : MonoBehaviour
     [Header("ジャンプ")]    //--------------------
     [SerializeField] float jumpForce;    // 通常時のジャンプ力
 
+    /* プロパティ */
+    public Vector2 Pos { get => pos; }
+    public Vector2 Vel { get => vel; }
+
     //-------------------------------------------------------------------
     /* コンポーネント取得用 */
     Rigidbody2D     rb;

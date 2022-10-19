@@ -154,14 +154,8 @@ public class Btn_Ctrl : MonoBehaviour
     // 押した瞬間
     public void Btn_Act_Down()
 	{
-        st.ActBtnProc();
+        st.ActBtnDown();
 	}
-
-    // 押してる最中
-    public void Btn_Act_Downing()
-    {
-        st.ActBtn_Downing();
-    }
 
     // 離した瞬間
     public void Btn_Act_Up()

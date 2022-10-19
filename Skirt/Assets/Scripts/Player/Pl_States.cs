@@ -105,25 +105,21 @@ public class Pl_States : MonoBehaviour
 
 	//-------------------------------------------------------------------
 	// 押した瞬間
-	public void ActBtnProc()
+	public void ActBtnDown()
     {
+		// 捕食状態にする
+		if ((nowState != States.digest) && !lndFlg && act.canEat) {
+			nowState = States.eating;
+		}
+
 		// 消化時
-		if (nowState == States.digest) {
+		else if (nowState == States.digest) {
 			act.Digest_Btn();
 		}
 
 		// 地上にいたらジャンプする
 		else if (nowState == States.normal && lndFlg) {
 			act.Jump();
-		}
-	}
-
-	// 長押し
-	public void ActBtn_Downing()
-    {
-		// 捕食状態にする
-		if ((nowState != States.digest) && !lndFlg && act.canEat) {
-			 nowState = States.eating;
 		}
 	}
 
