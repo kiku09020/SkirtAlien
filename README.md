@@ -4,7 +4,6 @@
 ## 👗概要
 - タイトル: SkirtAlien(スカーテイリアン)
 - プラットフォーム: Android
-- 対応解像度: **1080x2400**
 - プレイ人数: 1人
 
 <br>
@@ -17,4 +16,14 @@
 
 
 ## 👗操作
+※旧バージョンのものです。新バージョンのものは制作中です。
+
 ![説明書](https://user-images.githubusercontent.com/80769051/191642917-4614fe84-3225-4bd5-bfb2-a200a3a459f8.png)
+
+## 開発環境
+- Unity 2020.3.19f1
+- VisualStudio 2019
+- SourceTree
+- ChatWork
+
+- 制作期間：4か月ほど
