@@ -27,3 +27,34 @@
 - ChatWork
 
 - 制作期間：4か月ほど
+
+
+## 制作担当箇所
+### 佐野(メインプログラマー)　: ([@kiku09020](https://github.com/kiku09020))
+#### スクリプト
+- [マネージャー系クラス](Skirt/Assets/Scripts/Manager)
+- [プレイヤーの動作](Skirt/Assets/Scripts/Player)
+- [UI作成](Skirt/Assets/Scripts/UI)
+
+#### シーン
+- UI配置
+- 背景、カメラ操作
+- パーティクル作成など
+
+---
+
+### 松原(敵)
+#### スクリプト
+- [敵の動作関係など](Skirt/Assets/Scripts/Enemies)
+
+#### シーン
+- 敵の挙動確認など
+
+---
+
+### 東(ステージ) : ([@Azu021](https://github.com/Azu021))
+#### スクリプト
+- [一部の敵やアイテムの仮作成など](Skirt/Assets/Scripts/Objects)
+
+#### シーン
+- ステージの仮配置
