@@ -30,7 +30,7 @@
 
 
 ## 制作担当箇所
-### 佐野(メインプログラマー)　: ([@kiku09020](https://github.com/kiku09020))
+### 自分(メインプログラマー)　: ([@kiku09020](https://github.com/kiku09020))
 #### スクリプト
 - [マネージャー系クラス](Skirt/Assets/Scripts/Manager)
 - [プレイヤーの動作](Skirt/Assets/Scripts/Player)
@@ -43,7 +43,7 @@
 
 ---
 
-### 松原(敵)
+### プログラマーMさん(敵)
 #### スクリプト
 - [敵の動作関係など](Skirt/Assets/Scripts/Enemies)
 
@@ -52,7 +52,7 @@
 
 ---
 
-### 東(ステージ) : ([@Azu021](https://github.com/Azu021))
+### プログラマーAさん(ステージ) : ([@Azu021](https://github.com/Azu021))
 #### スクリプト
 - [一部の敵やアイテムの仮作成など](Skirt/Assets/Scripts/Objects)
 
